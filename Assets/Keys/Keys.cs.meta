@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 326254d7c49902d439f4d64d0d62c6f6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - PariEffect: {fileID: 2526023739791311449, guid: 004bf2167768b6e4dba99fe614b59fff, type: 3}
+  - rootConfig: {instanceID: 0}
+  - guideConfig: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

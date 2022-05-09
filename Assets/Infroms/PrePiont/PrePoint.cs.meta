@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: d58bb0fc2413941469d2ed32088a4484
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - LoopingClip: {fileID: 7400000, guid: a8ed91b85c1ec024b8c6ad9a09f8047d, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
