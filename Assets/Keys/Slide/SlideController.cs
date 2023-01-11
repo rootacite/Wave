@@ -58,7 +58,7 @@ public class SlideController : Keys
         }
         return false;
     }
-    static public SlideController Creat(RootConfig rootConfig,Vector3 Position, GameObject Origin, GameObject TransfronParent, float SecondPerBeat, float BeatOffset = 1f)
+    static public SlideController Creat(GameScripting rootConfig,Vector3 Position, GameObject Origin, GameObject TransfronParent, float SecondPerBeat, float BeatOffset = 1f)
     {
         var r = Instantiate(Origin, TransfronParent.transform);
         r.transform.localPosition = Position;

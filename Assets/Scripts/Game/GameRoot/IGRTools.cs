@@ -7,7 +7,7 @@ using CKeyGroup = System.Collections.Generic.List<CirculKey>;
 using KeyRoute = System.Collections.Generic.List<System.Collections.Generic.List<CirculKey>>;
 
 
-public partial class RootConfig
+public partial class GameScripting
 {/// 运行模式下Texture转换成Texture2D
     private Texture2D TextureToTexture2D(Texture texture)
     {
@@ -100,7 +100,7 @@ public partial class RootConfig
     }
     List<KeyRoute> GetRoutes(CKeyGroup Keys)
     {
-
+        if(Keys.Count == 0) return new List<KeyRoute>() { };
         KeyRoute Routes = new KeyRoute(); //星路，每当下一个键的时间小于上一个键，就视为重新开始
 
         var CurrentTarget = new CKeyGroup();

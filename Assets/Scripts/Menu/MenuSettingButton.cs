@@ -9,7 +9,7 @@ public class MenuSettingButton : MonoBehaviour
     {
         StartInit.Show();
         yield return new WaitForSecondsRealtime(1);
-        var Async = SceneManager.LoadSceneAsync(6);
+        var Async = SceneManager.LoadSceneAsync(5);
         Async.completed += (v) =>
         {
             StartInit.Hide();

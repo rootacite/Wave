@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class BlurEffect : MonoBehaviour
 {
-    public bool isOpen = true; // 是否开启模糊效果
+    public bool isOpen { get; set; } = true; // 是否开启模糊效果
     private RenderTexture finalRT; // 处理完模糊效果后的rt
     private RenderTexture tempRT; // 正在处理模糊效果的rt
     public int blurCount = 4; // 模糊叠加次数
@@ -41,6 +41,8 @@ public class BlurEffect : MonoBehaviour
 
     private void Start()
     {
+        if (!isOpen) return;
+
         var rawimage = GetComponent<UnityEngine.UI.RawImage>();
         RenderTexture Tx = new RenderTexture(2400, 1350, 32, RenderTextureFormat.ARGB32);
 

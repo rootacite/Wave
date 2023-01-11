@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public partial class RootConfig
+public partial class GameScripting
 {
     public TextMeshProUGUI TPText;
 

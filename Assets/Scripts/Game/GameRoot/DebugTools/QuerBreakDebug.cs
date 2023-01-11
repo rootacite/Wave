@@ -6,7 +6,7 @@ using UnityEngine;
 public class QuerBreakDebug : MonoBehaviour
 {
     public UnityEngine.UI.Button Button;
-    public RootConfig rootConfig;
+    public GameScripting rootConfig;
 
     double BreakAt = 0;
 

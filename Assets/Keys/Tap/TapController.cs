@@ -15,7 +15,7 @@ sealed public class TapController : Keys
 
     private Animator TAnimation;
 
-    static public TapController Creat(RootConfig rootConfig,Vector3 Position, GameObject Origin, GameObject TransfronParent, float SecondPerBeat, float BeatOffset = 1f)
+    static public TapController Creat(GameScripting rootConfig,Vector3 Position, GameObject Origin, GameObject TransfronParent, float SecondPerBeat, float BeatOffset = 1f)
     {
         var r = Instantiate(Origin, TransfronParent.transform);
         r.transform.localPosition = Position;

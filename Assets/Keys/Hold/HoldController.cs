@@ -18,7 +18,7 @@ public class HoldController : Keys
     bool DifficultMode = false;
     public event Action OnHold;
 
-    static public HoldController Creat(RootConfig rootConfig,Vector3 Position, GameObject Origin, GameObject TransfronParent, float Length, float SecondPerBeat, float BeatOffset = 1f)
+    static public HoldController Creat(GameScripting rootConfig,Vector3 Position, GameObject Origin, GameObject TransfronParent, float Length, float SecondPerBeat, float BeatOffset = 1f)
     {
         var r = Instantiate(Origin, TransfronParent.transform);
         r.transform.localPosition = Position;
@@ -103,7 +103,7 @@ public class HoldController : Keys
             anmiley.AddClip(HoldedClip, "1");
             foreach(AnimationState i in anmiley)
             {
-                i.speed = 1f / (Offset * BeatPerSecond);
+                i.speed = 0.5f / (Offset * BeatPerSecond);
             }
             anmiley.Play("1");
 

@@ -19,7 +19,7 @@ public class DropController : MonoBehaviour
 
     public void OnBest()
     {
-        if (Key.gameObject.GetComponent<DragController>() == null)
+        if (Key?.gameObject.GetComponent<DragController>() == null)
             Key?.SetTrigger("OnBest");
     }
 

@@ -40,7 +40,7 @@ public class CardController : MonoBehaviour
         var Task = SceneManager.LoadSceneAsync(2);
         Task.completed += (e) =>
         {
-            RootConfig.instance.Initialize(Song, SongConfig, SongData, BackGround, Video);
+            GameScripting.instance.Initialize(Song, SongConfig, SongData, BackGround, Video);
             StartInit.Hide();
 
         };

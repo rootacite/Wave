@@ -6,8 +6,8 @@ public class GameTrigger : MonoBehaviour
 {
     public void OnTrigger()
     {
-        if (RootConfig.instance?.gameObject != null)
-            RootConfig.instance?.OnPrepaired();
+        if (GameScripting.instance?.gameObject != null)
+            GameScripting.instance?.OnPrepaired();
     }
     // Start is called before the first frame update
     void Start()

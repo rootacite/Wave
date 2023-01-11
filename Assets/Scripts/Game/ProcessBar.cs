@@ -8,7 +8,7 @@ public class ProcessBar : MonoBehaviour
     public RectTransform rectTransform;
 
     public AudioSource Music;
-    public RootConfig RootConfig;
+    public GameScripting RootConfig;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +35,9 @@ public class ProcessBar : MonoBehaviour
     private void OnMouseDrag()
     {
         var oldpos = rectTransform.anchoredPosition;
-        oldpos.x = Input.mousePosition.x - 1200;
+        oldpos.x = Input.mousePosition.x - 800;
+        oldpos.x /= Screen.safeArea.width;
+        oldpos.x *= 2400f;
 
         if (oldpos.x > -1150 & oldpos.x < 1150)
             rectTransform.anchoredPosition = oldpos;

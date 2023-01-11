@@ -30,8 +30,8 @@ public class DebugLoadSong : MonoBehaviour
         var Task = SceneManager.LoadSceneAsync(2);
         Task.completed += (e) =>
         {
-            RootConfig.instance.Initialize(MusicClip, SongConfig, SongData, Image, null);
-            RootConfig.instance.Reloading += () =>
+            GameScripting.instance.Initialize(MusicClip, SongConfig, SongData, Image, null);
+            GameScripting.instance.Reloading += () =>
             {
                 return new TextAsset(File.ReadAllText(@"Data\" + Name + @"_data.xml"));
             };

@@ -17,7 +17,7 @@ public class DragController : Keys
     public Sprite Border_nd;
     public Sprite Center_nd;
     // Start is called before the first frame update
-    static public DragController Creat(RootConfig rootConfig,Vector3 Position, GameObject Origin, GameObject TransfronParent, float SecondPerBeat, float BeatOffset = 1f)
+    static public DragController Creat(GameScripting rootConfig,Vector3 Position, GameObject Origin, GameObject TransfronParent, float SecondPerBeat, float BeatOffset = 1f)
     {
         var r = Instantiate(Origin, TransfronParent.transform);
         r.transform.localPosition = Position;
@@ -72,7 +72,7 @@ public class DragController : Keys
         ended = true;
         if (Invailded) return;
         TAnimation.speed = 1 / (BeatPerSecond * rootConfig.HeadPending); //如果已经进入判定区域，则应该把速度重置为节拍速度乘以首部延迟
-        if (AutoMode)
+        if (AutoMode || force_p)
         {
             OnPrefect();
             TAnimation.SetTrigger("Perfect");

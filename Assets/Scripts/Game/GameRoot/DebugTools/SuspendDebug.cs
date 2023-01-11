@@ -8,7 +8,7 @@ public class SuspendDebug : MonoBehaviour
     float Old_Time_Scale;
 
     public Button Button;
-    public RootConfig RootConfig;
+    public GameScripting RootConfig;
     // Start is called before the first frame update
     void Start()
     {

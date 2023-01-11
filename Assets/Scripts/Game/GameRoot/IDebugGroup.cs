@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Video;
 
-public partial class RootConfig
+public partial class GameScripting
 {
     /// <summary>
     /// Debug Tools 这些只用于开发模式

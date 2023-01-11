@@ -100,6 +100,8 @@ public class StartInit : MonoBehaviour
             DontDestroyOnLoad(Canvas);
             Canvas.GetComponent<Animator>().SetTrigger("MoveIn");
             TextTip.GetComponent<TMPro.TextMeshProUGUI>().text = TipTexts[new System.Random().Next(TipTexts.Length)]; ;
+            if (Application.platform == RuntimePlatform.WindowsPlayer || Application.platform == RuntimePlatform.WindowsEditor)
+                Screen.SetResolution(2400, 1080, false);
         }
         else
         {
@@ -120,8 +122,8 @@ public class StartInit : MonoBehaviour
             var Task = SceneManager.LoadSceneAsync(2);
             Task.completed += (e) =>
             {
-                RootConfig.instance.Initialize(Song, SongConfig, SongData, BackGround, null);
-                RootConfig.instance.OnBeat += (t) =>
+                GameScripting.instance.Initialize(Song, SongConfig, SongData, BackGround, null);
+                GameScripting.instance.OnBeat += (t) =>
                 {
                     if (t == 2)
                     {

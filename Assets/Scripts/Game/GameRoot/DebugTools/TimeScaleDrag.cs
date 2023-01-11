@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(UIDragable))]
 public class TimeScaleDrag : MonoBehaviour
 {
-    public RootConfig rootConfig;
+    public GameScripting rootConfig;
     public UIDragable dragable;
     // Start is called before the first frame update
     void Start()

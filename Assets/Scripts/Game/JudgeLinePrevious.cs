@@ -7,7 +7,7 @@ public class JudgeLinePrevious : MonoBehaviour
 {
     public RectTransform rectTransform;
     public int BeatPerSection = 4;
-    public RootConfig rootConfig;
+    public GameScripting rootConfig;
     public bool Status { get; private set; } = true;
 
     public void UpDown()

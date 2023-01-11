@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class RedirectToDebug : MonoBehaviour
 {
     public Button Button;
-    public RootConfig RootConfig;
+    public GameScripting RootConfig;
     // Start is called before the first frame update
     void Start()
     {

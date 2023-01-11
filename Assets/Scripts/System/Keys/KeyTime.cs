@@ -10,7 +10,8 @@ public enum KeyType
     Hold,
     Slide,
     Wave,
-    Drag
+    Drag,
+    HWave
 }
 public struct DragData
 {
@@ -21,11 +22,18 @@ public struct DragData
     public List<(double d¦È,double ¦Ñ)> DragRoute;
 }
 
-public class KeyTime
+public abstract class BScriptable
+{
+    public double Time { get; protected set; }
+    public double Pos { get; protected set; }
+    public double Length { get; protected set; }
+}
+
+public class FlatKey : BScriptable
 {
     public double? NextToward = null;
     public double? ForceY = null;
-    public float LastChildTime
+    public float TimeOfLastChlidren
     {
         get
         {
@@ -39,7 +47,9 @@ public class KeyTime
                 case KeyType.Slide:
                     return 1;
                 case KeyType.Wave:
-                    return (float)i.Length + i.LastChildTime + 1;
+                    return (float)i.Length + i.TimeOfLastChildren + 1;
+                case KeyType.HWave:
+                    return (float)i.Length + i.TimeOfLastChildren + 1;
                 case KeyType.Drag:
                     return (float)i.Length + 1;
             }
@@ -48,16 +58,12 @@ public class KeyTime
         }
     }
     public KeyType Type { get; private set; }
-    public double Time { get; private set; }
-    public double Pos { get; private set; }
-    public double Length { get; private set; }
-
     public double WaveScale { get; set; } = 1;
 
     public List<CirculKey> Childrens { get; private set; } = new List<CirculKey>();
     public DragData IDragData;
 
-    public KeyTime(XElement Source)
+    public FlatKey(XElement Source)
     {
         if (Source.Attribute("Type").Value == "Tap")
             Type = KeyType.Tap;
@@ -76,6 +82,20 @@ public class KeyTime
         if (Source.Attribute("Type").Value == "Wave")
         {
             Type = KeyType.Wave;
+            Length = Convert.ToDouble(Source.Attribute("Length").Value);
+            if (Source.Attribute("WaveScale")?.Value != null)
+            {
+                WaveScale = Convert.ToDouble(Source.Attribute("WaveScale").Value);
+            }
+            foreach (XElement i in Source.Nodes())
+            {
+                Childrens.Add(new CirculKey(i));
+            }
+        }
+        else
+        if (Source.Attribute("Type").Value == "HWave")
+        {
+            Type = KeyType.HWave;
             Length = Convert.ToDouble(Source.Attribute("Length").Value);
             if (Source.Attribute("WaveScale")?.Value != null)
             {
@@ -121,7 +141,7 @@ public class KeyTime
 
 public class CirculKey
 {
-    public float LastChildTime
+    public float TimeOfLastChildren
     {
         get
         {
@@ -135,7 +155,9 @@ public class CirculKey
                 case KeyType.Slide:
                     return 1;
                 case KeyType.Wave:
-                    return (float)i.Length + i.LastChildTime + 1;
+                    return (float)i.Length + i.TimeOfLastChildren + 1;
+                case KeyType.HWave:
+                    return (float)i.Length + i.TimeOfLastChildren + 1;
                 case KeyType.Drag:
                     return (float)i.Length + 1;
             }
@@ -181,6 +203,20 @@ public class CirculKey
             }
         }
         else
+        if (Source.Attribute("Type").Value == "HWave")
+        {
+            Type = KeyType.HWave;
+            Length = Convert.ToDouble(Source.Attribute("Length").Value);
+            if (Source.Attribute("WaveScale")?.Value != null)
+            {
+                WaveScale = Convert.ToDouble(Source.Attribute("WaveScale").Value);
+            }
+            foreach (XElement i in Source.Nodes())
+            {
+                Childrens.Add(new CirculKey(i));
+            }
+        }
+        else
         if (Source.Attribute("Type").Value == "Drag")
         {
             Type = KeyType.Drag;
@@ -214,6 +250,16 @@ public class CirculKey
     public Vector2 GetPositionInDicar(Vector2 Zero, WaveController ctrl)
     {
         if(Type==KeyType.Drag)
+        {
+            var p = new Polar2(Polar2.d2r(IDragData.From), ctrl.RealRod * ((float)WaveOffset / ctrl.Length));
+            return p.ToVector() + Zero;
+        }
+        return Zero.Offset(Angle, ctrl.RealRod * ((float)WaveOffset / ctrl.Length));
+    }
+
+    public Vector2 GetPositionInDicar(Vector2 Zero, HWaveController ctrl)
+    {
+        if (Type == KeyType.Drag)
         {
             var p = new Polar2(Polar2.d2r(IDragData.From), ctrl.RealRod * ((float)WaveOffset / ctrl.Length));
             return p.ToVector() + Zero;

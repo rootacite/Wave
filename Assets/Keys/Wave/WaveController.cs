@@ -27,7 +27,7 @@ sealed public class WaveController : Keys
     private Vector2 SavePosition;//
     private Animator TAnimation;
     private List<CirculKey> Childrens;
-    static public WaveController Creat(RootConfig rootConfig, Vector3 Position, GameObject Origin, GameObject TransfronParent, float SecondPerBeat, List<CirculKey> Childrens, float LastTime, float BeatOffset = 1f, float Scale = 1f)
+    static public WaveController Creat(GameScripting rootConfig, Vector3 Position, GameObject Origin, GameObject TransfronParent, float SecondPerBeat, List<CirculKey> Childrens, float LastTime, float BeatOffset = 1f, float Scale = 1f)
     {
         var r = Instantiate(Origin, TransfronParent.transform);
         r.transform.localPosition = Position;
@@ -58,7 +58,7 @@ sealed public class WaveController : Keys
         yield return new WaitForSeconds(0.33f * BeatPerSecond);
         Destroy(this.gameObject);
     }
-
+    event Action EndForFirstDrag;
     override protected bool TouchEvent(TouchPhase t, Vector2 p)
     {
         if (t == TouchPhase.Began)
@@ -89,6 +89,7 @@ sealed public class WaveController : Keys
                     StartCoroutine(DelayDestroy((Length + LastChildTime) * BeatPerSecond));
                     Invailded = true;
                 }
+                if (Childrens[0].Type == KeyType.Drag) EndForFirstDrag?.Invoke();
                 return true;
             }
 
@@ -105,6 +106,7 @@ sealed public class WaveController : Keys
             OnInvailded += (s) =>
             {
                 if (s == 3) return;
+
                 foreach (var i in Childrens)
                 {
                     Keys BK = null;
@@ -120,7 +122,10 @@ sealed public class WaveController : Keys
                             BK = rootConfig.CreateSlide(SavePosition.Offset(i.Angle, RealRod * ((float)i.WaveOffset / Length)), (float)i.WaveOffset);
                             break;
                         case KeyType.Wave:
-                            BK = rootConfig.CreateWave(SavePosition.Offset(i.Angle, RealRod * ((float)i.WaveOffset / Length)), i.Childrens, (float)i.Length, i.LastChildTime, (float)i.WaveOffset, (float)i.WaveScale);
+                            BK = rootConfig.CreateWave(SavePosition.Offset(i.Angle, RealRod * ((float)i.WaveOffset / Length)), i.Childrens, (float)i.Length, i.TimeOfLastChildren, (float)i.WaveOffset, (float)i.WaveScale);
+                            break;
+                        case KeyType.HWave:
+                            BK = rootConfig.CreateHWave(SavePosition.Offset(i.Angle, RealRod * ((float)i.WaveOffset / Length)), i.Childrens, (float)i.Length, i.TimeOfLastChildren, (float)i.WaveOffset, (float)i.WaveScale);
                             break;
                         case KeyType.Drag:
                            
@@ -153,6 +158,13 @@ sealed public class WaveController : Keys
                                     if (p == 0 || p == i.IDragData.Count)
                                     {
                                         dcr.SetWaveEffect();
+                                        if(p==0)
+                                        {
+                                            EndForFirstDrag += () =>
+                                            {
+                                                dcr.EndEvent();
+                                            };
+                                        }
                                     }
                                     else
                                         dcr.SetNodeMode(-(float)CurrentAngle, (float)(i.Length / (double)i.IDragData.Count));
@@ -217,7 +229,7 @@ sealed public class WaveController : Keys
                     if (BK != null)
                     {
                         BK.SetWaveEffect();
-                        BK.IsInWave = true;
+                        BK.IsInWave = true;    
                     }
                 }
                 

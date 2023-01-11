@@ -152,22 +152,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ed693dccda207045b0795281490ddf8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DebugPlane: {fileID: 806751547}
-  BeatEditor: {fileID: 1255538176}
-  Debug_Music: {fileID: 8300000, guid: e991a7a36d84a87429d96f01c5e052ee, type: 3}
-  Debug_SongConfig: {fileID: 4900000, guid: 03310b50025011d4cb666c9e4e5056b4, type: 3}
-  Debug_SongData: {fileID: 4900000, guid: 5c0445a47aa8ab6409a5aeb55411a4c9, type: 3}
-  Debug_Image: {fileID: 2800000, guid: 628228583db789742ba6fa53baf5c994, type: 3}
-  Debug_Video: {fileID: 0}
-  UseDebugResource: 0
-  TPText: {fileID: 769054111}
-  _AP: 1
-  Drop: {fileID: 2884869415683129317, guid: 22f07ecfe7ca59a4699c96356fd0cf15, type: 3}
   Tap: {fileID: 5963897034162541694, guid: 7dd3e21496dfefa4d86204f86ac373bc, type: 3}
   Hold: {fileID: 4688946786387134452, guid: 1442020209f9a9941b8d78990d13ba55, type: 3}
   Slide: {fileID: 3833664412439907363, guid: 1984486138fe26e40a7d97f90c294dec, type: 3}
   Wave: {fileID: 5963897034162541694, guid: fc380b6687d4f5341a7573030951824f, type: 3}
   Drag: {fileID: 3120262369498005983, guid: 5b2fae3a1425a9741bfee997cb2c315e, type: 3}
+  HWave: {fileID: 4688946786387134452, guid: f673a3f73dea2f049a263fa6813ef151, type: 3}
   LineAreaObj: {fileID: 3296304719871657086, guid: ab2a0648c91596e45a0c7a5e0ede4f84, type: 3}
   KeyLayer: {fileID: 581242618}
   MarkText: {fileID: 1923625388}
@@ -181,6 +171,17 @@ MonoBehaviour:
   RootAnmi: {fileID: 228828099}
   Music: {fileID: 1565942284}
   TowardTip: {fileID: 7373269495573688934, guid: 7c15d0e62747b814da3d5fa3dfc3c3ce, type: 3}
+  DebugPlane: {fileID: 806751547}
+  BeatEditor: {fileID: 1255538176}
+  Debug_Music: {fileID: 8300000, guid: e991a7a36d84a87429d96f01c5e052ee, type: 3}
+  Debug_SongConfig: {fileID: 4900000, guid: 03310b50025011d4cb666c9e4e5056b4, type: 3}
+  Debug_SongData: {fileID: 4900000, guid: 5c0445a47aa8ab6409a5aeb55411a4c9, type: 3}
+  Debug_Image: {fileID: 2800000, guid: 628228583db789742ba6fa53baf5c994, type: 3}
+  Debug_Video: {fileID: 0}
+  UseDebugResource: 0
+  TPText: {fileID: 769054111}
+  _AP: 1
+  Drop: {fileID: 2884869415683129317, guid: 22f07ecfe7ca59a4699c96356fd0cf15, type: 3}
 --- !u!4 &46816759
 Transform:
   m_ObjectHideFlags: 0
@@ -4885,7 +4886,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e6d6dcd5d9a1d438a2dffb668e6885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isOpen: 1
   blurCount: 10
   blurMat: {fileID: 2100000, guid: 6f77d5c541859fa4f810c8d9247f6824, type: 2}
   blurSize: 1

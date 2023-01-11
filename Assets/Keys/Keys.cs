@@ -5,12 +5,13 @@ using UnityEngine;
 
 abstract public class Keys : MonoBehaviour
 {
+    protected bool force_p = false;
     public static bool AutoMode = false; //标识是否处于自动模式，在RootConfig的Start中设置。
     public GameObject PariEffect;
 
     public Animator BAnimation;//基类获取的该键动画对象，设置为private是防止冲突
 
-    public RootConfig rootConfig;
+    public GameScripting rootConfig;
 
     protected float BeatPerSecond; //每拍所占的时间（秒）
     protected float Offset = 1f; //键前摇（节拍）
@@ -23,9 +24,10 @@ abstract public class Keys : MonoBehaviour
     {
         GameObject.Find("TouchManager").GetComponent<TouchManager>().OnTouch.Add(TouchEvent);
 
-        if(Offset==0)
+        if (Offset == 0)
         {
             BAnimation.speed = float.MaxValue;
+            force_p = true;
             return;
         }
         BAnimation.speed = 1f / (Offset * BeatPerSecond); //任何键位生成时，都应该把速度与前摇同步

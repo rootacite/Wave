@@ -23,8 +23,10 @@ public class PolarSystem : MonoBehaviour
                 double StepToward = (p2 - p1).¦È / StepCount;
                 double Toward = p1.¦È + StepToward * j;
 
+                Polar2 newPoint = new Polar2(Toward, Step¦Ñ);
+                OriginCopy.¦È = Polar2.FromVector(OriginCopy.ToVector() + newPoint.ToVector()).¦È;
                 OriginCopy.¦Ñ += Step¦Ñ;
-                OriginCopy.¦È += Toward / StepCount;
+
                 Proc(OriginCopy, (i - 1) * StepCount + j);
             }
         }

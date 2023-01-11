@@ -15,9 +15,9 @@ public class MenuGuideButton : MonoBehaviour
         var Task = SceneManager.LoadSceneAsync(2);
         Task.completed += (e) =>
         {
-            RootConfig.instance.Initialize(Song, SongConfig, SongData, BackGround, null);
+            GameScripting.instance.Initialize(Song, SongConfig, SongData, BackGround, null);
 
-            RootConfig.instance.OnBeat += (t) =>
+            GameScripting.instance.OnBeat += (t) =>
             {
                 if (t == 2)
                 {

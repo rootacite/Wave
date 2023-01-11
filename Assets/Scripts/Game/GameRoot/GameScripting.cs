@@ -22,9 +22,12 @@ static public class Vector2Extence
     }
 }
 
-public partial class RootConfig : MonoBehaviour
+;
+public partial class GameScripting : MonoBehaviour
 {
-    static public RootConfig instance;
+    public bool ExamingMode = false;
+
+    static public GameScripting instance;
     public event DataReloading Reloading;
     public void Initialize(AudioClip Music, TextAsset SongConfig, TextAsset SongData, Texture Image, VideoClip Video)
     {
@@ -48,7 +51,10 @@ public partial class RootConfig : MonoBehaviour
             vp.audioOutputMode = VideoAudioOutputMode.None;
             vp.targetTexture = Tx;
             SongBack.GetComponent<UnityEngine.UI.RawImage>().texture = Tx;
-            vp.Play();
+            SongBack.GetComponent<BlurEffect>().isOpen = false;
+
+            vp.Stop();
+            vp.Prepare();
         }
 
         XDocument XmlSongConfig = XDocument.Parse(SongConfig.text);
@@ -90,31 +96,43 @@ public partial class RootConfig : MonoBehaviour
     }
     public void ReloadSongData()
     {
+        if (ExamingMode) return;
         if (isDebugMode && Reloading != null)
         {
             MusicData = Reloading?.Invoke();
         }
         DataRoot = XDocument.Parse(MusicData.text).Root;
 
-        KeyGroup.Clear();
+        KeyGroups.Clear();
         foreach (XElement Group in DataRoot.Nodes())
         {
-            List<KeyTime> local = new List<KeyTime>();
+            List<FlatKey> local = new List<FlatKey>();
 
             foreach (XElement Key in Group.Nodes())
             {
-                local.Add(new KeyTime(Key));
+                local.Add(new FlatKey(Key));
             }
 
-            KeyGroup.Add(local);
+            local.Sort(new Comparison<FlatKey>(
+                (FlatKey x, FlatKey y) =>
+                {
+                    if (x.Time < y.Time) return -1;
+
+                    else if (x.Time == y.Time) return 0;
+
+                    else return 1;
+                }));
+            KeyGroups.Add(local);
         }
+
+        if (CurrentBeat == 1) return;
 
         while (true)
         {
-            if (KeyGroup.Count == 0) break;
-            if (KeyGroup[0].Count == 0) { KeyGroup.RemoveAt(0); continue; }
-            if (KeyGroup[0][0].Time < CurrentBeat + 1)
-                KeyGroup[0].RemoveAt(0);
+            if (KeyGroups.Count == 0) break;
+            if (KeyGroups[0].Count == 0) { KeyGroups.RemoveAt(0); continue; }
+            if (KeyGroups[0][0].Time < CurrentBeat + 1)
+                KeyGroups[0].RemoveAt(0);
             else
             {
                 break;
@@ -123,8 +141,8 @@ public partial class RootConfig : MonoBehaviour
 
 
     }
-
-    List<List<KeyTime>> KeyGroup = new List<List<KeyTime>>();
+    
+    List<List<FlatKey>> KeyGroups = new List<List<FlatKey>>();
 
     //////////////////////Level Attributes////////////////////////////
 
@@ -150,6 +168,8 @@ public partial class RootConfig : MonoBehaviour
     public GameObject Slide;
     public GameObject Wave;
     public GameObject Drag;
+
+    public GameObject HWave;
 
     public GameObject LineAreaObj;
     #endregion
@@ -205,21 +225,7 @@ public partial class RootConfig : MonoBehaviour
         GLevel_Text.text = "Lv." + Level.ToString();
         Name_Text.text = Name;
 
-
-
-        DataRoot = XDocument.Parse(MusicData.text).Root;
-
-        foreach (XElement Group in DataRoot.Nodes())
-        {
-            List<KeyTime> local = new List<KeyTime>();
-
-            foreach (XElement Key in Group.Nodes())
-            {
-                local.Add(new KeyTime(Key));
-            }
-
-            KeyGroup.Add(local);
-        }
+        ReloadSongData();    // Load Script
 
         //WorldCoord x:±9.6   y:±5.4 
         #endregion
@@ -228,8 +234,8 @@ public partial class RootConfig : MonoBehaviour
             {
                 while (true)
                 {
-                    if (KeyGroup.Count == 0) return;
-                    if (KeyGroup[0].Count == 0) { new_section_flag = true; KeyGroup.RemoveAt(0); continue; }
+                    if (KeyGroups.Count == 0) return;
+                    if (KeyGroups[0].Count == 0) { new_section_flag = true; KeyGroups.RemoveAt(0); continue; }
                     break;
                 }
 
@@ -237,27 +243,27 @@ public partial class RootConfig : MonoBehaviour
                 bool Reser = false;
                 Vector2? Last_Pos_Save = null;
 
-                while (t + HeadPending >= KeyGroup[0][0].Time)
+                while (t + HeadPending >= KeyGroups[0][0].Time)
                 {
                     bool ns = false;
                     if (new_section_flag) { ns = true; new_section_flag = false; }
 
                     //在这里创建的音符都在横判定线的一拍后被触发
-                    float cy = (float)GetJudgeY(KeyGroup[0][0].Time);
-                    if (KeyGroup[0][0].ForceY != null)
+                    float cy = (float)GetJudgeY(KeyGroups[0][0].Time);
+                    if (KeyGroups[0][0].ForceY != null)
                     {
-                        cy = (int)KeyGroup[0][0].ForceY.Value;
+                        cy = (int)KeyGroups[0][0].ForceY.Value;
                     }
 
-                    var wp = Camera.main.ScreenToWorldPoint(new Vector3(Accuracy + Accuracy * (float)KeyGroup[0][0].Pos, cy + 540, 0));
+                    var wp = Camera.main.ScreenToWorldPoint(new Vector3(Accuracy + Accuracy * (float)KeyGroups[0][0].Pos, cy + 540, 0));
 
-                    if (KeyGroup[0][0].ForceY == null)
+                    if (KeyGroups[0][0].ForceY == null)
                     {
                         wp.y = cy;
                     }
 
                     Keys ct = null;
-                    if (KeyGroup[0][0].Type == KeyType.Tap)
+                    if (KeyGroups[0][0].Type == KeyType.Tap)
                     {
                         ct = CreateTap(wp, HeadPending);
 
@@ -268,9 +274,9 @@ public partial class RootConfig : MonoBehaviour
                     }
                     else
 
-                    if (KeyGroup[0][0].Type == KeyType.Hold)
+                    if (KeyGroups[0][0].Type == KeyType.Hold)
                     {
-                        ct = CreateHold(wp, (float)KeyGroup[0][0].Length, HeadPending);
+                        ct = CreateHold(wp, (float)KeyGroups[0][0].Length, HeadPending);
 
                         wp.z = -9f;
                         var dc = CreateVecLine(wp, KeyLayer.transform, 1f / (HeadPending * SecondPerBeat));
@@ -278,7 +284,7 @@ public partial class RootConfig : MonoBehaviour
                     }
                     else
 
-                    if (KeyGroup[0][0].Type == KeyType.Slide)
+                    if (KeyGroups[0][0].Type == KeyType.Slide)
                     {
                         ct = CreateSlide(wp, HeadPending);
 
@@ -288,9 +294,9 @@ public partial class RootConfig : MonoBehaviour
                     }
                     else
 
-                    if (KeyGroup[0][0].Type == KeyType.Wave)
+                    if (KeyGroups[0][0].Type == KeyType.Wave)
                     {
-                        ct = CreateWave(wp, KeyGroup[0][0].Childrens, (float)KeyGroup[0][0].Length, KeyGroup[0][0].LastChildTime, HeadPending, (float)KeyGroup[0][0].WaveScale);
+                        ct = CreateWave(wp, KeyGroups[0][0].Childrens, (float)KeyGroups[0][0].Length, KeyGroups[0][0].TimeOfLastChlidren, HeadPending, (float)KeyGroups[0][0].WaveScale);
                         wp.z = -9f;
 
                         var dc = CreateVecLine(wp, KeyLayer.transform, 1f / (HeadPending * SecondPerBeat));
@@ -298,18 +304,25 @@ public partial class RootConfig : MonoBehaviour
 
                     }
                     else
-
-                    if (KeyGroup[0][0].Type == KeyType.Drag)
+                    if (KeyGroups[0][0].Type == KeyType.HWave)
                     {
+                        ct = CreateHWave(wp, KeyGroups[0][0].Childrens, (float)KeyGroups[0][0].Length, KeyGroups[0][0].TimeOfLastChlidren, HeadPending, (float)KeyGroups[0][0].WaveScale);
+                        wp.z = -9f;
 
-                        StartCoroutine(CreateDrag(KeyGroup[0][0].IDragData.From, KeyGroup[0][0].IDragData.To, KeyGroup[0][0].IDragData.Count, KeyGroup[0][0].Length, HeadPending));
+                        var dc = CreateVecLine(wp, KeyLayer.transform, 1f / (HeadPending * SecondPerBeat));
+                        dc.Key = ct.BAnimation;
 
                     }
+                    else
+                    if (KeyGroups[0][0].Type == KeyType.Drag)
+                    {
+                        StartCoroutine(CreateDrag(KeyGroups[0][0].IDragData.From, KeyGroups[0][0].IDragData.To, KeyGroups[0][0].IDragData.Count, KeyGroups[0][0].Length, HeadPending));
+                    }
 
-                    if (ct != null && KeyGroup[0][0].NextToward != null)
+                    if (ct != null && KeyGroups[0][0].NextToward != null)
                     {
                         var ttObj = Instantiate(TowardTip, wp, KeyLayer.transform.rotation, KeyLayer.transform);
-                        ttObj.transform.Rotate(new Vector3(0, 0, (float)KeyGroup[0][0].NextToward), Space.Self);
+                        ttObj.transform.Rotate(new Vector3(0, 0, (float)KeyGroups[0][0].NextToward), Space.Self);
                         ct.OnInvailded += (s) =>
                         {
                             Destroy(ttObj);
@@ -319,7 +332,7 @@ public partial class RootConfig : MonoBehaviour
                     {
                         var wp1 = Camera.main.ScreenToWorldPoint(new Vector3(Accuracy + Accuracy * Last_Pos_Save.Value.x, 0, 0));
                         wp1.y = Last_Pos_Save.Value.y;
-                        var wp2 = Camera.main.ScreenToWorldPoint(new Vector3(Accuracy + Accuracy * (float)(KeyGroup[0][0].Type == KeyType.Drag ? KeyGroup[0][0].IDragData.From : KeyGroup[0][0].Pos), 0, 0));
+                        var wp2 = Camera.main.ScreenToWorldPoint(new Vector3(Accuracy + Accuracy * (float)(KeyGroups[0][0].Type == KeyType.Drag ? KeyGroups[0][0].IDragData.From : KeyGroups[0][0].Pos), 0, 0));
                         wp2.y = wp.y;
 
                         wp1.z = 88;
@@ -333,51 +346,50 @@ public partial class RootConfig : MonoBehaviour
                         }
                     }
 
-                    Last_Pos_Save = new Vector2((float)(KeyGroup[0][0].Type == KeyType.Drag ? KeyGroup[0][0].IDragData.From : KeyGroup[0][0].Pos), wp.y);
+                    Last_Pos_Save = new Vector2((float)(KeyGroups[0][0].Type == KeyType.Drag ? KeyGroups[0][0].IDragData.From : KeyGroups[0][0].Pos), wp.y);
                     Reser = true;
 
-                    KeyGroup[0].RemoveAt(0);
-                    if (KeyGroup[0].Count == 0)
+                    KeyGroups[0].RemoveAt(0);
+                    if (KeyGroups[0].Count == 0)
                     {
                         break;
                     }
 
                 }
             };
-
         else
-            OnBeat += (t) =>
+            OnBeat += (t) =>    //World Coord is RECOMMANDED to Use
             {
                 while (true)
                 {
-                    if (KeyGroup.Count == 0) return;
-                    if (KeyGroup[0].Count == 0) { new_section_flag = true; KeyGroup.RemoveAt(0); continue; }
+                    if (KeyGroups.Count == 0) return;
+                    if (KeyGroups[0].Count == 0) { new_section_flag = true; KeyGroups.RemoveAt(0); continue; }
                     break;
                 }
 
                 bool Reser = false;
                 Vector2? Last_Pos_Save = null;
 
-                while (t + HeadPending >= KeyGroup[0][0].Time)
+                while (t + HeadPending >= KeyGroups[0][0].Time)
                 {
                     if (new_section_flag) { new_section_flag = false; }
 
                     //在这里创建的音符都在横判定线的一拍后被触发
                     Vector3 CreateAtHere = new Vector2();
 
-                    if (KeyGroup[0][0].ForceY != null)
+                    if (KeyGroups[0][0].ForceY != null)
                     {
-                        CreateAtHere.y = (float)KeyGroup[0][0].ForceY.Value;
+                        CreateAtHere.y = (float)KeyGroups[0][0].ForceY.Value;
                     }
                     else
-                        CreateAtHere.y = (float)GetJudgeY(KeyGroup[0][0].Time);
+                        CreateAtHere.y = (float)GetJudgeY(KeyGroups[0][0].Time);
 
-                    CreateAtHere.x = (float)KeyGroup[0][0].Pos;
+                    CreateAtHere.x = (float)KeyGroups[0][0].Pos;
                     CreateAtHere.z = -9f;
 
 
                     Keys ct = null;
-                    if (KeyGroup[0][0].Type == KeyType.Tap)
+                    if (KeyGroups[0][0].Type == KeyType.Tap)
                     {
                         ct = CreateTap(CreateAtHere, HeadPending);
 
@@ -387,16 +399,16 @@ public partial class RootConfig : MonoBehaviour
                     }
                     else
 
-                    if (KeyGroup[0][0].Type == KeyType.Hold)
+                    if (KeyGroups[0][0].Type == KeyType.Hold)
                     {
-                        ct = CreateHold(CreateAtHere, (float)KeyGroup[0][0].Length, HeadPending);
+                        ct = CreateHold(CreateAtHere, (float)KeyGroups[0][0].Length, HeadPending);
 
                         var dc = CreateVecLine(CreateAtHere, KeyLayer.transform, 1f / (HeadPending * SecondPerBeat));
                         dc.Key = ct.BAnimation;
                     }
                     else
 
-                    if (KeyGroup[0][0].Type == KeyType.Slide)
+                    if (KeyGroups[0][0].Type == KeyType.Slide)
                     {
                         ct = CreateSlide(CreateAtHere, HeadPending);
 
@@ -405,25 +417,33 @@ public partial class RootConfig : MonoBehaviour
                     }
                     else
 
-                    if (KeyGroup[0][0].Type == KeyType.Wave)
+                    if (KeyGroups[0][0].Type == KeyType.Wave)
                     {
-                        ct = CreateWave(CreateAtHere, KeyGroup[0][0].Childrens, (float)KeyGroup[0][0].Length, KeyGroup[0][0].LastChildTime, HeadPending, (float)KeyGroup[0][0].WaveScale);
+                        ct = CreateWave(CreateAtHere, KeyGroups[0][0].Childrens, (float)KeyGroups[0][0].Length, KeyGroups[0][0].TimeOfLastChlidren, HeadPending, (float)KeyGroups[0][0].WaveScale);
                         
                         var dc = CreateVecLine(CreateAtHere, KeyLayer.transform, 1f / (HeadPending * SecondPerBeat));
                         dc.Key = ct.BAnimation;
                     }
                     else
-                    if (KeyGroup[0][0].Type == KeyType.Drag)
+                     if (KeyGroups[0][0].Type == KeyType.HWave)
+                    {
+                        ct = CreateHWave(CreateAtHere, KeyGroups[0][0].Childrens, (float)KeyGroups[0][0].Length, KeyGroups[0][0].TimeOfLastChlidren, HeadPending, (float)KeyGroups[0][0].WaveScale);
+
+                        var dc = CreateVecLine(CreateAtHere, KeyLayer.transform, 1f / (HeadPending * SecondPerBeat));
+                        dc.Key = ct.BAnimation;
+                    }
+                    else
+                    if (KeyGroups[0][0].Type == KeyType.Drag)
                     {
 
-                        StartCoroutine(CreateDrag(KeyGroup[0][0].IDragData.From, KeyGroup[0][0].IDragData.To, KeyGroup[0][0].IDragData.Count, KeyGroup[0][0].Length, HeadPending));
+                        StartCoroutine(CreateDrag(KeyGroups[0][0].IDragData.From, KeyGroups[0][0].IDragData.To, KeyGroups[0][0].IDragData.Count, KeyGroups[0][0].Length, HeadPending));
 
                     }
 
-                    if (ct != null && KeyGroup[0][0].NextToward != null)
+                    if (ct != null && KeyGroups[0][0].NextToward != null)
                     {
                         var ttObj = Instantiate(TowardTip, CreateAtHere, KeyLayer.transform.rotation, KeyLayer.transform);
-                        ttObj.transform.Rotate(new Vector3(0, 0, (float)KeyGroup[0][0].NextToward), Space.Self);
+                        ttObj.transform.Rotate(new Vector3(0, 0, (float)KeyGroups[0][0].NextToward), Space.Self);
                         ct.OnInvailded += (s) =>
                         {
                             Destroy(ttObj);
@@ -432,17 +452,17 @@ public partial class RootConfig : MonoBehaviour
                     if (Reser)
                     {
                         var wp1 = new Vector3(Last_Pos_Save.Value.x, Last_Pos_Save.Value.y, 88f);
-                        var wp2 = new Vector3((float)(KeyGroup[0][0].Type == KeyType.Drag ? KeyGroup[0][0].IDragData.From : KeyGroup[0][0].Pos), CreateAtHere.y, 88f);
+                        var wp2 = new Vector3((float)(KeyGroups[0][0].Type == KeyType.Drag ? KeyGroups[0][0].IDragData.From : KeyGroups[0][0].Pos), CreateAtHere.y, 88f);
 
 
                         LineArea.Create(LineAreaObj, KeyLayer, wp1, wp2, HeadPending * SecondPerBeat);
                     }
 
-                    Last_Pos_Save = new Vector2((float)(KeyGroup[0][0].Type == KeyType.Drag ? KeyGroup[0][0].IDragData.From : KeyGroup[0][0].Pos), CreateAtHere.y);
+                    Last_Pos_Save = new Vector2((float)(KeyGroups[0][0].Type == KeyType.Drag ? KeyGroups[0][0].IDragData.From : KeyGroups[0][0].Pos), CreateAtHere.y);
                     Reser = true;
 
-                    KeyGroup[0].RemoveAt(0);
-                    if (KeyGroup[0].Count == 0)
+                    KeyGroups[0].RemoveAt(0);
+                    if (KeyGroups[0].Count == 0)
                     {
                         break;
                     }
@@ -478,7 +498,7 @@ public partial class RootConfig : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Stopped) return;
+        if (Stopped || ExamingMode) return;
         if (Music.time >= Music_Length && Music.clip != null)
         {
             Music.Stop();
@@ -498,7 +518,12 @@ public partial class RootConfig : MonoBehaviour
     private double Last_Beat = 0d;
     public void OnPrepaired()
     {
+        VideoPlayer vp = null;
         Music.Play();
+        if ((vp = SongBack.GetComponent<VideoPlayer>()) != null)
+        {
+            vp.Play();
+        }
         //JudegLineAnimator.SetTrigger("Enterance");
     }
 

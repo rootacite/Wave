@@ -65,6 +65,9 @@ public class PrePoint : Infroms
                 break;
             case KeyType.Wave:
                 break;
+            case KeyType.HWave:
+                Spr.sprite = Textures[1];
+                break;
             default:
                 break;
         }
