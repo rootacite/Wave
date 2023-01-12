@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicCard7
       objectReference: {fileID: 0}
+    - target: {fileID: 2203539235726640910, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3098568182207769387, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -221,7 +225,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchorMin.x
@@ -229,7 +233,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_SizeDelta.x
@@ -269,11 +273,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 320
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -920
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1638,6 +1642,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicCard9
       objectReference: {fileID: 0}
+    - target: {fileID: 2203539235726640910, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3098568182207769387, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -1724,7 +1732,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchorMin.x
@@ -1732,7 +1740,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_SizeDelta.x
@@ -1772,11 +1780,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 320
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -550
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2835,6 +2843,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicCard
       objectReference: {fileID: 0}
+    - target: {fileID: 2203539235726640910, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5138082855158789431, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: Pic
       value: 
@@ -2905,7 +2917,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2913,7 +2925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_SizeDelta.x
@@ -2953,11 +2965,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 320
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -1660
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3245,6 +3257,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicCard8
       objectReference: {fileID: 0}
+    - target: {fileID: 2203539235726640910, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3098568182207769387, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -3331,7 +3347,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchorMin.x
@@ -3339,7 +3355,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_SizeDelta.x
@@ -3379,11 +3395,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 320
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -920
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4601,6 +4617,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicCard6
       objectReference: {fileID: 0}
+    - target: {fileID: 2203539235726640910, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3098568182207769387, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -4687,7 +4707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchorMin.x
@@ -4695,7 +4715,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_SizeDelta.x
@@ -4735,11 +4755,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 320
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -1660
       objectReference: {fileID: 0}
     - target: {fileID: 7260165438284040195, guid: 8c15d6bfe5dba594a991bbdaab5d37c4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

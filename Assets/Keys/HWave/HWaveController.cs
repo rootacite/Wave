@@ -22,6 +22,18 @@ public class HWaveController : Keys
     public event Action OnHold;
     private float Scale;
     private List<CirculKey> Childrens;
+    private List<Keys> Saved_Keys = new List<Keys>();
+
+    void MissExistsKeys()
+    {
+        foreach (var i in Saved_Keys)
+        {
+            if (!i.Invailded)
+            {
+                i.MissEvent();
+            }
+        }
+    }
     static public HWaveController Creat(GameScripting rootConfig,Vector3 Position, GameObject Origin, GameObject TransfronParent, float Length, float SecondPerBeat, List<CirculKey> Childrens, float LastTime, float BeatOffset = 1f, float Scale = 1f)
     {
         var r = Instantiate(Origin, TransfronParent.transform);
@@ -72,7 +84,7 @@ public class HWaveController : Keys
         if (DifficultMode) return;
         if (Invailded) return;
 
-        TAnimation.speed = 1 / (BeatPerSecond * rootConfig.HeadPending); //如果已经进入判定区域，则应该把速度重置为节拍速度
+        TAnimation.speed = 1 / (BeatPerSecond * rootConfig.HeadPending); //濡傛灉宸茬粡杩涘叆鍒ゅ畾鍖哄煙锛屽垯搴旇鎶婇�熷害閲嶇疆涓鸿妭鎷嶉�熷害
         OnPrefect();
         //TAnimation.SetTrigger("Perfect");
         Invailded = true;
@@ -113,7 +125,7 @@ public class HWaveController : Keys
             TAnimation.SetTrigger("Holded");
             //TAnimation.SetTrigger("OnHoldEffect");
 
-            var anmiley = gameObject.AddComponent<Animation>(); //使用animation的原因是，animator组件很难用常规操作单独修改某个动画的速度
+            var anmiley = gameObject.AddComponent<Animation>(); //浣跨敤animation鐨勫師鍥犳槸锛宎nimator缁勪欢寰堥毦鐢ㄥ父瑙勬搷浣滃崟鐙慨鏀规煇涓姩鐢荤殑閫熷害
  
             anmiley.playAutomatically = false;
             anmiley.AddClip(HoldedClip, "1");
@@ -201,7 +213,7 @@ public class HWaveController : Keys
 
                             foreach (var z in i.IDragData.DragRoute)
                             {
-                                KFrameList.Add(new Polar2(Polar2.d2r(z.dθ), RealRod * ((i.WaveOffset + z.ρ) / Length)));
+                                KFrameList.Add(new Polar2(Polar2.d2r(z.d胃), RealRod * ((i.WaveOffset + z.蟻) / Length)));
                             }
                             double PointLimit = (double)(35 * (KFrameList.Count - 1)) / i.IDragData.Count;
                             double flag_limit = 0;
@@ -223,7 +235,7 @@ public class HWaveController : Keys
                                         dcr.SetWaveEffect();
                                     }
                                     else
-                                        dcr.SetNodeMode(-(float)p.θ, (float)(i.Length / (double)i.IDragData.Count));
+                                        dcr.SetNodeMode(-(float)p.胃, (float)(i.Length / (double)i.IDragData.Count));
 
                                     double Rate = 1d - ii / (double)(35 * (KFrameList.Count - 1));
 
@@ -244,13 +256,22 @@ public class HWaveController : Keys
                 }
                 if (BK != null)
                 {
-
+                    Saved_Keys.Add(BK);
                     BK.SetWaveEffect();
                     BK.IsInWave = true;
                 }
             }
             if (Childrens[0].Type == KeyType.Drag) EndForFirstDrag?.Invoke();
             TAnimation.speed = 60f / ExplandTime;
+        };
+        Bad += () =>
+        {
+            MissExistsKeys();
+        };
+
+        Great += () =>
+        {
+            MissExistsKeys();
         };
     }
     override protected bool TouchEvent(TouchPhase t, Vector2 p)
@@ -343,7 +364,7 @@ public class HWaveController : Keys
     }
     override public void PrefectEvent()
     {
-        //Prefect键的end时机不在这里，所以不能在这里重置速度
+        //Prefect閿殑end鏃舵満涓嶅湪杩欓噷锛屾墍浠ヤ笉鑳藉湪杩欓噷閲嶇疆閫熷害
         Status = 0;
 
         if(AutoMode)
