@@ -8,8 +8,9 @@ Shader "Custom/BlurEffect"
 
 	SubShader
 	{
-		CGINCLUDE
-		#include "UnityCG.cginc"
+		Tags {"RenderPipeline" = "UniversalPipeline"}
+		HLSLINCLUDE
+		#include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
 		sampler2D _MainTex;
 		float4 _MainTex_ST;
@@ -31,7 +32,7 @@ Shader "Custom/BlurEffect"
 		v2f vert_hor(a2v v)
 		{
 			v2f o;
-			o.svPos = UnityObjectToClipPos(v.vertex);
+			o.svPos = TransformObjectToHClip(v.vertex);
 			float2 uv = v.texcoord.xy * _MainTex_ST.xy + _MainTex_ST.zw;
 			o.uv[0] = uv;
 			o.uv[1] = uv + float2(_MainTex_TexelSize.x * 1.0, 0.0) * _BlurSize;
@@ -44,7 +45,7 @@ Shader "Custom/BlurEffect"
 		v2f vert_ver(a2v v)
 		{
 			v2f o;
-			o.svPos = UnityObjectToClipPos(v.vertex);
+			o.svPos = TransformObjectToHClip(v.vertex);
 			float2 uv = v.texcoord.xy * _MainTex_ST.xy + _MainTex_ST.zw;
 			o.uv[0] = uv;
 			o.uv[1] = uv + float2(0.0, _MainTex_TexelSize.y * 1.0) * _BlurSize;
@@ -54,34 +55,34 @@ Shader "Custom/BlurEffect"
 			return o;
 		}
 		
-		fixed4 frag(v2f f) : SV_TARGET
+		float4 frag(v2f f) : SV_TARGET
 		{
 			half weight[3] = {0.4026, 0.2442, 0.0545};
-			fixed3 color = tex2D(_MainTex, f.uv[0]).rgb * weight[0];
+			float3 color = tex2D(_MainTex, f.uv[0]).rgb * weight[0];
 			color += tex2D(_MainTex, f.uv[1]).rgb * weight[1];
 			color += tex2D(_MainTex, f.uv[2]).rgb * weight[1];
 			color += tex2D(_MainTex, f.uv[3]).rgb * weight[2];
 			color += tex2D(_MainTex, f.uv[4]).rgb * weight[2];
-			return fixed4(color, 1.0);
+			return float4(color, 1.0);
 		}
-		ENDCG
+			ENDHLSL
 
 		Pass
 		{
 			Name "BLUR_EFFECT_HORIZONTAL"
-			CGPROGRAM
+			HLSLPROGRAM
 			#pragma vertex vert_hor
 			#pragma fragment frag
-			ENDCG
+			ENDHLSL
 		}
 
 		Pass
 		{
 			Name "BLUR_EFFECT_VERTICAL"
-			CGPROGRAM
+			HLSLPROGRAM
 			#pragma vertex vert_ver
 			#pragma fragment frag
-			ENDCG
+			ENDHLSL
 		}
 	}
 	Fallback Off
