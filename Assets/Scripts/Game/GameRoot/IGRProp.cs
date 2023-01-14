@@ -66,7 +66,7 @@ public partial class GameScripting
         get
         {
             double BeatInDouble = Music.time / SecondPerBeat + 1;
-            return BeatInDouble - BeatInDouble % 0.25d;
+            return BeatInDouble - BeatInDouble % 0.125d;
         }
     }
 

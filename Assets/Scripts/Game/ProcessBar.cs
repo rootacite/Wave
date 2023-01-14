@@ -35,7 +35,7 @@ public class ProcessBar : MonoBehaviour
     private void OnMouseDrag()
     {
         var oldpos = rectTransform.anchoredPosition;
-        oldpos.x = Input.mousePosition.x - 800;
+        oldpos.x = Input.mousePosition.x - (Screen.width > 1600 ? 1200 : 800);
         oldpos.x /= Screen.safeArea.width;
         oldpos.x *= 2400f;
 

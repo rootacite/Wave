@@ -14,7 +14,7 @@ public class StartInit : MonoBehaviour
         "Wave键在被点击前会预先提示生成键位的位置，不同类型的键略有不同。",
         "必须保证触点与将要判定的Drag键重合，才能命中。",
         "如果中途松开Hold键，将会按照Miss判定。",
-        "判定结果由命中特效指示。橘:Perfect,绿:Great,蓝:Bad。",
+        "如果中途放开HWave键，其余的按键会全部Miss。",
         "即使命中音符，如果判定结果为Bad，仍会中断Combo。",
         "Slide键需要在触摸的同时向任意方向移动小段距离才能命中。",
         "星形的Slide键，如果将四边向外翻转，仍是圆形！",
