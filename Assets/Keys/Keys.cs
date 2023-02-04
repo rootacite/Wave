@@ -22,6 +22,22 @@ abstract public class Keys : MonoBehaviour
     public float Z { get; protected set; } //´æ´¢ZÖáÎ»ÖÃ
     protected virtual void Start()
     {
+        OnInvailded += (v) =>
+        {
+            var Fr = gameObject.transform.position;
+            //Fr /= 1.25f;
+            Fr.x /= 12.0f;
+            Fr.y /= 5.40f;
+            Fr.y /= 1.25f;
+            Fr.x += 1f;
+            Fr.y += 1f;
+            
+            Fr.x /= 2f;
+            Fr.y /= 2f;
+
+            Wave.Instance.SetPoint(Fr);
+        };
+        
         GameObject.Find("TouchManager").GetComponent<TouchManager>().OnTouch.Add(TouchEvent);
 
         if (Offset == 0)

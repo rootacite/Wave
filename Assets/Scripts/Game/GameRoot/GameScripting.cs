@@ -510,6 +510,10 @@ public partial class GameScripting : MonoBehaviour
 
         if (CurrentBeat != Last_Beat)
         {
+            if (CurrentBeat - Last_Beat > 0.125)
+            {
+                OnBeat?.Invoke(CurrentBeat - 0.125);
+            }
             OnBeat?.Invoke(CurrentBeat);
         }
         Last_Beat = CurrentBeat;

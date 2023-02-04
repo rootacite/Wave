@@ -294,7 +294,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &6657260872908552218
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -311,7 +311,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!114 &4211057693649408939
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -327,7 +327,6 @@ MonoBehaviour:
   PariEffect: {fileID: 2526023739791311449, guid: 004bf2167768b6e4dba99fe614b59fff, type: 3}
   BAnimation: {fileID: 0}
   rootConfig: {fileID: 0}
-  guideConfig: {fileID: 0}
   IsInWave: 0
   Center: {fileID: 4906908959176889420}
   Grade: {fileID: 766282692078871768}

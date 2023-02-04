@@ -1,12 +1,13 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
-
+using Dictionary = System.IO.Directory;
 public class StartInit : MonoBehaviour
 {
     static string[] TipTexts = new string[] 
@@ -164,11 +165,21 @@ public class StartInit : MonoBehaviour
         else
         {
             StartCoroutine(Proc_1());
+          //  ShowText(Application.persistentDataPath);
         }
 
-       
+        File.WriteAllText(
+            Application.persistentDataPath + "/Flag.txt",
+            "Hello Wave\n" + System.DateTime.Now
+        );
+
+        if (!Dictionary.Exists(CombinPath("Songs"))) Dictionary.CreateDirectory(CombinPath("Songs"));
     }
 
+    public static string CombinPath(string p)
+    {
+        return Application.persistentDataPath + "/" + p;
+    }
     // Update is called once per frame
     void Update()
     {

@@ -133,7 +133,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6974718242912602453
 Transform:
   m_ObjectHideFlags: 0
@@ -494,7 +494,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &7817481256772615261
 Animator:
-  serializedVersion: 4
+  serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -511,7 +511,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!58 &8465490880764389904
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -543,7 +543,6 @@ MonoBehaviour:
   PariEffect: {fileID: 2526023739791311449, guid: 004bf2167768b6e4dba99fe614b59fff, type: 3}
   BAnimation: {fileID: 0}
   rootConfig: {fileID: 0}
-  guideConfig: {fileID: 0}
   IsInWave: 0
   DragLineOrigin: {fileID: 542170613923592405, guid: ced2139ab6eb4b2488b75f66c5bee20e, type: 3}
   ScaleObj: {fileID: 809855410699727776}

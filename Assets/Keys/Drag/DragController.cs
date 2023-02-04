@@ -16,6 +16,10 @@ public class DragController : Keys
 
     public Sprite Border_nd;
     public Sprite Center_nd;
+
+    public GameObject Exp_Area;
+
+    public GameObject Effect;
     // Start is called before the first frame update
     static public DragController Creat(GameScripting rootConfig,Vector3 Position, GameObject Origin, GameObject TransfronParent, float SecondPerBeat, float BeatOffset = 1f)
     {
@@ -36,6 +40,11 @@ public class DragController : Keys
         base.Start();
 
         TAnimation = GetComponent<Animator>();
+
+        Prefect += () =>
+        {
+                Effect.SetActive(true);
+        };
     }
     bool touched = false;
     protected override void Update()
@@ -92,6 +101,7 @@ public class DragController : Keys
     override public void SetWaveEffect()
     {
         base.SetWaveEffect();
+        Exp_Area.SetActive(false);
         Border.sprite = Border_sp;
         Center.sprite = Center_sp;
     }

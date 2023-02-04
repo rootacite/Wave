@@ -56,7 +56,7 @@ public class HoldController : Keys
         if (DifficultMode) return;
         if (Invailded) return;
 
-        TAnimation.speed = 1 / (BeatPerSecond * rootConfig.HeadPending); //Èç¹ûÒÑ¾­½øÈëÅĞ¶¨ÇøÓò£¬ÔòÓ¦¸Ã°ÑËÙ¶ÈÖØÖÃÎª½ÚÅÄËÙ¶È
+        TAnimation.speed = 1 / (BeatPerSecond * rootConfig.HeadPending); //ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ã°ï¿½ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
         OnPrefect();
         TAnimation.SetTrigger("Perfect");
         Invailded = true;
@@ -97,13 +97,13 @@ public class HoldController : Keys
             TAnimation.SetTrigger("Holded");
             //TAnimation.SetTrigger("OnHoldEffect");
 
-            var anmiley = gameObject.AddComponent<Animation>(); //Ê¹ÓÃanimationµÄÔ­ÒòÊÇ£¬animator×é¼şºÜÄÑÓÃ³£¹æ²Ù×÷µ¥¶ÀĞŞ¸ÄÄ³¸ö¶¯»­µÄËÙ¶È
+            var anmiley = gameObject.AddComponent<Animation>(); //Ê¹ï¿½ï¿½animationï¿½ï¿½Ô­ï¿½ï¿½ï¿½Ç£ï¿½animatorï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ş¸ï¿½Ä³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
  
             anmiley.playAutomatically = false;
             anmiley.AddClip(HoldedClip, "1");
             foreach(AnimationState i in anmiley)
             {
-                i.speed = 0.5f / (Offset * BeatPerSecond);
+                i.speed = 0.75f / (Offset * BeatPerSecond);
             }
             anmiley.Play("1");
 
@@ -200,7 +200,7 @@ public class HoldController : Keys
     }
     override public void PrefectEvent()
     {
-        //Prefect¼üµÄendÊ±»ú²»ÔÚÕâÀï£¬ËùÒÔ²»ÄÜÔÚÕâÀïÖØÖÃËÙ¶È
+        //Prefectï¿½ï¿½ï¿½ï¿½endÊ±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï£¬ï¿½ï¿½ï¿½Ô²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
         Status = 0;
 
         if(AutoMode)

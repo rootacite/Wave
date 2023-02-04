@@ -201,22 +201,6 @@ public partial class GameScripting
                     ccp.z = max_z;
                     Points.Add(ccp);
 
-                    if (p == 0)
-                    {
-                        var pcc = PrePoint.Create(ccp, PrePoint_Obj, KeyLayer, Offset * SecondPerBeat, 1 / (SecondPerBeat * HeadPending), KeyType.Drag);
-                        if (i.IDragData.DragRoute.Count == 0)
-                            pcc.Angle = (float)i.IDragData.From;
-
-
-                    }
-
-                    if (p == i.IDragData.Count)
-                    {
-                        var pcc = PrePoint.Create(ccp, PrePoint_Obj, KeyLayer, Offset * SecondPerBeat, 1 / (SecondPerBeat * HeadPending), KeyType.Drag);
-                        if (i.IDragData.DragRoute.Count == 0)
-                            pcc.Angle = (float)i.IDragData.To;
-                    }
-
                 }
             }
             else
@@ -254,19 +238,25 @@ public partial class GameScripting
             {
                 if (v == 0)
                 {
-                    foreach(var Key in Route[0])
+                    foreach (var Key in Route[0])
                     {
-                        if(Key.Type==KeyType.Drag)
+                        if (Key.Type == KeyType.Drag)
                         {
                             var np = DrawDragRoute(Key);
                             Connect(OriginPoint, np.Head, (float)Offset);
-                            
+
                             continue;
                         }
 
-                        PrePoint.Create(Pos.Offset(Key.Angle, _wave.RealRod * ((float)Key.WaveOffset / Length)), PrePoint_Obj, KeyLayer, (float)(Key.WaveOffset + Offset) * SecondPerBeat, 1 / (SecondPerBeat * HeadPending), Key.Type);
-                        Connect(OriginPoint, ((Vector2)OriginPoint).Offset(Key.Angle, _wave.RealRod * ((float)Key.WaveOffset / _wave.Length)), (float)Offset);
+                        if (Key.Type != KeyType.Drag)
+                            PrePoint.Create(Pos.Offset(Key.Angle, _wave.RealRod * ((float)Key.WaveOffset / Length)),
+                                PrePoint_Obj, KeyLayer, (float)(Key.WaveOffset + Offset) * SecondPerBeat,
+                                1 / (SecondPerBeat * HeadPending), Key.Type);
+                        Connect(OriginPoint,
+                            ((Vector2)OriginPoint).Offset(Key.Angle,
+                                _wave.RealRod * ((float)Key.WaveOffset / _wave.Length)), (float)Offset);
                     }
+
                     continue;
                 }
 
@@ -276,15 +266,18 @@ public partial class GameScripting
                       Connect(p1.GetPositionInDicar(OriginPoint,_wave),p2.GetPositionInDicar(OriginPoint, _wave), (float)(p1.WaveOffset + Offset));
                   });
 
-                foreach(var i in Route[v])
+                foreach (var i in Route[v])
                 {
-                    if(i.Type==KeyType.Drag)
+                    if (i.Type == KeyType.Drag)
                     {
                         DrawDragRoute(i);
                         continue;
                     }
 
-                    PrePoint.Create(Pos.Offset(i.Angle, _wave.RealRod * ((float)i.WaveOffset / Length)), PrePoint_Obj, KeyLayer, (float)(i.WaveOffset + Offset) * SecondPerBeat, 1 / (SecondPerBeat * HeadPending), i.Type);
+                    if (i.Type != KeyType.Drag)
+                        PrePoint.Create(Pos.Offset(i.Angle, _wave.RealRod * ((float)i.WaveOffset / Length)),
+                            PrePoint_Obj, KeyLayer, (float)(i.WaveOffset + Offset) * SecondPerBeat,
+                            1 / (SecondPerBeat * HeadPending), i.Type);
                 }
 
             }

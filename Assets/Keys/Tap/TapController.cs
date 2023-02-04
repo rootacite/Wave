@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
+using Object = System.Object;
 
 sealed public class TapController : Keys
 {
@@ -14,6 +15,8 @@ sealed public class TapController : Keys
     public Sprite Center_sp;
 
     private Animator TAnimation;
+
+    public GameObject Effect;
 
     static public TapController Creat(GameScripting rootConfig,Vector3 Position, GameObject Origin, GameObject TransfronParent, float SecondPerBeat, float BeatOffset = 1f)
     {
@@ -78,6 +81,16 @@ sealed public class TapController : Keys
     {
         base.Start();
         TAnimation = GetComponent<Animator>();
+
+        OnInvailded += (s) =>
+        {
+            TAnimation.SetBool("Invailed", true);
+        };
+
+        Prefect += () =>
+        {
+            Effect.SetActive(true);
+        };
     }
 
 

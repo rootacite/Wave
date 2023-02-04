@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
@@ -10,24 +11,59 @@ using UnityEngine.Video;
 public class CardController : MonoBehaviour
 {
     public AudioClip Ef1;
+    public TextMeshProUGUI NameText;
+    
     // Start is called before the first frame update
     public GameObject AnimatorObject;
     public GameObject AudioObject;
     public GameObject ImageObject;
 
-    public Sprite BackGroundSprite;
 
     public AudioClip TitleAudio;
-
-    public Sprite Pic;
     public Texture BackGround;
     public VideoClip Video;
     public TextAsset SongConfig;
     public TextAsset SongData;
+    private Sprite BackGroundSprite;
+
+    public bool isExternal = false;
+    public string ExternalPath = "";
+    public void SetText(string t)
+    {
+        NameText.text = t;
+    }
+    private Texture2D TextureToTexture2D(Texture texture) {
+        Texture2D texture2D = new Texture2D(texture.width, texture.height, TextureFormat.RGBA32, false);
+        RenderTexture currentRT = RenderTexture.active;
+        RenderTexture renderTexture = RenderTexture.GetTemporary(texture.width, texture.height, 32);
+        Graphics.Blit(texture, renderTexture);
+
+        RenderTexture.active = renderTexture;
+        texture2D.ReadPixels(new Rect(0, 0, renderTexture.width, renderTexture.height), 0, 0);
+        texture2D.Apply();
+
+        RenderTexture.active = currentRT;
+        RenderTexture.ReleaseTemporary(renderTexture);
+
+        return texture2D;
+    }
+    
     IEnumerator LoadSong()
     {
-        string Route = "Songs/" + InsideName + "/" + InsideName;
-        AudioClip Song = (AudioClip)Resources.Load(Route, typeof(AudioClip));
+        AudioClip Song = null;
+
+        if (!isExternal)
+        {
+            string Route = "Songs/" + InsideName + "/" + InsideName;
+            Song = (AudioClip)Resources.Load(Route, typeof(AudioClip));
+        }
+        else
+        {
+            var au = new WWW(ExternalPath);
+            yield return au;
+            Song = au.GetAudioClip();
+            au.Dispose();
+        }
 
         if (Video == null)
             StartInit.SetImage(BackGround);
@@ -45,7 +81,7 @@ public class CardController : MonoBehaviour
 
         };
     }
-    string Name
+    public string Name
     {
         get
         {
@@ -73,6 +109,10 @@ public class CardController : MonoBehaviour
     }
     void Start()
     {
+        var tx2d = TextureToTexture2D(BackGround);
+        BackGroundSprite =  Sprite.Create(tx2d, new Rect(0, 0, tx2d.width,tx2d.height), Vector2.zero);
+        
+        
         GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => 
         {
             StartCoroutine(PicExpland());
