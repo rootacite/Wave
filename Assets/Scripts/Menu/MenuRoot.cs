@@ -49,8 +49,8 @@ public class MenuRoot : MonoBehaviour
         
         bk.Dispose();
 
-        var svb = File.ReadAllBytes(path + "/" + name + "_title.wav");
-        var au = new WWW("file://" + path + "/" + name + "_title.wav");
+        var svb = File.ReadAllBytes(path + "/" + name + "_title.mp3");
+        var au = new WWW("file://" + path + "/" + name + "_title.mp3");
         yield return au;
         
         var newCard = Instantiate(MusicCard, Songs);
@@ -70,7 +70,7 @@ public class MenuRoot : MonoBehaviour
 
         Controller.TitleAudio = au.GetAudioClip();
         Controller.isExternal = true;
-        Controller.ExternalPath = "file://" + path + "/" + name + ".wav";
+        Controller.ExternalPath = "file://" + path + "/" + name + ".mp3";
         
         au.Dispose();
         yield break;

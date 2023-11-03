@@ -4,17 +4,24 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+using ICSharpCode.SharpZipLib;
+using ICSharpCode.SharpZipLib.Zip;
+using UnityEngine.Android;
+
 public class BowerBtn : MonoBehaviour
 {
     public Button btn;
 
     public TMP_InputField input;
     // Start is called before the first frame update
+    
     void Start()
     {
         if (Application.platform != RuntimePlatform.Android)
         {
             btn.enabled = false;
+            
+           
         }
     }
 

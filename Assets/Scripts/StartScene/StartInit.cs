@@ -74,6 +74,10 @@ public class StartInit : MonoBehaviour
         instance.TextTip.GetComponent<TMPro.TextMeshProUGUI>().text = TipTexts[new System.Random().Next(TipTexts.Length)];
     }
 
+    static public void SetTipText(string s)
+    {
+        instance.TextTip.GetComponent<TMPro.TextMeshProUGUI>().text = s;
+    }
     public static GameObject Canvas = null;
     public static StartInit instance;
 
