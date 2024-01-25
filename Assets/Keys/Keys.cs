@@ -2,27 +2,113 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-abstract public class Keys : MonoBehaviour
+public abstract class Keys : MonoBehaviour
 {
-    protected bool force_p = false;
-    public static bool AutoMode = false; //标识是否处于自动模式，在RootConfig的Start中设置。
-    public GameObject PariEffect;
+    // Static Attributes
+    public static List<Keys> Instances = new List<Keys>(); //??????????????????????????????????Z?????????????????????
+    
+    // Special Attributes
+    protected bool ForciblyPerfect = false;
+    protected float BeatPerSecond; //?????????????
+    protected float Offset = 1f; //???????????
+    protected int Status = 2; //?????????????????XXXEvent??????????????
+    private int _endStatus = 0; //?????OnInvalid????????????????????
+    public bool isInWave;
+    private bool _invalided = false;
+    public bool Invalided
+    {
+        get => _invalided;
+        protected set
+        {
+            if (value && (value != _invalided))
+            {
+                switch (_endStatus)
+                {
+                    case 0:
+                        GameScripting.Instance.CurrentMark += 500;
+                        GameScripting.Instance.ComboCount += 1;
+                        break;
+                    case 1:
+                        GameScripting.Instance.CurrentMark += 200;
+                        GameScripting.Instance.ComboCount += 1;
+                        break;
+                    case 2:
+                        GameScripting.Instance.CurrentMark += 50;
+                        GameScripting.Instance.ComboCount = 0;
+                        break;
+                    case 3:
+                        GameScripting.Instance.CurrentMark += 0;
+                        GameScripting.Instance.ComboCount = 0;
+                        break;
+                }
+                
+                if (_endStatus == 1)
+                {
+                    GameScripting.Instance.AP = false;
+                }
 
-    public Animator BAnimation;//基类获取的该键动画对象，设置为private是防止冲突
+                if (_endStatus == 2 || _endStatus == 3)
+                {
+                    GameScripting.Instance._AP = false;
+                    GameScripting.Instance.AC = false;
+                }
 
-    public GameScripting rootConfig;
+                OnInvalided?.Invoke(_endStatus);
 
-    protected float BeatPerSecond; //每拍所占的时间（秒）
-    protected float Offset = 1f; //键前摇（节拍）
-    protected int Status = 2; //指示当前的判定状态，在XXXEvent中由动画进度触发
+                if (!(this is WaveController)) //??????Wave?????????????????????????????????????
+                {
+                    _bAnimation.speed = 1 / (BeatPerSecond * HeadPending);
+                }
 
-    private int End_Status = 0; //传递给OnInvaild事件的参数，指示判定的结果
-    public static List<Keys> Instances = new List<Keys>(); //存储当前存在的所有键，主要用于计算新键的Z轴（保证新生成的永远在后面）
-    public float Z { get; protected set; } //存储Z轴位置
+                if (this is DragController)
+                {
+                    if (((DragController)this).isNode) _bAnimation.speed = 3f / BeatPerSecond;
+                }
+
+                Destroy(_collider2D);
+
+                //if(IsInWave || (this is SlideController))
+                //{
+                //    var ppr = Instantiate(PariEffect, transform.localPosition, transform.localRotation, transform.parent);
+                //    ParticleSystem.PlaybackState ps;
+                //   ppr.GetComponent<ParticleSystem>().playbackSpeed = BAnimation.speed;
+                //}
+            }
+
+            _invalided = value;
+        }
+    }
+    
+    // Global Attributes
+    public static bool AutoMode //?????????????????RootConfig??Start????????
+    {
+        get => PlayerPrefs.GetInt("AutoMode_Setting", 0) == 1;
+    }
+    protected float HeadPending
+    {
+        get => LevelBasicInformation.HeadPending;
+    }
+    
+    // Unity Field
+
+    [FormerlySerializedAs("PariEffect")] public GameObject pariEffect;
+    private Animator _bAnimation; //???????????????????
+    public float Z { get; protected set; } //???Z??????
+    private Collider2D _collider2D;
+    
+    // Events
+    public event Action Prefect; //0
+    public event Action Great; //1
+    public event Action Bad; //2
+    public event Action Miss; //3
+    public event OnInvalidedHandler OnInvalided; //????????????????????????????Miss????????
+    public delegate void OnInvalidedHandler(int status);
+
     protected virtual void Start()
     {
-        OnInvailded += (v) =>
+        OnInvalided += (v) =>
         {
             var Fr = gameObject.transform.position;
             //Fr /= 1.25f;
@@ -31,148 +117,95 @@ abstract public class Keys : MonoBehaviour
             Fr.y /= 1.25f;
             Fr.x += 1f;
             Fr.y += 1f;
-            
+
             Fr.x /= 2f;
             Fr.y /= 2f;
 
             Wave.Instance.SetPoint(Fr);
         };
-        
+
         GameObject.Find("TouchManager").GetComponent<TouchManager>().OnTouch.Add(TouchEvent);
 
         if (Offset == 0)
         {
-            BAnimation.speed = float.MaxValue;
-            force_p = true;
+            _bAnimation.speed = float.MaxValue;
+            ForciblyPerfect = true;
             return;
         }
-        BAnimation.speed = 1f / (Offset * BeatPerSecond); //任何键位生成时，都应该把速度与前摇同步
-        
-    }
-    public event Action Prefect; //0
-    public event Action Great; //1
-    public event Action Bad; //2
-    public event Action Miss; //3
 
-    virtual protected void OnPrefect()
+        _bAnimation.speed = 1f / (Offset * BeatPerSecond); //??????????????????????????????
+
+    }
+    protected void OnPrefect()
     {
         Prefect?.Invoke();
-        End_Status = 0;
+        _endStatus = 0;
     }
-    virtual protected void OnGreat()
+    protected void OnGreat()
     {
         Great?.Invoke();
-        End_Status = 1;
+        _endStatus = 1;
     }
-    virtual protected void OnBad()
+    protected void OnBad()
     {
         Bad?.Invoke();
-        End_Status = 2;
+        _endStatus = 2;
     }
-    virtual protected void OnMiss()
+    protected void OnMiss()
     {
         Miss?.Invoke();
-        End_Status = 3;
+        _endStatus = 3;
     }
-
-    protected virtual IEnumerator DelayDestroy(float Time)
+    protected virtual IEnumerator DelayDestroy(float time)
     {
-        yield return new WaitForSeconds(Time);
+        yield return new WaitForSeconds(time);
         Destroy(this.gameObject);
     }
-    protected abstract bool TouchEvent(TouchPhase t, Vector2 p); //不同键类型的触摸事件，需要在子类中单独实现。
-
-    private bool _Invailded = false;
-    public bool Invailded {
-        get 
-        { 
-            return _Invailded;
-        }
-        protected set 
-        {
-            if (value && (value != _Invailded))
-            {
-                if(End_Status == 1)
-                {
-                    rootConfig.AP = false;
-                }
-                if (End_Status == 2 || End_Status == 3)
-                {
-                    rootConfig._AP = false;
-                    rootConfig.AC = false;
-                }
-                OnInvailded?.Invoke(End_Status);
-
-                if (!(this is WaveController)) //无效的Wave键仍会生成一个环形判定线，所以不能重置速度
-                {
-                    BAnimation.speed = 1 / (BeatPerSecond * rootConfig.HeadPending);
-                }
-                if(this is DragController)
-                {
-                    if (((DragController)this).isNode) BAnimation.speed = 3f / BeatPerSecond;
-                }
-                Destroy(c2d);
-
-                //if(IsInWave || (this is SlideController))
-                //{
-                //    var ppr = Instantiate(PariEffect, transform.localPosition, transform.localRotation, transform.parent);
-                //    ParticleSystem.PlaybackState ps;
-                 //   ppr.GetComponent<ParticleSystem>().playbackSpeed = BAnimation.speed;
-                //}
-            }
-
-            _Invailded = value;
-        }
-    }
-
-    public event OnInvaildedHandler OnInvailded; //将会在键位被无效化时触发（包括Miss或命中）
-    public delegate void OnInvaildedHandler(int Status);
-    private Collider2D c2d;
-    virtual protected void Awake()
+    protected abstract bool TouchEvent(TouchPhase t, Vector2 p); //?????????????????????????????????????
+    protected void Awake()
     {
         Instances.Add(this);
-        c2d = GetComponent<Collider2D>();
-        BAnimation = GetComponent<Animator>();
+        _collider2D = GetComponent<Collider2D>();
+        _bAnimation = GetComponent<Animator>();
     }
-    virtual protected void OnDestroy()
+    void OnDestroy()
     {
         Instances?.Remove(this);
         GameObject.Find("TouchManager")?.GetComponent<TouchManager>().OnTouch.Remove(TouchEvent);
     }
-    virtual protected void Update()
+
+    protected virtual void Update()
     {
 
     }
 
-    //这四个事件都会在按键动画达到某个判定时机时被触发
-    virtual public void PrefectEvent()
+    //????????????????????????????????????????
+    public virtual void PrefectEvent()
     {
         Status = 0;
     }
-    virtual public void GreatEvent()
+    public virtual void GreatEvent()
     {
         Status = 1;
     }
-    virtual public void BadEvent()
+    public virtual void BadEvent()
     {
         Status = 2;
     }
-    virtual public void MissEvent()
+    public virtual void MissEvent()
     {
-        if (Invailded) return;
+        if (Invalided) return;
 
-        BAnimation.SetTrigger("Miss");
+        _bAnimation.SetTrigger("Miss");
         OnMiss();
 
-        Invailded = true;
-        StartCoroutine(DelayDestroy(0.33f / BAnimation.speed));
+        Invalided = true;
+        StartCoroutine(DelayDestroy(0.33f / _bAnimation.speed));
     }
-
-    //如果按键是Wave按键的子按键，则下面的方法应该被调用。
-    //目的是为按键添加特有的特效，或用另外的素材替换Texture
+    //?????????Wave?????????????????????????????????
+    //????????????????????????????????????????ITexture
     public virtual void SetWaveEffect()
     {
-        IsInWave = true;
+        isInWave = true;
     }
-    public bool IsInWave;
 }

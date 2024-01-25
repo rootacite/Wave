@@ -15,16 +15,16 @@ public class SuspendDebug : MonoBehaviour
         Old_Time_Scale = Time.timeScale;
         Button.onClick.AddListener(() =>
         {
-            if (RootConfig.Music.isPlaying)
+            if (RootConfig.Metronome.Music.isPlaying)
             {
-                RootConfig.Music.Pause();
+                RootConfig.Metronome.Music.Pause();
                 RootConfig.BeatEditor.readOnly = false;
                 Old_Time_Scale = Time.timeScale;
                 Time.timeScale = 0;
             }
             else
             {
-                RootConfig.Music.UnPause();
+                RootConfig.Metronome.Music.UnPause();
                 RootConfig.BeatEditor.readOnly = true;
                 if (Time.timeScale != Old_Time_Scale) Time.timeScale = Old_Time_Scale;
             }

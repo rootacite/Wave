@@ -18,7 +18,7 @@ public class HoldController : Keys
     bool DifficultMode = false;
     public event Action OnHold;
 
-    static public HoldController Creat(GameScripting rootConfig,Vector3 Position, GameObject Origin, GameObject TransfronParent, float Length, float SecondPerBeat, float BeatOffset = 1f)
+    static public HoldController Creat(Vector3 Position, GameObject Origin, GameObject TransfronParent, float Length, float SecondPerBeat, float BeatOffset = 1f)
     {
         var r = Instantiate(Origin, TransfronParent.transform);
         r.transform.localPosition = Position;
@@ -29,7 +29,6 @@ public class HoldController : Keys
         Controller.Offset = BeatOffset;
         Controller.ExplandTime = SecondPerBeat * Length * 60f;
         Controller.Z = Position.z;
-        Controller.rootConfig = rootConfig;
 
         return Controller;
     }
@@ -54,27 +53,27 @@ public class HoldController : Keys
     public void EndEvent()
     {
         if (DifficultMode) return;
-        if (Invailded) return;
+        if (Invalided) return;
 
-        TAnimation.speed = 1 / (BeatPerSecond * rootConfig.HeadPending); //����Ѿ������ж�������Ӧ�ð��ٶ�����Ϊ�����ٶ�
+        TAnimation.speed = 1 / (BeatPerSecond * HeadPending); //����Ѿ������ж�������Ӧ�ð��ٶ�����Ϊ�����ٶ�
         OnPrefect();
         TAnimation.SetTrigger("Perfect");
-        Invailded = true;
+        Invalided = true;
         StartCoroutine(DelayDestroy(1f / TAnimation.speed));
     }
     public void Exp_EndEvent()
     {
-        TAnimation.speed = 1 / (BeatPerSecond * rootConfig.HeadPending);
+        TAnimation.speed = 1 / (BeatPerSecond * HeadPending);
 
         if (AutoMode)
         {
-            if (Invailded || IsHold) return;
+            if (Invalided || IsHold) return;
             IsHold = true;
         }
     }
     override public void MissEvent()
     {
-        if (Invailded) return;
+        if (Invalided) return;
 
         TAnimation.SetTrigger("Miss");
       //  if (!IsHold)
@@ -83,7 +82,7 @@ public class HoldController : Keys
      //       StartCoroutine(DelayDestroy(0.33f / TAnimation.speed));
         OnMiss();
 
-        Invailded = true;
+        Invalided = true;
         StartCoroutine(DelayDestroy(1f / TAnimation.speed));
     }
     // Start is called before the first frame update
@@ -133,27 +132,27 @@ public class HoldController : Keys
                     }
                     if (!HoldingFlag)
                     {
-                        if (Invailded) return false;
+                        if (Invalided) return false;
                         if (Status == 0)
                         {
                             OnPrefect();
                             TAnimation.SetTrigger("Perfect");
 
-                            Invailded = true;
+                            Invalided = true;
                             StartCoroutine(DelayDestroy(1f / TAnimation.speed));
                         }
                         else if (Status == 1)
                         {
                             OnGreat();
                             TAnimation.SetTrigger("Great");
-                            Invailded = true;
+                            Invalided = true;
                             StartCoroutine(DelayDestroy(1f / TAnimation.speed));
                         }
                         else
                         {
                             OnBad();
                             TAnimation.SetTrigger("Bad");
-                            Invailded = true;
+                            Invalided = true;
                             StartCoroutine(DelayDestroy(1f / TAnimation.speed));
                         }
                     }
@@ -163,34 +162,34 @@ public class HoldController : Keys
         }
         if (t == TouchPhase.Began)
         {
-            if (Invailded || IsHold) return false;
+            if (Invalided || IsHold) return false;
             IsHold = true;
             return true;
         }
         if(t== TouchPhase.Ended)
         {
-            if (Invailded || !IsHold) return false;
+            if (Invalided || !IsHold) return false;
 
             if (Status == 0)
             {
                 OnPrefect();
                 TAnimation.SetTrigger("Perfect");
                
-                Invailded = true;
+                Invalided = true;
                 StartCoroutine(DelayDestroy(1f / TAnimation.speed));
             }
             else if (Status == 1)
             {
                 OnGreat();
                 TAnimation.SetTrigger("Great");
-                Invailded = true;
+                Invalided = true;
                 StartCoroutine(DelayDestroy(1f / TAnimation.speed));
             }
             else
             {
                 OnBad();
                 TAnimation.SetTrigger("Bad");
-                Invailded = true;
+                Invalided = true;
                 StartCoroutine(DelayDestroy(1f / TAnimation.speed));
             }
             //TAnimation.speed = 1 / BeatPerSecond;
@@ -207,7 +206,7 @@ public class HoldController : Keys
         {
             OnPrefect();
             TAnimation.SetTrigger("Perfect");
-            Invailded = true;
+            Invalided = true;
             StartCoroutine(DelayDestroy(1f / TAnimation.speed));
         }
     }

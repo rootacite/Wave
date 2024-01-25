@@ -13,7 +13,7 @@ public class RedirectToDebug : MonoBehaviour
     {
         Button.onClick.AddListener(() =>
         {
-            if (RootConfig.Music.isPlaying)
+            if (RootConfig.Metronome.Music.isPlaying)
             {
                 return;
             }
@@ -21,13 +21,13 @@ public class RedirectToDebug : MonoBehaviour
             var BeatP = Convert.ToDouble(RootConfig.BeatEditor.text);
             if (BeatP < 1)
             {
-                StartInit.ShowText("无效的数字。");
+                StartInit.ShowText("??Ч???????");
                 return;
             }
 
-            double TargetTime = RootConfig.SecondPerBeat * (BeatP - 2);
-            RootConfig.Music.time = (float)TargetTime;
-            RootConfig.ReloadSongData();
+            double TargetTime = Metronome.BeatSpeed * (BeatP - 2);
+            RootConfig.Metronome.Music.time = (float)TargetTime;
+            RootConfig.FlushSongData();
         });
     }
 

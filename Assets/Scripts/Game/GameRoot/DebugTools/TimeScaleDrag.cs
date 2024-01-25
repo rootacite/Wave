@@ -12,7 +12,7 @@ public class TimeScaleDrag : MonoBehaviour
     {
         dragable.ValueChanged += (v) =>
         {
-            rootConfig.Music.pitch = v;
+            rootConfig.Metronome.Music.pitch = v;
             Time.timeScale = v;
         };
     }

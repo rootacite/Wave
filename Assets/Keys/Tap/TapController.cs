@@ -18,7 +18,7 @@ sealed public class TapController : Keys
 
     public GameObject Effect;
 
-    static public TapController Creat(GameScripting rootConfig,Vector3 Position, GameObject Origin, GameObject TransfronParent, float SecondPerBeat, float BeatOffset = 1f)
+    static public TapController Creat(Vector3 Position, GameObject Origin, GameObject TransfronParent, float SecondPerBeat, float BeatOffset = 1f)
     {
         var r = Instantiate(Origin, TransfronParent.transform);
         r.transform.localPosition = Position;
@@ -27,8 +27,6 @@ sealed public class TapController : Keys
         Controller.BeatPerSecond = SecondPerBeat;
         Controller.Offset = BeatOffset;
         Controller.Z = Position.z;
-        Controller.rootConfig = rootConfig;
-
         return Controller;
     }
     
@@ -39,27 +37,27 @@ sealed public class TapController : Keys
             var RayHit = Physics2D.Raycast(p, Vector2.zero);
             if (RayHit.collider == gameObject.GetComponent<Collider2D>())
             {
-                if (Invailded) return false;
+                if (Invalided) return false;
 
                 if (Status == 0)
                 {
                     OnPrefect();
                     TAnimation.SetTrigger("Prefect");
-                    Invailded = true;
+                    Invalided = true;
                     StartCoroutine(DelayDestroy(1f / TAnimation.speed));
                 }
                 else if (Status == 1)
                 {
                     OnGreat();
                     TAnimation.SetTrigger("Great");
-                    Invailded = true;
+                    Invalided = true;
                     StartCoroutine(DelayDestroy(1f / TAnimation.speed));
                 }
                 else
                 {
                     OnBad();
                     TAnimation.SetTrigger("Bad");
-                    Invailded = true;
+                    Invalided = true;
                     StartCoroutine(DelayDestroy(1f / TAnimation.speed));
                 }
                 return true;
@@ -82,7 +80,7 @@ sealed public class TapController : Keys
         base.Start();
         TAnimation = GetComponent<Animator>();
 
-        OnInvailded += (s) =>
+        OnInvalided += (s) =>
         {
             TAnimation.SetBool("Invailed", true);
         };
@@ -96,13 +94,13 @@ sealed public class TapController : Keys
 
     public void EndEvent()
     {
-        if (Invailded) return;
-        TAnimation.speed = 1 / (BeatPerSecond * rootConfig.HeadPending); //Èç¹ûÒÑ¾­½øÈëÅÐ¶¨ÇøÓò£¬ÔòÓ¦¸Ã°ÑËÙ¶ÈÖØÖÃÎª½ÚÅÄËÙ¶È
+        if (Invalided) return;
+        TAnimation.speed = 1 / (BeatPerSecond * HeadPending); //ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ã°ï¿½ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
         if (AutoMode)
         {
             OnPrefect();
             TAnimation.SetTrigger("Prefect");
-            Invailded = true;
+            Invalided = true;
             StartCoroutine(DelayDestroy(1f / TAnimation.speed));
         }
     }

@@ -2,15 +2,15 @@ using UnityEngine;
 
 public class BlurEffect : MonoBehaviour
 {
-    public bool isOpen { get; set; } = true; // 是否开启模糊效果
-    private RenderTexture finalRT; // 处理完模糊效果后的rt
-    private RenderTexture tempRT; // 正在处理模糊效果的rt
-    public int blurCount = 4; // 模糊叠加次数
-    public Material blurMat; // 模糊的材质(shader)
-    const int BLUR_HOR_PASS = 0; // shader中的横向模糊Pass索引0
-    const int BLUR_VER_PASS = 1; // shader中的纵向模糊Pass索引1
+    public bool isOpen { get; set; } = true; // ????????Ч??
+    private RenderTexture finalRT; // ?????????Ч?????rt
+    private RenderTexture tempRT; // ??????????Ч????rt
+    public int blurCount = 4; // ??????????
+    public Material blurMat; // ????????(shader)
+    const int BLUR_HOR_PASS = 0; // shader?е???????Pass????0
+    const int BLUR_VER_PASS = 1; // shader?е????????Pass????1
     [Range(0, 1.0f)]
-    public float blurSize; // 模糊程度
+    public float blurSize; // ??????
 
     private void BlurTexture(Texture source, RenderTexture destination)
     {

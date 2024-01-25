@@ -12,18 +12,18 @@ public class StartInit : MonoBehaviour
 {
     static string[] TipTexts = new string[] 
     {
-        "Wave¼üÔÚ±»µã»÷Ç°»áÔ¤ÏÈÌáÊ¾Éú³É¼üÎ»µÄÎ»ÖÃ£¬²»Í¬ÀàÐÍµÄ¼üÂÔÓÐ²»Í¬¡£",
-        "±ØÐë±£Ö¤´¥µãÓë½«ÒªÅÐ¶¨µÄDrag¼üÖØºÏ£¬²ÅÄÜÃüÖÐ¡£",
-        "Èç¹ûÖÐÍ¾ËÉ¿ªHold¼ü£¬½«»á°´ÕÕMissÅÐ¶¨¡£",
-        "Èç¹ûÖÐÍ¾·Å¿ªHWave¼ü£¬ÆäÓàµÄ°´¼ü»áÈ«²¿Miss¡£",
-        "¼´Ê¹ÃüÖÐÒô·û£¬Èç¹ûÅÐ¶¨½á¹ûÎªBad£¬ÈÔ»áÖÐ¶ÏCombo¡£",
-        "Slide¼üÐèÒªÔÚ´¥ÃþµÄÍ¬Ê±ÏòÈÎÒâ·½ÏòÒÆ¶¯Ð¡¶Î¾àÀë²ÅÄÜÃüÖÐ¡£",
-        "ÐÇÐÎµÄSlide¼ü£¬Èç¹û½«ËÄ±ßÏòÍâ·­×ª£¬ÈÔÊÇÔ²ÐÎ£¡",
-        "Wave¼üµÄÅÐ¶¨ÆÀ¼Û»áÓ°ÏìºóÐø°´¼üÂð£¿´ð°¸ÊÇ:ÊÇµÄ¡£",
-        "ÃüÖÐÅÐ¶¨²»°´ÕÕÊ±¼ä¶øÊÇ°´ÕÕ½ÚÅÄ¼ÆËã¡£ËùÒÔÒôÀÖµÄBPMÔ½¸ß£¬ÅÐ¶¨Ò²¾ÍÔ½ÑÏ¸ñ£¡",
-        "ÈÎºÎµÄÒô·ûÅÜµ½ÁËÐÇÅÌÖÐ£¬¶¼»á±äµÃÓÐµã²»Ò»Ñù¡£µ«´ò»÷·½Ê½´óÌåÊÇÏàÍ¬µÄ¡£",
-        "Drag¼üÔÚÐÇÅÌÍâÖ»»áÒÔÖ±ÏßÐÎµÄÒ»´®³öÏÖ£¬µ«ÔÚÆäÖÐÈ´»áÐÎ³É·´¸´ÇúÕÛµÄÐÇ´ø¡£",
-        "ÐÇÅÌÄÚµÄ°´¼üÊÇ°´ÕÕ¼«×ø±ê·Ö²¼µÄ¡£"
+        "Waveï¿½ï¿½ï¿½Ú±ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Ô¤ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½É¼ï¿½Î»ï¿½ï¿½Î»ï¿½Ã£ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ÍµÄ¼ï¿½ï¿½ï¿½ï¿½Ð²ï¿½Í¬ï¿½ï¿½",
+        "ï¿½ï¿½ï¿½ë±£Ö¤ï¿½ï¿½ï¿½ï¿½ï¿½ë½«Òªï¿½Ð¶ï¿½ï¿½ï¿½Dragï¿½ï¿½ï¿½ØºÏ£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½",
+        "ï¿½ï¿½ï¿½ï¿½ï¿½Í¾ï¿½É¿ï¿½Holdï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½á°´ï¿½ï¿½Missï¿½Ð¶ï¿½ï¿½ï¿½",
+        "ï¿½ï¿½ï¿½ï¿½ï¿½Í¾ï¿½Å¿ï¿½HWaveï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä°ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½Missï¿½ï¿½",
+        "ï¿½ï¿½Ê¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ÎªBadï¿½ï¿½ï¿½Ô»ï¿½ï¿½Ð¶ï¿½Comboï¿½ï¿½",
+        "Slideï¿½ï¿½ï¿½ï¿½Òªï¿½Ú´ï¿½ï¿½ï¿½ï¿½ï¿½Í¬Ê±ï¿½ï¿½ï¿½ï¿½ï¿½â·½ï¿½ï¿½ï¿½Æ¶ï¿½Ð¡ï¿½Î¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¡ï¿½",
+        "ï¿½ï¿½ï¿½Îµï¿½Slideï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½ï¿½â·­×ªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô²ï¿½Î£ï¿½",
+        "Waveï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Û»ï¿½Ó°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ð£¿´ï¿½ï¿½ï¿½:ï¿½ÇµÄ¡ï¿½",
+        "ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Õ½ï¿½ï¿½Ä¼ï¿½ï¿½ã¡£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Öµï¿½BPMÔ½ï¿½ß£ï¿½ï¿½Ð¶ï¿½Ò²ï¿½ï¿½Ô½ï¿½Ï¸ï¿½",
+        "ï¿½ÎºÎµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Üµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµã²»Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¬ï¿½Ä¡ï¿½",
+        "Dragï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö»ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ï¿½ï¿½Îµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ö£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È´ï¿½ï¿½ï¿½Î³É·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ûµï¿½ï¿½Ç´ï¿½ï¿½ï¿½",
+        "ï¿½ï¿½ï¿½ï¿½ï¿½ÚµÄ°ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½Õ¼ï¿½ï¿½ï¿½ï¿½ï¿½Ö²ï¿½ï¿½Ä¡ï¿½"
     };
 
     public AudioClip Song;
@@ -127,36 +127,36 @@ public class StartInit : MonoBehaviour
             var Task = SceneManager.LoadSceneAsync(2);
             Task.completed += (e) =>
             {
-                GameScripting.instance.Initialize(Song, SongConfig, SongData, BackGround, null);
-                GameScripting.instance.OnBeat += (t) =>
+                GameScripting.Instance.Initialize(Song, SongConfig, SongData, BackGround, null);
+                GameScripting.Instance.Metronome.OnBeat += (t) =>
                 {
                     if (t == 2)
                     {
-                        StartInit.ShowText("Tap¼ü\n¸úËæ½Ú×à£¬µ±ÏÂÂäµÄÓêµÎ´òÔÚÉÏÃæÊ±µã»÷¡£", 6);
+                        StartInit.ShowText("Tapï¿½ï¿½\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à£¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½", 6);
                         return;
                     }
 
                     if (t == 18)
                     {
-                        StartInit.ShowText("Hold¼ü\nµ±ÏÂÂäµÄÓêµÎ´òÔÚÉÏÃæÊ±ÆäÖÐÐÄ»òÄÚÈ¦ÍêÈ«ÊæÕ¹Ê±´¥Ãþ²¢±£³Ö¡£´ýÍâÈ¦ÍêÈ«Õ¹¿ªÖÁÐéÏß±ßÔµÊ±·½¿ÉËÉ¿ª¡£", 6);
+                        StartInit.ShowText("Holdï¿½ï¿½\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½È¦ï¿½ï¿½È«ï¿½ï¿½Õ¹Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö¡ï¿½ï¿½ï¿½ï¿½ï¿½È¦ï¿½ï¿½È«Õ¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß±ï¿½ÔµÊ±ï¿½ï¿½ï¿½ï¿½ï¿½É¿ï¿½ï¿½ï¿½", 6);
                         return;
                     }
 
                     if (t == 35)
                     {
-                        StartInit.ShowText("Slide¼ü\nµ±ÏÂÂäµÄÓêµÎ´òÔÚÉÏÃæÊ±£¬µã»÷²¢ÏòÈÎÒâ·½Ïò»¬¶¯¡£", 6);
+                        StartInit.ShowText("Slideï¿½ï¿½\nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½â·½ï¿½ò»¬¶ï¿½ï¿½ï¿½", 6);
                         return;
                     }
 
                     if (t == 47f)
                     {
-                        StartInit.ShowText("Wave£¬µ±ÏÂÂäµÄÓêµÎ´òÔÚÉÏÃæÊ±µã»÷£¬ÓëTap¼ü²»Í¬µÄÊÇ\nWave¼ü±»µã»÷Ê±£¬»áÉú³ÉÒ»¸ö»·ÐÎµÄÅÐ¶¨ÇøÓò\"ÐÇÅÌ\"\nÐÇÅÌÖÐµÄ¼üÐèÒªÔÚ²¨ÎÆÓëÆäÖØºÏÊ±µã»÷¡£", 12);
+                        StartInit.ShowText("Waveï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Tapï¿½ï¿½ï¿½ï¿½Í¬ï¿½ï¿½ï¿½ï¿½\nWaveï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Îµï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½\"ï¿½ï¿½ï¿½ï¿½\"\nï¿½ï¿½ï¿½ï¿½ï¿½ÐµÄ¼ï¿½ï¿½ï¿½Òªï¿½Ú²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øºï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½", 12);
                         return;
                     }
 
                     if (t == 64f)
                     {
-                        StartInit.ShowText("Drag¼ü\n×ÏÉ«°´¼ü¡£\nµ±ÅÐ¶¨Ïß»®¹ýÆäÖÐÐÄ»òÍâÈ¦ÍêÈ«ÊÕËõÊ±´¥Ãþ»ò»®¹ý¡£\n", 6);
+                        StartInit.ShowText("Dragï¿½ï¿½\nï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½\nï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ß»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½È¦ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ò»®¹ï¿½ï¿½ï¿½\n", 6);
                         return;
                     }
                 };

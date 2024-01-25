@@ -28,7 +28,7 @@ public class BeatCalc : MonoBehaviour
         {
             if (Flag) return;
 
-            Text.text = (Scripter.CurrentBeat - 0.125).ToString();
+            Text.text = (Scripter.Metronome.CurrentBeat - 0.125).ToString();
 
             Flag = true;
         }

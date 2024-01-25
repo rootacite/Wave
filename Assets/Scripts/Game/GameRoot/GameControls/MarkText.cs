@@ -1,21 +1,21 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
-public class ExamingGame : MonoBehaviour
+public class MarkText : MonoBehaviour
 {
-    GameScripting gameScripting;
-    bool Flag = true;
+    private TextMeshProUGUI _markText;
+    
     // Start is called before the first frame update
     void Start()
     {
-        gameScripting = GetComponent<GameScripting>();
+        _markText = GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+        _markText.text = GameScripting.BuildNum(GameScripting.Instance.CurrentMark);
     }
 }

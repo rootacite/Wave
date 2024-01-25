@@ -21,7 +21,7 @@ public class DragController : Keys
 
     public GameObject Effect;
     // Start is called before the first frame update
-    static public DragController Creat(GameScripting rootConfig,Vector3 Position, GameObject Origin, GameObject TransfronParent, float SecondPerBeat, float BeatOffset = 1f)
+    static public DragController Creat(Vector3 Position, GameObject Origin, GameObject TransfronParent, float SecondPerBeat, float BeatOffset = 1f)
     {
         var r = Instantiate(Origin, TransfronParent.transform);
         r.transform.localPosition = Position;
@@ -30,8 +30,8 @@ public class DragController : Keys
         Controller.BeatPerSecond = SecondPerBeat;
         Controller.Offset = BeatOffset;
         Controller.Z = Position.z;
-        Controller.rootConfig = rootConfig;
-
+        //Controller.rootConfig = rootConfig;
+        
         return Controller;
     }
     private Animator TAnimation;
@@ -63,10 +63,10 @@ public class DragController : Keys
                 touched = true;
                 if(ended)
                 {
-                    if (Invailded) return false;
+                    if (Invalided) return false;
                     OnPrefect();
                     TAnimation.SetTrigger("Perfect");
-                    Invailded = true;
+                    Invalided = true;
                     StartCoroutine(DelayDestroy(1f / TAnimation.speed));
                 }
                 return false;
@@ -79,13 +79,13 @@ public class DragController : Keys
     public void EndEvent()
     {
         ended = true;
-        if (Invailded) return;
-        TAnimation.speed = 1 / (BeatPerSecond * rootConfig.HeadPending); //Èç¹ûÒÑ¾­½øÈëÅÐ¶¨ÇøÓò£¬ÔòÓ¦¸Ã°ÑËÙ¶ÈÖØÖÃÎª½ÚÅÄËÙ¶È³ËÒÔÊ×²¿ÑÓ³Ù
-        if (AutoMode || force_p)
+        if (Invalided) return;
+        TAnimation.speed = 1 / (BeatPerSecond * HeadPending); //ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ã°ï¿½ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ù¶È³ï¿½ï¿½ï¿½ï¿½×²ï¿½ï¿½Ó³ï¿½
+        if (AutoMode || ForciblyPerfect)
         {
             OnPrefect();
             TAnimation.SetTrigger("Perfect");
-            Invailded = true;
+            Invalided = true;
             StartCoroutine(DelayDestroy(1f / TAnimation.speed));
             return;
         }
@@ -94,7 +94,7 @@ public class DragController : Keys
         {
             OnPrefect();
             TAnimation.SetTrigger("Perfect");
-            Invailded = true;
+            Invalided = true;
             StartCoroutine(DelayDestroy(1f / TAnimation.speed));
         }
     }

@@ -17,10 +17,10 @@ public class QuerBreakDebug : MonoBehaviour
     {
         if (t == BreakAt)
         {
-            rootConfig.Music.Pause();
+            rootConfig.Metronome.Music.Pause();
             Time.timeScale = 0;
 
-            rootConfig.OnBeat -= BeatProc;
+            rootConfig.Metronome.OnBeat -= BeatProc;
         }
     }
     void Start()
@@ -31,22 +31,22 @@ public class QuerBreakDebug : MonoBehaviour
 
             if (BreakTime <= 0 || BreakTime % 0.25d != 0)
             {
-                StartInit.ShowText("ÎÞÐ§µÄ½ÚÅÄÊý", 2f);
+                StartInit.ShowText("ï¿½ï¿½Ð§ï¿½Ä½ï¿½ï¿½ï¿½ï¿½ï¿½", 2f);
                 return;
             }
 
-            BreakAt = rootConfig.CurrentBeat + BreakTime;
+            BreakAt = rootConfig.Metronome.CurrentBeat + BreakTime;
 
             if (Time.timeScale != 0)
             {
-                StartInit.ShowText("Ö»ÔÚ¹ÒÆð×´Ì¬ÏÂÓÐÐ§¡£", 2f);
+                StartInit.ShowText("Ö»ï¿½Ú¹ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½ï¿½ï¿½Ð§ï¿½ï¿½", 2f);
                 return;
             }
 
-            rootConfig.Music.UnPause();
+            rootConfig.Metronome.Music.UnPause();
             Time.timeScale = 1;
 
-            rootConfig.OnBeat += BeatProc;
+            rootConfig.Metronome.OnBeat += BeatProc;
         });
     }
 

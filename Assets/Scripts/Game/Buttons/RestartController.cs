@@ -12,12 +12,12 @@ public class RestartController : MonoBehaviour
 {
     public GameObject Audio;
 
-    static public Texture BackGround;
-    static public AudioClip Song;
-    static public VideoClip Video;
+    public static Texture BackGround;
+    public static AudioClip Song;
+    public static VideoClip Video;
 
-    static public TextAsset SongData;
-    static public TextAsset SongConfig;
+    public static TextAsset SongData;
+    public static TextAsset SongConfig;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +30,7 @@ public class RestartController : MonoBehaviour
             var Task = SceneManager.LoadSceneAsync(2);
             Task.completed += (e) =>
             {
-                GameScripting.instance.Initialize(Song, SongConfig, SongData, BackGround, Video);
+                GameScripting.Instance.Initialize(Song, SongConfig, SongData, BackGround, Video);
 
                 StartInit.Hide();
 

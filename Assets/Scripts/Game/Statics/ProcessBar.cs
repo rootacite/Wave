@@ -13,7 +13,7 @@ public class ProcessBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!RootConfig.isDebugMode) Destroy(GetComponent<Collider2D>());
+        if (!RootConfig.IsDebugMode) Destroy(GetComponent<Collider2D>());
     }
 
     // Update is called once per frame
@@ -52,7 +52,7 @@ public class ProcessBar : MonoBehaviour
         Music.time = Music.clip.length * ract;
 
 
-        RootConfig.ReloadSongData();
+        RootConfig.FlushSongData();
     }
 
     private void OnMouseDown()

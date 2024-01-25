@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class SettlementController : MonoBehaviour
@@ -14,7 +15,7 @@ public class SettlementController : MonoBehaviour
     public double Rate;
     public string Name;
     public int Mark;
-    public int Level;
+    [FormerlySerializedAs("Level")] public int Difficulty;
 
     public bool AC;
     public bool AP;
@@ -53,7 +54,7 @@ public class SettlementController : MonoBehaviour
     void Start()
     {
         NameRange.GetComponent<TextMeshProUGUI>().text = Name;
-        LevelRange.GetComponent<TextMeshProUGUI>().text = "Lv." + Level.ToString();
+        LevelRange.GetComponent<TextMeshProUGUI>().text = "Lv." + Difficulty.ToString();
         MarkRange.GetComponent<TextMeshProUGUI>().text = Mark.ToString();
         RateRange.GetComponent<TextMeshProUGUI>().text = Rate.ToString("0.00") + "%";
 

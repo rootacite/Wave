@@ -16,7 +16,7 @@ public class SlideController : Keys
     {
         var RayHit = Physics2D.Raycast(p, Vector2.zero);
         if (RayHit.collider != gameObject.GetComponent<Collider2D>()) return false;
-        if (Invailded) return false;
+        if (Invalided) return false;
 
         if (t == TouchPhase.Began)
         {
@@ -32,21 +32,21 @@ public class SlideController : Keys
             {
                 OnPrefect();
                 TAnimation.SetTrigger("Perfect");
-                Invailded = true;
+                Invalided = true;
                 StartCoroutine(DelayDestroy(1f / TAnimation.speed));
             }
             else if (Status == 1)
             {
                 OnGreat();
                 TAnimation.SetTrigger("Great");
-                Invailded = true;
+                Invalided = true;
                 StartCoroutine(DelayDestroy(1f / TAnimation.speed));
             }
             else
             {
                 OnBad();
                 TAnimation.SetTrigger("Bad");
-                Invailded = true;
+                Invalided = true;
                 StartCoroutine(DelayDestroy(1f / TAnimation.speed));
             }
             return true;
@@ -58,7 +58,7 @@ public class SlideController : Keys
         }
         return false;
     }
-    static public SlideController Creat(GameScripting rootConfig,Vector3 Position, GameObject Origin, GameObject TransfronParent, float SecondPerBeat, float BeatOffset = 1f)
+    static public SlideController Creat(Vector3 Position, GameObject Origin, GameObject TransfronParent, float SecondPerBeat, float BeatOffset = 1f)
     {
         var r = Instantiate(Origin, TransfronParent.transform);
         r.transform.localPosition = Position;
@@ -67,7 +67,6 @@ public class SlideController : Keys
         Controller.BeatPerSecond = SecondPerBeat;
         Controller.Offset = BeatOffset;
         Controller.Z = Position.z;
-        Controller.rootConfig = rootConfig;
 
         return Controller;
     }
@@ -87,14 +86,14 @@ public class SlideController : Keys
 
     public void EndEvent()
     {
-        if (Invailded) return;
-        TAnimation.speed = 1 / (BeatPerSecond * rootConfig.HeadPending); //Èç¹ûÒÑ¾­½øÈëÅÐ¶¨ÇøÓò£¬ÔòÓ¦¸Ã°ÑËÙ¶ÈÖØÖÃÎª½ÚÅÄËÙ¶È
+        if (Invalided) return;
+        TAnimation.speed = 1 / (BeatPerSecond * HeadPending); //ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ã°ï¿½ï¿½Ù¶ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ï¿½Ù¶ï¿½
 
         if (AutoMode)
         {
             OnPrefect();
             TAnimation.SetTrigger("Perfect");
-            Invailded = true;
+            Invalided = true;
             StartCoroutine(DelayDestroy(1f / TAnimation.speed));
         }
     }

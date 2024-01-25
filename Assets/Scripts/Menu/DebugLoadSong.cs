@@ -30,8 +30,8 @@ public class DebugLoadSong : MonoBehaviour
         var Task = SceneManager.LoadSceneAsync(2);
         Task.completed += (e) =>
         {
-            GameScripting.instance.Initialize(MusicClip, SongConfig, SongData, Image, null);
-            GameScripting.instance.Reloading += () =>
+            GameScripting.Instance.Initialize(MusicClip, SongConfig, SongData, Image, null);
+            GameScripting.Instance.Reloading += () =>
             {
                 return new TextAsset(File.ReadAllText(@"Data\" + Name + @"_data.xml"));
             };
@@ -58,7 +58,7 @@ public class DebugLoadSong : MonoBehaviour
 
     IEnumerator LoadExternalAudioWebRequest(string Name, AudioType _audioType = AudioType.WAV)
     {
-        string readPath = Environment.CurrentDirectory + "\\" + "Data" + "\\" + Name + ".wav";//¶ÁÈ¡ÎÄ¼þµÄÂ·¾¶
+        string readPath = Environment.CurrentDirectory + "\\" + "Data" + "\\" + Name + ".wav";//ï¿½ï¿½È¡ï¿½Ä¼ï¿½ï¿½ï¿½Â·ï¿½ï¿½
 
         yield return null;
         UnityWebRequest _unityWebRequest = UnityWebRequestMultimedia.GetAudioClip(readPath, _audioType);
