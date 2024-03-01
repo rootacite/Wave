@@ -111,10 +111,12 @@ public class DragController : Keys
 
     public void SetNodeMode(float NodeToward, float AvaBeat)
     {
-        transform.localScale /= 4;
-        Collider.radius *= 4;
+        transform.localScale /= 6;
+        Collider.radius *= 6;
 
         Border.sprite = Border_nd;
+        Border.gameObject.GetComponent<Renderer>().enabled = false;
+        
         Center.sprite = Center_nd;
 
         isNode = true;

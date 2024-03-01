@@ -13,4 +13,5 @@ public static class LevelBasicInformation
     public static int Difficulty = 1;
     public static int Accuracy = 1;
     public static bool UseWorldCoordinate = false;
+    public static bool UseAdvanceBeat = false;
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
@@ -21,6 +22,8 @@ sealed public class WaveController : Keys
 
     public GameObject ScaleObj;
     public GameObject Border;
+    public SpriteRenderer OldRange;
+    public CircularLine NewRange;
     public Sprite Border_sp;
     private float Scale;
 
@@ -103,6 +106,7 @@ sealed public class WaveController : Keys
     protected override void Start()
     {
         base.Start();
+        NewRange.radius = RealRod;
         TAnimation = GetComponent<Animator>();
         OnInvalided += (s) =>
         {
@@ -158,7 +162,7 @@ sealed public class WaveController : Keys
                                 Points.Add(pv);
                             }
 
-                            DL = DragLine.Create(DragLineOrigin, GameScripting.Instance.KeyLayer, Points.ToArray());
+                            DL = DragLine.Create(DragLineOrigin, _creator.gameObject, Points.ToArray());
 
                             for (double p = 0; p <= i.DragData.Count; p++)
                             {
@@ -230,7 +234,7 @@ sealed public class WaveController : Keys
                                 }
 
                             }, new Polar2(0, 0), KFrameList.ToArray(), 35);
-                            DL = DragLine.Create(DragLineOrigin, GameScripting.Instance.KeyLayer, Points.ToArray());
+                            DL = DragLine.Create(DragLineOrigin, _creator.gameObject, Points.ToArray());
 
 
                         }
@@ -242,6 +246,8 @@ sealed public class WaveController : Keys
                 {
                     BK.SetWaveEffect();
                     BK.isInWave = true;
+
+                    BK.gameObject.transform.localScale = new Vector3((float)i.Scale, (float)i.Scale, 1);
                 }
             }
 
@@ -250,11 +256,14 @@ sealed public class WaveController : Keys
             TAnimation.SetTrigger("JudgeStart");
         };
 
+        //OldRange.enabled = false;
+        NewRange.Flush();
     }
 
     protected override void Update()
     {
         base.Update();
+        //NewRange.transparency = OldRange.color.a;
         if (Invalided)
         {
            TAnimation.speed = 1 / (Length * BeatPerSecond);

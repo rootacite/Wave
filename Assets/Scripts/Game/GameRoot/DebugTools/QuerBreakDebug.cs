@@ -20,7 +20,7 @@ public class QuerBreakDebug : MonoBehaviour
             rootConfig.Metronome.Music.Pause();
             Time.timeScale = 0;
 
-            rootConfig.Metronome.OnBeat -= BeatProc;
+            //rootConfig.Metronome.OnBeat -= BeatProc;
         }
     }
     void Start()
@@ -46,7 +46,7 @@ public class QuerBreakDebug : MonoBehaviour
             rootConfig.Metronome.Music.UnPause();
             Time.timeScale = 1;
 
-            rootConfig.Metronome.OnBeat += BeatProc;
+            //rootConfig.Metronome.OnBeat += BeatProc;
         });
     }
 

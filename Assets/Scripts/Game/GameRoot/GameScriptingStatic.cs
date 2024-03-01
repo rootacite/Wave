@@ -30,6 +30,12 @@ public partial class GameScripting : MonoBehaviour
         for (int i = 1; i < keys.Count; i++)
         {
             var child = keys[i];
+            if (child.Type == KeyType.Route)
+            {
+                CurrentTarget = new CKeyGroup();
+                Routes.Add(CurrentTarget);
+                continue;
+            }
 
             if (child.WaveOffset >= keys[i - 1].WaveOffset)
             {

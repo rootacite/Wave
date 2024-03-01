@@ -71,6 +71,12 @@ public partial class GameScripting : MonoBehaviour
         {
             LevelBasicInformation.UseWorldCoordinate = XmlSongConfig.Root.Attribute("WorldCoord").Value == "true";
         }
+        
+        LevelBasicInformation.UseAdvanceBeat = false;
+        if (XmlSongConfig.Root.Attribute("UseAdvanceBeat") != null)
+        {
+            LevelBasicInformation.UseAdvanceBeat = XmlSongConfig.Root.Attribute("UseAdvanceBeat").Value == "true";
+        }
 
         RestartController.BackGround = Image;
         RestartController.Song = Music;
@@ -119,10 +125,11 @@ public partial class GameScripting : MonoBehaviour
         }
         else
         {
+            BeatEditor.textComponent.alignment = TextAlignmentOptions.Center;
             Metronome.OnBeat += (t) =>
             {
                 if (Metronome.Music.isPlaying)
-                    BeatEditor.text = (t + LevelBasicInformation.HeadPending).ToString();
+                    BeatEditor.text = AdvanceBeat.Parse(t).ToString();
             };
         }
         if (UseDebugResource)

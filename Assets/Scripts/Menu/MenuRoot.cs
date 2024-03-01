@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,16 @@ using UnityEngine.UI;
 using Dictionary = System.IO.Directory;
 public class MenuRoot : MonoBehaviour
 {
+    public TextMeshProUGUI additionalText;
+    private static MenuRoot _instance;
+
+    public static void SetAdditionText(string Txt)
+    {
+        if (_instance.additionalText != null)
+        {
+            _instance.additionalText.text = Txt;
+        }
+    }
     public bool isDebugMode
     {
         get
@@ -96,9 +107,10 @@ public class MenuRoot : MonoBehaviour
     }
     void Start()
     {
+        _instance = this;
         SetMark(
-            PlayerPrefs.GetString("三色绘恋S" + "_Mark", "0000000"),
-            PlayerPrefs.GetString("三色绘恋S" + "_TP", "00.00%"), "Lv.3");
+            PlayerPrefs.GetString("?????戝?S" + "_Mark", "0000000"),
+            PlayerPrefs.GetString("?????戝?S" + "_TP", "00.00%"), "Lv.3");
 
         StartCoroutine(LoadMusics());
     }

@@ -15,15 +15,15 @@ public class PolarSystem : MonoBehaviour
         {
             var p1 = TowardKeys[i - 1];
             var p2 = TowardKeys[i];
-
+            double step_rou = (p2 - p1).rou / StepCount;
+            double step_toward = (p2 - p1).sita / StepCount;
 
             for (int j = 1; j <= StepCount; j++)
             {
-                double step_rou = (p2 - p1).rou / StepCount;
-                double StepToward = (p2 - p1).sita / StepCount;
-                double Toward = p1.sita + StepToward * j;
+                double Toward = p1.sita + step_toward * j;
 
                 Polar2 newPoint = new Polar2(Toward, step_rou);
+                
                 OriginCopy.sita = Polar2.FromVector(OriginCopy.ToVector() + newPoint.ToVector()).sita;
                 OriginCopy.rou += step_rou;
 

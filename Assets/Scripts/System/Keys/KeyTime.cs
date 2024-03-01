@@ -11,7 +11,9 @@ public enum KeyType
     Slide,
     Wave,
     Drag,
-    HWave
+    HWave,
+    
+    Route
 }
 public struct DragData
 {
@@ -22,14 +24,14 @@ public struct DragData
     public List<(double dsita, double rou)> DragRoute;
 }
 
-public abstract class BScriptable
+public abstract class Scriptable
 {
     public double Time { get; protected set; }
     public double Pos { get; protected set; }
     public double Length { get; protected set; }
 }
 
-public class FlatKey : BScriptable
+public class FlatKey : Scriptable
 {
     public double? NextToward = null;
     public double? ForceY = null;
@@ -117,11 +119,18 @@ public class FlatKey : BScriptable
                 Count = Convert.ToInt32(source.Attribute("Count").Value)
             };
 
-            Time = Convert.ToDouble(source.Attribute("Time").Value);
+            if (LevelBasicInformation.UseAdvanceBeat)
+                Time = AdvanceBeat.Parse(source.Attribute("Time").Value).ToDouble();
+            else
+                Time = Convert.ToDouble(source.Attribute("Time").Value);
             return;
         }
 
-        Time = Convert.ToDouble(source.Attribute("Time").Value);
+        if (LevelBasicInformation.UseAdvanceBeat)
+            Time = AdvanceBeat.Parse(source.Attribute("Time").Value).ToDouble();
+        else
+            Time = Convert.ToDouble(source.Attribute("Time").Value);
+        
         Pos = Convert.ToDouble(source.Attribute("Pos").Value);
 
         XAttribute Y = source.Attribute("ForceY");
@@ -164,6 +173,8 @@ public class CircularKey
             return 1;
         }
     }
+
+    public double Scale { get; set; } = 1;
     public double WaveScale { get; set; } = 1;
     public double Length { get; private set; }
     public KeyType Type { get; private set; }
@@ -173,6 +184,12 @@ public class CircularKey
     public DragData DragData;
     public CircularKey(XElement source)
     {
+        if (source.Name == "Route")
+        {
+            Type = KeyType.Route;
+            return;
+        }
+        
         if (source.Attribute("Type").Value == "Tap")
             Type = KeyType.Tap;
         else
@@ -244,6 +261,11 @@ public class CircularKey
 
         WaveOffset = Convert.ToDouble(source.Attribute("Offset").Value);
         Angle = Convert.ToInt32(source.Attribute("Angle").Value);
+        
+        if(source.Attribute("Scale")?.Value!=null)
+        {
+            Scale = Convert.ToDouble(source.Attribute("Scale").Value);
+        }
     }
 
     public Vector2 GetPositionInDicar(Vector2 Zero, WaveController ctrl)

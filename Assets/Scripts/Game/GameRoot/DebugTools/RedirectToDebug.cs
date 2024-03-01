@@ -11,6 +11,22 @@ public class RedirectToDebug : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // if(Application.platform == RuntimePlatform.WindowsPlayer)
+        //    KeyboardHandler.StartCapture();
+
+        KeyboardHandler.GlobalKeyDown += (vk) =>
+        {
+            if (vk == 37)
+            {
+                RootConfig.Metronome.Music.time = (float)RootConfig.Metronome.Music.time - 3f;
+                RootConfig.FlushSongData();
+            }
+            else if (vk == 39)
+            {
+                RootConfig.Metronome.Music.time = (float)RootConfig.Metronome.Music.time + 3f;
+                RootConfig.FlushSongData();
+            }
+        };
         Button.onClick.AddListener(() =>
         {
             if (RootConfig.Metronome.Music.isPlaying)
@@ -29,6 +45,11 @@ public class RedirectToDebug : MonoBehaviour
             RootConfig.Metronome.Music.time = (float)TargetTime;
             RootConfig.FlushSongData();
         });
+    }
+    void OnDestroy()
+    {
+        //if(Application.platform == RuntimePlatform.WindowsPlayer)
+        //    KeyboardHandler.StartCapture();
     }
 
     // Update is called once per frame

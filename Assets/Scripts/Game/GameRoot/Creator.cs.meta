@@ -3,7 +3,18 @@ guid: dda5d98ffa2691675ba8806e3a1ab6b7
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - Metronome: {instanceID: 0}
+  - Tap: {fileID: 5963897034162541694, guid: 7dd3e21496dfefa4d86204f86ac373bc, type: 3}
+  - Hold: {fileID: 4688946786387134452, guid: 1442020209f9a9941b8d78990d13ba55, type: 3}
+  - Slide: {fileID: 3833664412439907363, guid: 1984486138fe26e40a7d97f90c294dec, type: 3}
+  - Wave: {fileID: 5963897034162541694, guid: fc380b6687d4f5341a7573030951824f, type: 3}
+  - Drag: {fileID: 3120262369498005983, guid: 5b2fae3a1425a9741bfee997cb2c315e, type: 3}
+  - HWave: {fileID: 4688946786387134452, guid: f673a3f73dea2f049a263fa6813ef151, type: 3}
+  - LineAreaObj: {fileID: 3296304719871657086, guid: ab2a0648c91596e45a0c7a5e0ede4f84, type: 3}
+  - Drop: {fileID: 2884869415683129317, guid: 22f07ecfe7ca59a4699c96356fd0cf15, type: 3}
+  - PrePoint_Obj: {fileID: 5342348645948257332, guid: 8fc96367a4fae5843830f69571975551, type: 3}
+  - TowardTip: {fileID: 7373269495573688934, guid: 7c15d0e62747b814da3d5fa3dfc3c3ce, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

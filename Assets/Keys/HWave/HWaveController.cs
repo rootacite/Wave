@@ -176,7 +176,7 @@ public class HWaveController : Keys
                                 Points.Add(pv);
                             }
 
-                            DL = DragLine.Create(DragLineOrigin, GameScripting.Instance.KeyLayer, Points.ToArray());
+                            DL = DragLine.Create(DragLineOrigin, _creator.gameObject, Points.ToArray());
 
                             for (double p = 0; p <= i.DragData.Count; p++)
                             {
@@ -250,7 +250,7 @@ public class HWaveController : Keys
                                 }
 
                             }, new Polar2(0, 0), KFrameList.ToArray(), 35);
-                            DL = DragLine.Create(DragLineOrigin, GameScripting.Instance.KeyLayer, Points.ToArray());
+                            DL = DragLine.Create(DragLineOrigin, _creator.gameObject, Points.ToArray());
 
 
                         }

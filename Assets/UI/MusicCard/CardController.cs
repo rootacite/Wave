@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
@@ -25,6 +26,8 @@ public class CardController : MonoBehaviour
     public TextAsset SongConfig;
     public TextAsset SongData;
     private Sprite BackGroundSprite;
+
+    public string[] additionalInfo;
 
     public bool isExternal = false;
     public string ExternalPath = "";
@@ -157,6 +160,17 @@ public class CardController : MonoBehaviour
                 TP,
                 "Lv." + XDocument.Parse(SongConfig.text).Root.Attribute("Level").Value
                 );
+
+            if (additionalInfo != null)
+            {
+                string cx = "";
+                foreach (var t in additionalInfo)
+                {
+                    cx += t + "\n";
+                }
+                
+                MenuRoot.SetAdditionText(cx);
+            }
 
         }catch (Exception ex)
         {

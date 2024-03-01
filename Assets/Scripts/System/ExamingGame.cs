@@ -5,17 +5,19 @@ using UnityEngine;
 
 public class ExamingGame : MonoBehaviour
 {
-    GameScripting gameScripting;
-    bool Flag = true;
+    public Creator creator;
     // Start is called before the first frame update
     void Start()
     {
-        gameScripting = GetComponent<GameScripting>();
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+        if (Input.GetMouseButtonDown(0))
+        {
+            creator.CreateTap(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        }
     }
 }

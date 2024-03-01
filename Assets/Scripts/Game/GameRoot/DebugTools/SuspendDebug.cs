@@ -30,6 +30,26 @@ public class SuspendDebug : MonoBehaviour
             }
 
         });
+
+        KeyboardHandler.GlobalKeyDown += (vk) =>
+        {
+            if (vk == 32)
+            {
+                if (RootConfig.Metronome.Music.isPlaying)
+                {
+                    RootConfig.Metronome.Music.Pause();
+                    RootConfig.BeatEditor.readOnly = false;
+                    Old_Time_Scale = Time.timeScale;
+                    Time.timeScale = 0;
+                }
+                else
+                {
+                    RootConfig.Metronome.Music.UnPause();
+                    RootConfig.BeatEditor.readOnly = true;
+                    if (Time.timeScale != Old_Time_Scale) Time.timeScale = Old_Time_Scale;
+                }
+            }
+        };
     }
 
     // Update is called once per frame

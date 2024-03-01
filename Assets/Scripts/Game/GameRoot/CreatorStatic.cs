@@ -98,7 +98,7 @@ public partial class Creator : MonoBehaviour
             }
         }
         catch (Exception) { }
-        var _wave = WaveController.Creat(this, new Vector3(Pos.x, Pos.y, max_z + 0.01f), Wave, Parent == null ? gameObject : Parent, Metronome.BeatSpeed, Childrens, LastTime, Offset, Scale);
+        var _wave = WaveController.Creat(this, new Vector3(Pos.x, Pos.y, max_z + 0.02f), Wave, Parent == null ? gameObject : Parent, Metronome.BeatSpeed, Childrens, LastTime, Offset, Scale);
         #region Behavior
         _wave.Length = Length;
         #endregion
@@ -210,9 +210,6 @@ public partial class Creator : MonoBehaviour
         {
             DrawSingleRoute(Route);
         }
-
-       
-
         return _wave;
     }
     public DragController CreateDrag_Single(Vector2 Pos, float Offset = 1, GameObject Parent = null)
