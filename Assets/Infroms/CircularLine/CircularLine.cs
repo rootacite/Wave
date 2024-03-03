@@ -6,15 +6,18 @@ using UnityEngine;
 public class CircularLine : MonoBehaviour
 {
     private LineRenderer _lineRenderer;
+    private Material _privateMaterial;
 
     [Range(0f, 1f)]
     public float transparency = 1f;
 
     public float radius = 1f;
+    private static readonly int Color1 = Shader.PropertyToID("_Color");
 
     private void Awake()
     {
         _lineRenderer = GetComponent<LineRenderer>();
+        _privateMaterial = _lineRenderer.material;
     }
 
     // Start is called before the first frame update
@@ -38,7 +41,7 @@ public class CircularLine : MonoBehaviour
         _lineRenderer.SetPositions(points);
 
         //_lineRenderer.startColor = new Color(1, 1, 1, transparency);
-        //_lineRenderer.endColor   = new Color(1, 1, 1, transparency);
+        _privateMaterial.SetColor(Color1, new Color(1, 1, 1, transparency));
     }
     
     // Update is called once per frame

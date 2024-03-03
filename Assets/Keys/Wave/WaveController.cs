@@ -257,7 +257,6 @@ sealed public class WaveController : Keys
         };
 
         //OldRange.enabled = false;
-        NewRange.Flush();
     }
 
     protected override void Update()

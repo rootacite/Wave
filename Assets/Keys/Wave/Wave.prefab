@@ -664,7 +664,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 374136855599030829, guid: ec6920d16a39a2446be2b071eee6857c, type: 3}
       propertyPath: transparency
-      value: 0.536
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1661672536116057833, guid: ec6920d16a39a2446be2b071eee6857c, type: 3}
       propertyPath: m_LocalPosition.x

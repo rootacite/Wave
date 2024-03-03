@@ -43,6 +43,8 @@ public class MenuRoot : MonoBehaviour
     public GameObject Audiobject;
     // Start is called before the first frame update
 
+    public GameObject[] defaultSongs;
+
     public void SetMark(string Mark, string TP, string Level)
     {
         MarkText.GetComponent<TMPro.TextMeshProUGUI>().text = Mark;
@@ -109,10 +111,18 @@ public class MenuRoot : MonoBehaviour
     {
         _instance = this;
         SetMark(
-            PlayerPrefs.GetString("?????Се?S" + "_Mark", "0000000"),
-            PlayerPrefs.GetString("?????Се?S" + "_TP", "00.00%"), "Lv.3");
+            "0000000",
+            "00.00%", "Lv.3");
 
         StartCoroutine(LoadMusics());
+
+        if (PlayerPrefs.GetInt("Enable-Default", 0) != 1)
+        {
+            foreach (var s in defaultSongs)
+            {
+                s.SetActive(false);
+            }
+        }
     }
     private void Awake()
     {

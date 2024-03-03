@@ -37,7 +37,7 @@ public class PrePoint : Infroms
     {
         if (KeyType != KeyType.Drag)
         {
-            var anmiley = gameObject.AddComponent<Animation>(); //使用animation的原因是，animator组件很难用常规操作单独修改某个动画的速度
+            var anmiley = gameObject.AddComponent<Animation>(); //????animation????????animator?鮠??????????豐?????????????????????
 
             anmiley.playAutomatically = false;
             anmiley.AddClip(LoopingClip, "1");

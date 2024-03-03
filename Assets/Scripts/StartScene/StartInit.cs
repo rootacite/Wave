@@ -12,18 +12,18 @@ public class StartInit : MonoBehaviour
 {
     static string[] TipTexts = new string[] 
     {
-        "Wave���ڱ����ǰ��Ԥ����ʾ���ɼ�λ��λ�ã���ͬ���͵ļ����в�ͬ��",
-        "���뱣֤�����뽫Ҫ�ж���Drag���غϣ��������С�",
-        "�����;�ɿ�Hold�������ᰴ��Miss�ж���",
-        "�����;�ſ�HWave��������İ�����ȫ��Miss��",
-        "��ʹ��������������ж����ΪBad���Ի��ж�Combo��",
-        "Slide����Ҫ�ڴ�����ͬʱ�����ⷽ���ƶ�С�ξ���������С�",
-        "���ε�Slide����������ı����ⷭת������Բ�Σ�",
-        "Wave�����ж����ۻ�Ӱ����������𣿴���:�ǵġ�",
-        "�����ж�������ʱ����ǰ��ս��ļ��㡣�������ֵ�BPMԽ�ߣ��ж�Ҳ��Խ�ϸ�",
-        "�κε������ܵ��������У��������е㲻һ�����������ʽ��������ͬ�ġ�",
-        "Drag����������ֻ����ֱ���ε�һ�����֣���������ȴ���γɷ������۵��Ǵ���",
-        "�����ڵİ����ǰ��ռ�����ֲ��ġ�"
+        "Wave键在被点击前会预先提示生成键位的位置，不同类型的键略有不同。",
+        "必须保证触点与将要判定的Drag键重合，才能命中。",
+        "如果中途松开Hold键，将会按照Miss判定。",
+        "判定结果由命中特效指示。橘:Perfect,绿:Great,蓝:Bad。",
+        "即使命中音符，如果判定结果为Bad，仍会中断Combo。",
+        "Slide键需要在触摸的同时向任意方向移动小段距离才能命中。",
+        "星形的Slide键，如果将四边向外翻转，仍是圆形！",
+        "Wave键的判定评价会影响后续按键吗？答案是:是的。",
+        "命中判定不按照时间而是按照节拍计算。所以音乐的BPM越高，判定也就越严格！",
+        "任何的音符跑到了星盘中，都会变得有点不一样。但打击方式大体是相同的。",
+        "Drag键在星盘外只会以直线形的一串出现，但在其中却会形成反复曲折的星带。",
+        "星盘内的按键是按照极坐标分布的。"
     };
 
     public AudioClip Song;
@@ -122,55 +122,7 @@ public class StartInit : MonoBehaviour
             };
         }
 
-        if (PlayerPrefs.GetInt("First", 0) == 0)
-        {
-            var Task = SceneManager.LoadSceneAsync(2);
-            Task.completed += (e) =>
-            {
-                GameScripting.Instance.Initialize(Song, SongConfig, SongData, BackGround, null);
-                GameScripting.Instance.Metronome.OnBeat += (t) =>
-                {
-                    if (t == 2)
-                    {
-                        StartInit.ShowText("Tap��\n������࣬���������δ�������ʱ�����", 6);
-                        return;
-                    }
-
-                    if (t == 18)
-                    {
-                        StartInit.ShowText("Hold��\n���������δ�������ʱ�����Ļ���Ȧ��ȫ��չʱ���������֡�����Ȧ��ȫչ�������߱�Եʱ�����ɿ���", 6);
-                        return;
-                    }
-
-                    if (t == 35)
-                    {
-                        StartInit.ShowText("Slide��\n���������δ�������ʱ������������ⷽ�򻬶���", 6);
-                        return;
-                    }
-
-                    if (t == 47f)
-                    {
-                        StartInit.ShowText("Wave�����������δ�������ʱ�������Tap����ͬ����\nWave�������ʱ��������һ�����ε��ж�����\"����\"\n�����еļ���Ҫ�ڲ��������غ�ʱ�����", 12);
-                        return;
-                    }
-
-                    if (t == 64f)
-                    {
-                        StartInit.ShowText("Drag��\n��ɫ������\n���ж��߻��������Ļ���Ȧ��ȫ����ʱ�����򻮹���\n", 6);
-                        return;
-                    }
-                };
-                StartInit.Hide();
-
-            };
-            PlayerPrefs.SetInt("First", 1);
-            PlayerPrefs.Save();
-        }
-        else
-        {
-            StartCoroutine(Proc_1());
-          //  ShowText(Application.persistentDataPath);
-        }
+        StartCoroutine(Proc_1());
 
         File.WriteAllText(
             Application.persistentDataPath + "/Flag.txt",

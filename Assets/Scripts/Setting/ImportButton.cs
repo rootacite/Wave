@@ -11,6 +11,12 @@ using ICSharpCode.SharpZipLib.Zip;
 
 public class ImportButton : MonoBehaviour
 {
+    private string[] _preSetUris =
+    {
+        "package://wave.extern.res/default.pkg",
+        "package://wave.extern.res/disable-default.pkg"
+    };
+    
     public Button Import;
 
     public TMP_InputField IUri;
@@ -18,6 +24,23 @@ public class ImportButton : MonoBehaviour
     IEnumerator AddMusic()
     {
         StartInit.Show();
+
+        if (IUri.text == _preSetUris[0])
+        {
+            PlayerPrefs.SetInt("Enable-Default", 1);
+            yield return new WaitForSeconds(3f);
+            StartInit.ShowText("操作成功",2f);
+            StartInit.Hide();
+            yield break;
+        }
+        else if (IUri.text == _preSetUris[1])
+        {
+            PlayerPrefs.SetInt("Enable-Default", 0);
+            yield return new WaitForSeconds(3f);
+            StartInit.ShowText("操作成功",2f);
+            StartInit.Hide();
+            yield break;
+        }
         
         var src = new WWW(IUri.text);
 

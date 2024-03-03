@@ -12,7 +12,7 @@ public class DebugSetting : MonoBehaviour
         {
             if (Application.platform != RuntimePlatform.WindowsPlayer && Application.platform != RuntimePlatform.WindowsEditor)
             {
-                StartInit.ShowText("开发模式仅在PC平台中被支持。");
+                StartInit.ShowText("锝匡姜锝凤舰锞勶剑锞婏浇锝筋摶锞歅C锞嗭浇锞岋建锞栵緪锝憋交锞栵涧锝筹緰锝★剑");
                 cbb.SetValue(false);
                 return;
             }

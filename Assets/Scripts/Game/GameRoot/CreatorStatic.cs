@@ -5,9 +5,10 @@ using UnityEngine;
 using KeyRoute = System.Collections.Generic.List<System.Collections.Generic.List<CircularKey>>;
 public partial class Creator : MonoBehaviour
 {
-    public void Connect(Vector2 p1, Vector2 p2, float timeWithBeat)
+    public void Connect(Vector2 p1, Vector2 p2, float timeWithBeat, GameObject parent)
     {
-        var ln = LineArea.Create(LineAreaObj, gameObject, p1, p2, timeWithBeat * Metronome.BeatSpeed);
+        var ln = LineArea.Create(LineAreaObj, parent, p1, p2, timeWithBeat * Metronome.BeatSpeed);
+        ln.ExpandPoint = 0f;
         //ln.gameObject.GetComponent<LineRenderer>().startColor = new Color(1, 0.84f, 0f, 0.75f);
         //ln.gameObject.GetComponent<LineRenderer>().endColor = new Color(1, 0.84f, 0f, 0.75f);
     }
@@ -146,9 +147,10 @@ public partial class Creator : MonoBehaviour
             double towardHead = Polar2.FromVector(Points[1] - Points[0]).sita;
             double towardEnd= Polar2.FromVector(Points[Points.Count - 1] - Points[Points.Count - 2]).sita;
 
-            PrePoint.Create(Points[0], PrePoint_Obj, gameObject, Offset * Metronome.BeatSpeed, 1 / (Metronome.BeatSpeed * LevelBasicInformation.HeadPending), KeyType.Drag).Angle = (float)Polar2.r2d(towardHead);
-            PrePoint.Create(Points[Points.Count - 1], PrePoint_Obj, gameObject, Offset * Metronome.BeatSpeed, 1 / (Metronome.BeatSpeed * LevelBasicInformation.HeadPending), KeyType.Drag).Angle = (float)Polar2.r2d(towardEnd);
-            LineArea.Create(LineAreaObj, gameObject, Points.ToArray(), Offset * Metronome.BeatSpeed);
+            PrePoint.Create(Points[0] - new Vector3(Pos.x, Pos.y, 0), PrePoint_Obj, _wave.gameObject, Offset * Metronome.BeatSpeed, 1 / (Metronome.BeatSpeed * LevelBasicInformation.HeadPending), KeyType.Drag).Angle = (float)Polar2.r2d(towardHead);
+            PrePoint.Create(Points[Points.Count - 1] - new Vector3(Pos.x, Pos.y, 0), PrePoint_Obj, _wave.gameObject, Offset * Metronome.BeatSpeed, 1 / (Metronome.BeatSpeed * LevelBasicInformation.HeadPending), KeyType.Drag).Angle = (float)Polar2.r2d(towardEnd);
+            var la = LineArea.Create(LineAreaObj, _wave.gameObject, Points.ToArray(), Offset * Metronome.BeatSpeed);
+            la.ExpandPoint = 0f;
 
             return (Points[0], Points[Points.Count - 1]);
         }
@@ -164,18 +166,21 @@ public partial class Creator : MonoBehaviour
                         if (Key.Type == KeyType.Drag)
                         {
                             var np = DrawDragRoute(Key);
-                            Connect(OriginPoint, np.Head, (float)Offset);
+                            if((OriginPoint - np.Head).magnitude > 0.01)
+                                Connect(OriginPoint, np.Head, (float)Offset, _wave.gameObject);  // Connect origin point to first node if it's Drag Key
 
                             continue;
                         }
 
                         if (Key.Type != KeyType.Drag)
-                            PrePoint.Create(Pos.Offset(Key.Angle, _wave.RealRod * ((float)Key.WaveOffset / Length)),
-                                PrePoint_Obj, gameObject, (float)(Key.WaveOffset + Offset) * Metronome.BeatSpeed,
+                            PrePoint.Create(Pos.Offset(Key.Angle, _wave.RealRod * ((float)Key.WaveOffset / Length)) - Pos,
+                                PrePoint_Obj, _wave.gameObject, (float)(Key.WaveOffset + Offset) * Metronome.BeatSpeed,
                                 1 / (Metronome.BeatSpeed * LevelBasicInformation.HeadPending), Key.Type);
-                        Connect(OriginPoint,
+                        
+                        if(Key.WaveOffset != 0)  // If it is Root Node Connection is not Needed and Will led to error
+                            Connect(OriginPoint,
                             ((Vector2)OriginPoint).Offset(Key.Angle,
-                                _wave.RealRod * ((float)Key.WaveOffset / _wave.Length)), (float)Offset);
+                                _wave.RealRod * ((float)Key.WaveOffset / _wave.Length)), (float)Offset, _wave.gameObject);
                     }
 
                     continue;
@@ -184,7 +189,7 @@ public partial class Creator : MonoBehaviour
 
                 GameScripting.ForEachPoint(Route[v - 1].ToArray(), Route[v].ToArray(), (p1, p2) =>
                   {
-                      Connect(p1.GetPositionInDicar(OriginPoint,_wave),p2.GetPositionInDicar(OriginPoint, _wave), (float)(p1.WaveOffset + Offset));
+                      Connect(p1.GetPositionInDicar(OriginPoint,_wave),p2.GetPositionInDicar(OriginPoint, _wave), (float)(p1.WaveOffset + Offset), _wave.gameObject);
                   });
 
                 foreach (var i in Route[v])
@@ -196,8 +201,8 @@ public partial class Creator : MonoBehaviour
                     }
 
                     if (i.Type != KeyType.Drag)
-                        PrePoint.Create(Pos.Offset(i.Angle, _wave.RealRod * ((float)i.WaveOffset / Length)),
-                            PrePoint_Obj, gameObject, (float)(i.WaveOffset + Offset) * Metronome.BeatSpeed,
+                        PrePoint.Create(Pos.Offset(i.Angle, _wave.RealRod * ((float)i.WaveOffset / Length)) - Pos,
+                            PrePoint_Obj, _wave.gameObject, (float)(i.WaveOffset + Offset) * Metronome.BeatSpeed,
                             1 / (Metronome.BeatSpeed * LevelBasicInformation.HeadPending), i.Type);
                 }
 
@@ -315,7 +320,7 @@ public partial class Creator : MonoBehaviour
 
                     if (p == 0)
                     {
-                        var pcc = PrePoint.Create(ccp,  PrePoint_Obj,  gameObject, Offset *  Metronome.BeatSpeed, 1 / ( Metronome.BeatSpeed * LevelBasicInformation.HeadPending), KeyType.Drag);
+                        var pcc = PrePoint.Create(ccp - new Vector3(Pos.x, Pos.y, 0),  PrePoint_Obj,  gameObject, Offset *  Metronome.BeatSpeed, 1 / ( Metronome.BeatSpeed * LevelBasicInformation.HeadPending), KeyType.Drag);
                         if (i.DragData.DragRoute.Count == 0)
                             pcc.Angle = (float)i.DragData.From;
 
@@ -324,7 +329,7 @@ public partial class Creator : MonoBehaviour
 
                     if (p == i.DragData.Count)
                     {
-                        var pcc = PrePoint.Create(ccp,  PrePoint_Obj,  gameObject, Offset *  Metronome.BeatSpeed, 1 / ( Metronome.BeatSpeed * LevelBasicInformation.HeadPending), KeyType.Drag);
+                        var pcc = PrePoint.Create(ccp - new Vector3(Pos.x, Pos.y, 0),  PrePoint_Obj,  gameObject, Offset *  Metronome.BeatSpeed, 1 / ( Metronome.BeatSpeed * LevelBasicInformation.HeadPending), KeyType.Drag);
                         if (i.DragData.DragRoute.Count == 0)
                             pcc.Angle = (float)i.DragData.To;
                     }
@@ -353,10 +358,10 @@ public partial class Creator : MonoBehaviour
             double towardHead = Polar2.FromVector(Points[1] - Points[0]).sita;
             double towardEnd = Polar2.FromVector(Points[Points.Count - 1] - Points[Points.Count - 2]).sita;
 
-            PrePoint.Create(Points[0],  PrePoint_Obj,  gameObject, Offset *  Metronome.BeatSpeed, 1 / ( Metronome.BeatSpeed * LevelBasicInformation.HeadPending), KeyType.Drag).Angle = (float)Polar2.r2d(towardHead);
-            PrePoint.Create(Points[Points.Count - 1],  PrePoint_Obj,  gameObject, Offset *  Metronome.BeatSpeed, 1 / ( Metronome.BeatSpeed * LevelBasicInformation.HeadPending), KeyType.Drag).Angle = (float)Polar2.r2d(towardEnd);
-            LineArea.Create( LineAreaObj,  gameObject, Points.ToArray(), Offset *  Metronome.BeatSpeed);
-
+            PrePoint.Create(Points[0] - new Vector3(Pos.x, Pos.y, 0),  PrePoint_Obj,  _hwave.gameObject, Offset *  Metronome.BeatSpeed, 1 / ( Metronome.BeatSpeed * LevelBasicInformation.HeadPending), KeyType.Drag).Angle = (float)Polar2.r2d(towardHead);
+            PrePoint.Create(Points[Points.Count - 1] - new Vector3(Pos.x, Pos.y, 0),  PrePoint_Obj,  _hwave.gameObject, Offset *  Metronome.BeatSpeed, 1 / ( Metronome.BeatSpeed * LevelBasicInformation.HeadPending), KeyType.Drag).Angle = (float)Polar2.r2d(towardEnd);
+            var la = LineArea.Create( LineAreaObj,  _hwave.gameObject, Points.ToArray(), Offset *  Metronome.BeatSpeed);
+            la.ExpandPoint = 0f;
             return (Points[0], Points[Points.Count - 1]);
         }
 
@@ -371,13 +376,13 @@ public partial class Creator : MonoBehaviour
                         if (Key.Type == KeyType.Drag)
                         {
                             var np = DrawDragRoute(Key);
-                            Connect(OriginPoint, np.Head, (float)Offset);
+                            Connect(OriginPoint, np.Head, (float)Offset, _hwave.gameObject);
 
                             continue;
                         }
 
-                        PrePoint.Create(Pos.Offset(Key.Angle, _hwave.RealRod * ((float)Key.WaveOffset / Length)),  PrePoint_Obj,  gameObject, (float)(Key.WaveOffset + Offset) *  Metronome.BeatSpeed, 1 / ( Metronome.BeatSpeed * LevelBasicInformation.HeadPending), Key.Type);
-                        Connect(OriginPoint, ((Vector2)OriginPoint).Offset(Key.Angle, _hwave.RealRod * ((float)Key.WaveOffset / _hwave.Length)), (float)Offset);
+                        PrePoint.Create(Pos.Offset(Key.Angle, _hwave.RealRod * ((float)Key.WaveOffset / Length)) - Pos,  PrePoint_Obj,  _hwave.gameObject, (float)(Key.WaveOffset + Offset) *  Metronome.BeatSpeed, 1 / ( Metronome.BeatSpeed * LevelBasicInformation.HeadPending), Key.Type);
+                        Connect(OriginPoint, ((Vector2)OriginPoint).Offset(Key.Angle, _hwave.RealRod * ((float)Key.WaveOffset / _hwave.Length)), (float)Offset, _hwave.gameObject);
                     }
                     continue;
                 }
@@ -385,7 +390,7 @@ public partial class Creator : MonoBehaviour
 
                 GameScripting.ForEachPoint(Route[v - 1].ToArray(), Route[v].ToArray(), (p1, p2) =>
                 {
-                    Connect(p1.GetPositionInDicar(OriginPoint, _hwave), p2.GetPositionInDicar(OriginPoint, _hwave), (float)(p1.WaveOffset + Offset));
+                    Connect(p1.GetPositionInDicar(OriginPoint, _hwave), p2.GetPositionInDicar(OriginPoint, _hwave), (float)(p1.WaveOffset + Offset), _hwave.gameObject);
                 });
 
                 foreach (var i in Route[v])
@@ -396,7 +401,7 @@ public partial class Creator : MonoBehaviour
                         continue;
                     }
 
-                    PrePoint.Create(Pos.Offset(i.Angle, _hwave.RealRod * ((float)i.WaveOffset / Length)),  PrePoint_Obj,  gameObject, (float)(i.WaveOffset + Offset) *  Metronome.BeatSpeed, 1 / ( Metronome.BeatSpeed * LevelBasicInformation.HeadPending), i.Type);
+                    PrePoint.Create(Pos.Offset(i.Angle, _hwave.RealRod * ((float)i.WaveOffset / Length)) - Pos,  PrePoint_Obj,  _hwave.gameObject, (float)(i.WaveOffset + Offset) *  Metronome.BeatSpeed, 1 / ( Metronome.BeatSpeed * LevelBasicInformation.HeadPending), i.Type);
                 }
 
             }

@@ -73,7 +73,8 @@ Shader "Custom/LineShader2"
                     col.a= la <= 0 ? 0 : la;
                 }
 
-                //col.a *= ola;
+                col *= _Color;
+                col.a *= 0.3;
                 return col;
             }
         ENDHLSL
