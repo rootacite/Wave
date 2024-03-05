@@ -12,7 +12,7 @@ public class LineArea : MonoBehaviour
 
     private float Rt { get; set; } = 0f;
 
-    public static LineArea Create(GameObject Origin, GameObject Parent, Vector3 p1, Vector3 p2, float ExistTime)
+    public static LineArea Create(GameObject Origin, GameObject Parent, Vector3 p1, Vector3 p2, float ExistTime,float disappearTime = -1)
     {
         GameObject obj = Instantiate(Origin, Parent.transform);
         var r = obj.GetComponent<LineArea>();
@@ -21,6 +21,7 @@ public class LineArea : MonoBehaviour
         r._time = ExistTime;
         r._positions.Add(p1);
         r._positions.Add(p2);
+        r._disappearTime = disappearTime;
 
         return r;
     }
@@ -38,10 +39,15 @@ public class LineArea : MonoBehaviour
     }
 
     private float _time;
+    private float _disappearTime;
 
     IEnumerator DelayExit()
     {
         yield return new  WaitForSeconds(_time);
+        if (_disappearTime > 0f)
+        {
+            yield return StartCoroutine(Shrink());
+        }
         Destroy(gameObject);
     }
 
@@ -58,6 +64,26 @@ public class LineArea : MonoBehaviour
             double r = stw.ElapsedMilliseconds / 450.0d;
             Rt = (float)r;
             if (r >= 1f)
+            {
+                stw.Stop();
+                yield break;
+            }
+        }
+    }
+
+    IEnumerator Shrink()
+    {
+        Stopwatch stw = new Stopwatch();
+        stw.Reset();
+        stw.Start();
+        ExpandPoint = 1f;
+        while (true)
+        {
+            yield return null;
+            
+            double r = stw.ElapsedMilliseconds / (_disappearTime * 1000.0f);
+            Rt = 1.0f - (float)r;
+            if (r <= 0f)
             {
                 stw.Stop();
                 yield break;

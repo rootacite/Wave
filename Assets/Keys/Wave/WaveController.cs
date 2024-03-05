@@ -267,6 +267,8 @@ sealed public class WaveController : Keys
         {
            TAnimation.speed = 1 / (Length * BeatPerSecond);
         }
+        
+        
     }
 
     override public void SetWaveEffect()

@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using TapTap.AntiAddiction;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
@@ -118,6 +119,7 @@ public class StartInit : MonoBehaviour
             var Async = SceneManager.LoadSceneAsync(1);
             Async.completed += (v) =>
             {
+                AntiAddictionUIKit.EnterGame();
                 Hide();
             };
         }
@@ -156,5 +158,10 @@ public class StartInit : MonoBehaviour
 
         if (PlayerPrefs.GetInt("Low_Setting", 0) == 1) QualitySettings.SetQualityLevel(0);
         else QualitySettings.SetQualityLevel(5);
+    }
+
+    private void OnDestroy()
+    {
+        
     }
 }

@@ -5,12 +5,10 @@ using UnityEngine;
 using KeyRoute = System.Collections.Generic.List<System.Collections.Generic.List<CircularKey>>;
 public partial class Creator : MonoBehaviour
 {
-    public void Connect(Vector2 p1, Vector2 p2, float timeWithBeat, GameObject parent)
+    public void Connect(Vector2 p1, Vector2 p2, float timeWithBeat, GameObject parent, float disappearTimeWithBeat = -1)
     {
-        var ln = LineArea.Create(LineAreaObj, parent, p1, p2, timeWithBeat * Metronome.BeatSpeed);
+        var ln = LineArea.Create(LineAreaObj, parent, p1, p2, timeWithBeat * Metronome.BeatSpeed, disappearTimeWithBeat * Metronome.BeatSpeed);
         ln.ExpandPoint = 0f;
-        //ln.gameObject.GetComponent<LineRenderer>().startColor = new Color(1, 0.84f, 0f, 0.75f);
-        //ln.gameObject.GetComponent<LineRenderer>().endColor = new Color(1, 0.84f, 0f, 0.75f);
     }
     public HoldController CreateHold(Vector2 Pos, float Length, float Offset = 1, GameObject Parent = null)
     {
@@ -161,36 +159,44 @@ public partial class Creator : MonoBehaviour
             {
                 if (v == 0)
                 {
-                    foreach (var Key in Route[0])
+                    foreach (var Key in Route[v])
                     {
                         if (Key.Type == KeyType.Drag)
                         {
                             var np = DrawDragRoute(Key);
                             if((OriginPoint - np.Head).magnitude > 0.01)
-                                Connect(OriginPoint, np.Head, (float)Offset, _wave.gameObject);  // Connect origin point to first node if it's Drag Key
+                                Connect(OriginPoint, np.Head, (float)Offset, _wave.gameObject,
+                                    (float)Key.WaveOffset
+                                    );  // Connect origin point to first node if it's Drag Key
 
                             continue;
                         }
 
-                        if (Key.Type != KeyType.Drag)
-                            PrePoint.Create(Pos.Offset(Key.Angle, _wave.RealRod * ((float)Key.WaveOffset / Length)) - Pos,
+                        
+                        PrePoint.Create(Pos.Offset(Key.Angle, _wave.RealRod * ((float)Key.WaveOffset / Length)) - Pos,
                                 PrePoint_Obj, _wave.gameObject, (float)(Key.WaveOffset + Offset) * Metronome.BeatSpeed,
                                 1 / (Metronome.BeatSpeed * LevelBasicInformation.HeadPending), Key.Type);
                         
                         if(Key.WaveOffset != 0)  // If it is Root Node Connection is not Needed and Will led to error
                             Connect(OriginPoint,
                             ((Vector2)OriginPoint).Offset(Key.Angle,
-                                _wave.RealRod * ((float)Key.WaveOffset / _wave.Length)), (float)Offset, _wave.gameObject);
+                                _wave.RealRod * ((float)Key.WaveOffset / _wave.Length)), (float)Offset, _wave.gameObject,
+                            (float)Key.WaveOffset
+                            );
                     }
-
                     continue;
                 }
-
-
+                
                 GameScripting.ForEachPoint(Route[v - 1].ToArray(), Route[v].ToArray(), (p1, p2) =>
-                  {
-                      Connect(p1.GetPositionInDicar(OriginPoint,_wave),p2.GetPositionInDicar(OriginPoint, _wave), (float)(p1.WaveOffset + Offset), _wave.gameObject);
-                  });
+                {
+                    Connect(
+                        p1.GetPositionInDicar(OriginPoint,_wave),
+                        p2.GetPositionInDicar(OriginPoint, _wave), 
+                        (float)(p1.WaveOffset + Offset),
+                        _wave.gameObject,
+                        Mathf.Abs((float)(p2.WaveOffset - p1.WaveOffset))
+                        );
+                });
 
                 foreach (var i in Route[v])
                 {
@@ -376,13 +382,18 @@ public partial class Creator : MonoBehaviour
                         if (Key.Type == KeyType.Drag)
                         {
                             var np = DrawDragRoute(Key);
-                            Connect(OriginPoint, np.Head, (float)Offset, _hwave.gameObject);
+                            Connect(OriginPoint, np.Head, (float)Offset, _hwave.gameObject,(float)Key.WaveOffset);
 
                             continue;
                         }
 
                         PrePoint.Create(Pos.Offset(Key.Angle, _hwave.RealRod * ((float)Key.WaveOffset / Length)) - Pos,  PrePoint_Obj,  _hwave.gameObject, (float)(Key.WaveOffset + Offset) *  Metronome.BeatSpeed, 1 / ( Metronome.BeatSpeed * LevelBasicInformation.HeadPending), Key.Type);
-                        Connect(OriginPoint, ((Vector2)OriginPoint).Offset(Key.Angle, _hwave.RealRod * ((float)Key.WaveOffset / _hwave.Length)), (float)Offset, _hwave.gameObject);
+                        Connect(OriginPoint, 
+                            ((Vector2)OriginPoint).Offset(Key.Angle,
+                                _hwave.RealRod * ((float)Key.WaveOffset / _hwave.Length)),
+                            (float)Offset, _hwave.gameObject,
+                            (float)Key.WaveOffset
+                            );
                     }
                     continue;
                 }
@@ -390,7 +401,12 @@ public partial class Creator : MonoBehaviour
 
                 GameScripting.ForEachPoint(Route[v - 1].ToArray(), Route[v].ToArray(), (p1, p2) =>
                 {
-                    Connect(p1.GetPositionInDicar(OriginPoint, _hwave), p2.GetPositionInDicar(OriginPoint, _hwave), (float)(p1.WaveOffset + Offset), _hwave.gameObject);
+                    Connect(
+                        p1.GetPositionInDicar(OriginPoint, _hwave), 
+                        p2.GetPositionInDicar(OriginPoint, _hwave),
+                        (float)(p1.WaveOffset + Offset),
+                        _hwave.gameObject,
+                        Mathf.Abs((float)(p2.WaveOffset - p1.WaveOffset)));
                 });
 
                 foreach (var i in Route[v])
