@@ -1,0 +1,675 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Song>
+	<Group>
+		<Key Type="Wave" Time="0:3:0.5" Pos="0" WaveScale="0.8" Length="1.5" ForceY="-3.2">
+			<CirculKey Type="Tap" Offset="0.5" Angle="135"/>
+			<CirculKey Type="Tap" Offset="0.5" Angle="45"/>
+			<CirculKey Type="Tap" Offset="1" Angle="90"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="90"/>
+		</Key>
+		
+		<Key Type="Wave" Time="1:1:0.5" Pos="0" WaveScale="0.8" Length="1.5" ForceY="3.2">
+			<CirculKey Type="Tap" Offset="0.5" Angle="-135"/>
+			<CirculKey Type="Tap" Offset="0.5" Angle="-45"/>
+			<CirculKey Type="Tap" Offset="1" Angle="-90"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="-90"/>
+		</Key>
+		
+		<Key Type="Tap" Time="1:3:0.5" Pos="0"/>
+		
+		<Key Type="Wave" Time="2:0:0" Pos="-5.5" WaveScale="0.7" Length="1.5" ForceY="-1.5" Rotate="8">
+			<CirculKey Type="Tap" Offset="0.5" Angle="0"/>
+			<CirculKey Type="Tap" Offset="1" Angle="20"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="40"/>
+		</Key>
+		
+		<Key Type="Wave" Time="2:0:0" Pos="5.5" WaveScale="0.7" Length="1.5" ForceY="-1.5" Rotate="-8">
+			<CirculKey Type="Tap" Offset="0.5" Angle="-180"/>
+			<CirculKey Type="Tap" Offset="1" Angle="-200"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="-220"/>
+		</Key>
+		
+		<Key Type="Tap" Time="2:2:0" Pos="5"  ForceY="-1.5"/>
+		<Key Type="Tap" Time="2:2:0" Pos="-5"  ForceY="-1.5"/>
+		
+		<Key Type="Tap" Time="2:3:0.5" Pos="0"/>
+		
+		<Key Type="Wave" Time="3:0:0" Pos="-5.5" WaveScale="0.85" Length="1.5" ForceY="-1.5" Rotate="8">
+			<CirculKey Type="Tap" Offset="0.5" Angle="45"/>
+			<CirculKey Type="Tap" Offset="0.5" Angle="-45"/>
+			<CirculKey Type="Tap" Offset="1" Angle="0"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="20"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="-20"/>
+		</Key>
+		
+		<Key Type="Wave" Time="3:2:0" Pos="5.5" WaveScale="0.85" Length="1.5" ForceY="1.5" Rotate="8">
+			<CirculKey Type="Tap" Offset="0.5" Angle="225"/>
+			<CirculKey Type="Tap" Offset="0.5" Angle="135"/>
+			<CirculKey Type="Tap" Offset="1" Angle="180"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="200"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="160"/>
+		</Key>
+		
+		<Key Type="Tap" Time="4:0:0" Pos="-5"/>
+		<Key Type="Tap" Time="4:0:0" Pos="5"/>
+		
+		<Key Type="Tap" Time="4:0:0.5" Pos="-3"/>
+		<Key Type="Tap" Time="4:1:0" Pos="-1"/>
+		<Key Type="Tap" Time="4:1:0.5" Pos="1"/>
+		
+		<Key Type="Tap" Time="4:2:0" Pos="-3"/>
+		<Key Type="Tap" Time="4:2:0" Pos="3"/>
+		
+		<Key Type="Tap" Time="4:2:0.5" Pos="1"/>
+		<Key Type="Tap" Time="4:3:0" Pos="-1"/>
+		
+		
+		<Key Type="Wave" Time="4:3:0.5" Pos="0" WaveScale="0.8" Length="2.5" ForceY="3">
+			<CirculKey Type="Tap" Offset="0.5" Angle="-135"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="-130"/>
+			
+			<CirculKey Type="Tap" Offset="1" Angle="-45"/>
+			<CirculKey Type="Tap" Offset="2" Angle="-50"/>
+			
+			<CirculKey Type="Wave" Offset="2.5" Angle="-90" WaveScale="0.6" Length="1" Rotate="-10">
+				<CirculKey Type="Tap" Offset="0.5" Angle="180"/>
+				<CirculKey Type="Tap" Offset="1" Angle="180"/>
+			</CirculKey>
+		</Key>
+		
+		<Key Type="Tap" Time="5:3:0.5" Pos="0"/>
+		<Key Type="Hold" Time="6:0:0" Length="0.75" Pos="5.5"/>
+		<Key Type="Hold" Time="6:0:0" Length="0.75" Pos="-5.5"/>
+		
+		<Key Type="Hold" Time="6:1:0" Length="0.75" Pos="4"/>
+		<Key Type="Hold" Time="6:1:0" Length="0.75" Pos="-4"/>
+		
+		<Key Type="Hold" Time="6:2:0" Length="0.75" Pos="2.5"/>
+		<Key Type="Hold" Time="6:2:0" Length="0.75" Pos="-2.5"/>
+		
+		<Key Type="Hold" Time="6:3:0" Length="0.75" Pos="1"/>
+		<Key Type="Hold" Time="6:3:0" Length="0.75" Pos="-1"/>
+		
+		<Key Type="Wave" Time="7:0:0" Pos="-5.5" WaveScale="0.85" Length="3" ForceY="-3.2">
+			<CirculKey Type="Tap" Offset="1" Angle="90"/>
+			<CirculKey Type="Tap" Offset="2" Angle="70"/>
+			<CirculKey Type="Tap" Offset="3" Angle="60"/>
+		</Key>
+		
+		<Key Type="Wave" Time="7:0:0.5" Pos="5.5" WaveScale="0.85" Length="3" ForceY="-3.2">
+			<CirculKey Type="Tap" Offset="1" Angle="90"/>
+			<CirculKey Type="Tap" Offset="2" Angle="110"/>
+			<CirculKey Type="Tap" Offset="3" Angle="120"/>
+		</Key>
+		
+		<Key Type="Wave" Time="8:0:0" Pos="0" WaveScale="0.85" Length="2" ForceY="3.2">
+			<CirculKey Type="Tap" Offset="0.5" Angle="-90"/>
+			<CirculKey Type="Tap" Offset="1" Angle="-90"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="-90"/>
+			<CirculKey Type="Tap" Offset="2" Angle="-110"/>
+			<CirculKey Type="Tap" Offset="2" Angle="-70"/>
+		</Key>
+		
+		<Key Type="Wave" Time="8:3:0.5" Pos="5" WaveScale="0.85" Length="2" ForceY="0">
+			<CirculKey Type="Tap" Offset="0.5" Angle="225"/>
+			<CirculKey Type="Tap" Offset="2" Angle="180"/>
+			<Route/>
+			<CirculKey Type="Drag" Offset="0.5" Length="1" From="135" To="165" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="9:2:0" Pos="-5" WaveScale="0.85" Length="1" ForceY="0">
+			<CirculKey Type="Drag" Offset="0" Length="1" From="0" To="0" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="9:3:0.5" Pos="0" WaveScale="0.85" Length="2.5" ForceY="3.2">
+			<CirculKey Type="Tap" Offset="0.5" Angle="-135"/>
+			<CirculKey Type="Tap" Offset="1" Angle="-45"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="-115"/>
+			<CirculKey Type="Tap" Offset="2" Angle="-65"/>
+			<CirculKey Type="Hold" Length="1" Offset="2.5" Angle="-90"/>
+		</Key>
+		
+		<Key Type="Tap" Time="10:3:0.5" Pos="0"/>
+		
+		<Key Type="Wave" Time="11:0:0" Pos="-5" WaveScale="0.85" Length="2" ForceY="-2.5">
+			<CirculKey Type="Tap" Offset="0.5" Angle="60"/>	
+			<CirculKey Type="Tap" Offset="1" Angle="45"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="40"/>
+			<CirculKey Type="Wave" Offset="2" Angle="35" WaveScale="0.6" Length="1.5" Rotate="-15">
+				<CirculKey Type="Tap" Offset="0.5" Angle="45"/>
+				<CirculKey Type="Tap" Offset="1" Angle="55"/>
+				<CirculKey Type="Tap" Offset="1.5" Angle="65"/>
+			</CirculKey>
+		</Key>
+		
+		<Key Type="Tap" Time="12:0:0" Pos="-5"/>
+		<Key Type="Tap" Time="12:0:0" Pos="5"/>
+		
+		<Key Type="Tap" Time="12:0:0.5" Pos="-3"/>
+		<Key Type="Tap" Time="12:1:0" Pos="-1"/>
+		<Key Type="Tap" Time="12:1:0.5" Pos="1"/>
+		
+		<Key Type="Tap" Time="12:2:0" Pos="-3"/>
+		<Key Type="Tap" Time="12:2:0" Pos="3"/>
+		
+		<Key Type="Wave" Time="12:3:0.5" Pos="0" WaveScale="0.8" Length="2.5" ForceY="3">
+			<CirculKey Type="Tap" Offset="0.5" Angle="-135"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="-130"/>
+			
+			<CirculKey Type="Tap" Offset="1" Angle="-45"/>
+			<CirculKey Type="Tap" Offset="2" Angle="-50"/>
+			
+			<CirculKey Type="Wave" Offset="2.5" Angle="-90" WaveScale="0.6" Length="1" Rotate="-10">
+				<CirculKey Type="Tap" Offset="0.5" Angle="180"/>
+				<CirculKey Type="Tap" Offset="1" Angle="180"/>
+			</CirculKey>
+		</Key>
+		
+		<Key Type="Tap" Time="13:3:0.5" Pos="0"/>
+		<Key Type="Hold" Time="14:0:0" Length="0.75" Pos="5.5"/>
+		<Key Type="Hold" Time="14:0:0" Length="0.75" Pos="-5.5"/>
+		
+		<Key Type="Hold" Time="14:1:0" Length="0.75" Pos="4"/>
+		<Key Type="Hold" Time="14:1:0" Length="0.75" Pos="-4"/>
+		
+		<Key Type="Wave" Time="14:2:0" Pos="0" WaveScale="0.85" Length="1.5" ForceY="-3">
+			<CirculKey Type="Tap" Offset="0.5" Angle="135"/>
+			<CirculKey Type="Tap" Offset="0.5" Angle="45"/>
+			<CirculKey Type="Tap" Offset="1" Angle="90"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="110"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="70"/>
+		</Key>
+		
+		
+		<Key Type="Wave" Time="15:0:0" Pos="-5.5" WaveScale="0.85" Length="3" ForceY="-3.2" Rotate="5">
+			<CirculKey Type="Tap" Offset="1" Angle="90"/>
+			<CirculKey Type="Tap" Offset="2" Angle="70"/>
+			<CirculKey Type="Tap" Offset="3" Angle="60"/>
+		</Key>
+		
+		<Key Type="Wave" Time="15:0:0.5" Pos="5.5" WaveScale="0.85" Length="3" ForceY="-3.2" Rotate="-5">
+			<CirculKey Type="Tap" Offset="1" Angle="90"/>
+			<CirculKey Type="Tap" Offset="2" Angle="110"/>
+			<CirculKey Type="Tap" Offset="3" Angle="120"/>
+		</Key>
+		
+		<Key Type="Wave" Time="16:0:0" Pos="0" WaveScale="0.85" Length="2" ForceY="3.2">
+			<CirculKey Type="Tap" Offset="0.5" Angle="-90"/>
+			<CirculKey Type="Tap" Offset="1" Angle="-90"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="-90"/>
+			<CirculKey Type="Tap" Offset="2" Angle="-110"/>
+			<CirculKey Type="Tap" Offset="2" Angle="-70"/>
+		</Key>
+		
+		<Key Type="Wave" Time="17:0:0" Pos="0" WaveScale="0.85" Length="2" ForceY="-3.2">
+			<CirculKey Type="Tap" Offset="0.5" Angle="90"/>
+			<CirculKey Type="Tap" Offset="1" Angle="90"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="90"/>
+			<CirculKey Type="Tap" Offset="2" Angle="110"/>
+			<CirculKey Type="Tap" Offset="2" Angle="70"/>
+		</Key>
+	</Group>
+	
+	<Group>
+		
+		<Key Type="Tap" Time="17:3:0.25" Pos="4"/>
+		<Key Type="Tap" Time="17:3:0.75" Pos="2"/>
+	
+		<Key Type="Wave" Time="18:0:0" Pos="-5" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="45" To="45" Count="4"/>
+		</Key>
+		
+		
+		<Key Type="Wave" Time="18:2:0" Pos="-5" WaveScale="0.65" Length="1.5" ForceY="3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="-45" To="-45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="18:2:0.5" Pos="3" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Tap" Offset="0.5" Angle="90"/>
+			<CirculKey Type="Tap" Offset="1" Angle="45"/>
+		</Key>
+		
+		<Key Type="Wave" Time="19:0:0" Pos="-5" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="45" To="45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="19:0:0" Pos="5" WaveScale="0.85" Length="3" ForceY="-3">
+			<CirculKey Type="Tap" Offset="1" Angle="110"/>
+			<CirculKey Type="Tap" Offset="2" Angle="110"/>
+			<CirculKey Type="Tap" Offset="3" Angle="110"/>
+		</Key>
+		
+		<Key Type="Wave" Time="19:2:0" Pos="-5" WaveScale="0.65" Length="1.5" ForceY="3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="-45" To="-45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="20:0:0" Pos="5" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="45" To="45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="20:0:0" Pos="-5" WaveScale="0.85" Length="3" ForceY="-3">
+			<CirculKey Type="Tap" Offset="1" Angle="70"/>
+			<CirculKey Type="Tap" Offset="2" Angle="70"/>
+			<CirculKey Type="Tap" Offset="3" Angle="70"/>
+		</Key>
+		
+		<Key Type="Wave" Time="20:2:0" Pos="5" WaveScale="0.65" Length="1.5" ForceY="3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="-45" To="-45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="21:0:0" Pos="5" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="45" To="45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="21:2:0" Pos="5" WaveScale="0.65" Length="1.5" ForceY="3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="-45" To="-45" Count="4"/>
+		</Key>
+		
+		<Key Type="Tap" Time="21:2:0.5" Pos="-5"/>
+		<Key Type="Tap" Time="21:3:0" Pos="-4"/>
+		<Key Type="Tap" Time="21:3:0.5" Pos="-3"/>
+		
+		<Key Type="Wave" Time="22:0:0" Pos="-5" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="45" To="45" Count="4"/>
+		</Key>
+		
+		
+		<Key Type="Wave" Time="22:2:0" Pos="-5" WaveScale="0.65" Length="1.5" ForceY="3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="-45" To="-45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="22:2:0.5" Pos="3" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Tap" Offset="0.5" Angle="90"/>
+			<CirculKey Type="Tap" Offset="1" Angle="45"/>
+		</Key>
+		
+		<Key Type="Wave" Time="23:0:0" Pos="-5" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="45" To="45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="23:0:0" Pos="5" WaveScale="0.85" Length="3" ForceY="-3">
+			<CirculKey Type="Tap" Offset="1" Angle="110"/>
+			<CirculKey Type="Tap" Offset="2" Angle="110"/>
+			<CirculKey Type="Tap" Offset="3" Angle="110"/>
+		</Key>
+		
+		<Key Type="Wave" Time="23:2:0" Pos="-5" WaveScale="0.65" Length="1.5" ForceY="3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="-45" To="-45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="24:0:0" Pos="5" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="45" To="45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="24:0:0" Pos="-5" WaveScale="0.85" Length="3" ForceY="-3">
+			<CirculKey Type="Tap" Offset="0.5" Angle="35"/>
+			<CirculKey Type="Tap" Offset="1" Angle="70"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="105"/>
+			<CirculKey Type="Tap" Offset="2" Angle="70"/>
+			<CirculKey Type="Tap" Offset="2.5" Angle="35"/>
+			<CirculKey Type="Tap" Offset="3" Angle="70"/>
+		</Key>
+		
+		<Key Type="Wave" Time="24:2:0" Pos="5" WaveScale="0.65" Length="1.5" ForceY="3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="-45" To="-45" Count="4"/>
+		</Key>
+		
+		<Key Type="Tap" Time="25:0:0" Pos="-5"/>
+		<Key Type="Wave" Time="25:0:0" Pos="5" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="45" To="45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="25:2:0" Pos="5" WaveScale="0.65" Length="1.5" ForceY="3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="-45" To="-45" Count="4"/>
+		</Key>
+		
+		<Key Type="Tap" Time="25:2:0.5" Pos="-5"/>
+		<Key Type="Tap" Time="25:3:0" Pos="-4"/>
+		<Key Type="Tap" Time="25:3:0.5" Pos="-3"/>
+		
+		
+		<Key Type="Wave" Time="26:0:0" Pos="-5" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="45" To="45" Count="4"/>
+		</Key>
+		
+		
+		<Key Type="Wave" Time="26:2:0" Pos="-5" WaveScale="0.65" Length="1.5" ForceY="3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="-45" To="-45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="26:2:0.5" Pos="3" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Tap" Offset="0.5" Angle="90"/>
+			<CirculKey Type="Tap" Offset="1" Angle="45"/>
+		</Key>
+		
+		<Key Type="Wave" Time="27:0:0" Pos="-5" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="45" To="45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="27:0:0" Pos="5" WaveScale="0.85" Length="3" ForceY="-3">
+			<CirculKey Type="Tap" Offset="1" Angle="110"/>
+			<CirculKey Type="Tap" Offset="2" Angle="110"/>
+			<CirculKey Type="Tap" Offset="3" Angle="110"/>
+		</Key>
+		
+		<Key Type="Wave" Time="27:2:0" Pos="-5" WaveScale="0.65" Length="1.5" ForceY="3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="-45" To="-45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="28:0:0" Pos="5" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="45" To="45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="28:0:0" Pos="-5" WaveScale="0.85" Length="3" ForceY="-3">
+			<CirculKey Type="Tap" Offset="1" Angle="70"/>
+			<CirculKey Type="Tap" Offset="2" Angle="70"/>
+			<CirculKey Type="Tap" Offset="3" Angle="70"/>
+		</Key>
+		
+		<Key Type="Wave" Time="28:2:0" Pos="5" WaveScale="0.65" Length="1.5" ForceY="3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="-45" To="-45" Count="4"/>
+		</Key>
+		
+		<Key Type="Tap" Time="29:0:0" Pos="-4"/>
+		<Key Type="Wave" Time="29:0:0" Pos="5" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="45" To="45" Count="4"/>
+		</Key>
+		<Key Type="Tap" Time="29:1:0" Pos="-3"/>
+		<Key Type="Wave" Time="29:2:0" Pos="5" WaveScale="0.65" Length="1.5" ForceY="3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="-45" To="-45" Count="4"/>
+		</Key>
+		
+		<Key Type="Tap" Time="29:2:0.5" Pos="-5"/>
+		<Key Type="Tap" Time="29:3:0" Pos="-4"/>
+		<Key Type="Tap" Time="29:3:0.5" Pos="-3"/>
+		
+		<Key Type="Wave" Time="30:0:0" Pos="-5" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="45" To="45" Count="4"/>
+		</Key>
+		
+		
+		<Key Type="Wave" Time="30:2:0" Pos="-5" WaveScale="0.65" Length="1.5" ForceY="3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="-45" To="-45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="30:2:0.5" Pos="3" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Tap" Offset="0.5" Angle="90"/>
+			<CirculKey Type="Tap" Offset="1" Angle="45"/>
+		</Key>
+		
+		<Key Type="Wave" Time="31:0:0" Pos="-5" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="45" To="45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="31:0:0" Pos="5" WaveScale="0.85" Length="3" ForceY="-3">
+			<CirculKey Type="Tap" Offset="1" Angle="110"/>
+			<CirculKey Type="Tap" Offset="2" Angle="110"/>
+			<CirculKey Type="Tap" Offset="3" Angle="110"/>
+		</Key>
+		
+		<Key Type="Wave" Time="31:2:0" Pos="-5" WaveScale="0.65" Length="1.5" ForceY="3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="-45" To="-45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="32:0:0" Pos="5" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="45" To="45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="32:0:0" Pos="-5" WaveScale="1" Length="3.5" ForceY="-3">
+			<CirculKey Type="Tap" Offset="0.5" Angle="35"/>
+			<CirculKey Type="Tap" Offset="1" Angle="70"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="105"/>
+			<CirculKey Type="Tap" Offset="2" Angle="70"/>
+			<CirculKey Type="Tap" Offset="2.5" Angle="35"/>
+			<CirculKey Type="Tap" Offset="3" Angle="70"/>
+			<CirculKey Type="Tap" Offset="3.5" Angle="50"/>
+		</Key>
+		
+		<Key Type="Wave" Time="32:2:0" Pos="5" WaveScale="0.65" Length="1.5" ForceY="3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="-45" To="-45" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="33:0:0" Pos="-5" WaveScale="0.8" Length="2" ForceY="-3">
+			<CirculKey Type="Tap" Offset="0.5" Angle="110"/>
+			<CirculKey Type="Tap" Offset="1" Angle="70"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="100"/>
+			<CirculKey Type="Tap" Offset="2" Angle="90"/>
+		</Key>
+		
+		<Key Type="Wave" Time="33:0:0" Pos="5" WaveScale="0.65" Length="1.5" ForceY="-3">
+			<CirculKey Type="Drag" Offset="0" Length="1.5" From="45" To="45" Count="4"/>
+		</Key>
+		
+		
+		<Key Type="Tap" Time="33:3:0.25" Pos="-5"/>
+		<Key Type="Tap" Time="33:3:0.75" Pos="-4"/>
+		
+		<Key Type="Wave" Time="34:0:0" Pos="0" WaveScale="1" Length="3.5" ForceY="-3">
+			<CirculKey Type="Tap" Offset="0.5" Angle="35"/>
+			<CirculKey Type="Tap" Offset="1" Angle="70"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="105"/>
+			<CirculKey Type="Tap" Offset="2" Angle="70"/>
+			<CirculKey Type="Tap" Offset="2.5" Angle="35"/>
+			<CirculKey Type="Tap" Offset="3" Angle="70"/>
+			<CirculKey Type="Tap" Offset="3.5" Angle="50"/>
+		</Key>
+		
+		
+		<Key Type="Wave" Time="35:0:0" Pos="0" WaveScale="0.8" Length="2" ForceY="-3">
+			<CirculKey Type="Tap" Offset="0.5" Angle="110"/>
+			<CirculKey Type="Tap" Offset="1" Angle="70"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="100"/>
+			<CirculKey Type="Tap" Offset="2" Angle="90"/>
+		</Key>
+	</Group>
+	
+	<Group>
+	<Key Type="Wave" Time="35:3:0.5" Pos="0" WaveScale="0.8" Length="1.5" ForceY="-3.2">
+			<CirculKey Type="Tap" Offset="0.5" Angle="135"/>
+			<CirculKey Type="Tap" Offset="0.5" Angle="45"/>
+			<CirculKey Type="Tap" Offset="1" Angle="90"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="90"/>
+		</Key>
+		
+		<Key Type="Wave" Time="36:1:0.5" Pos="0" WaveScale="0.8" Length="1.5" ForceY="3.2">
+			<CirculKey Type="Tap" Offset="0.5" Angle="-135"/>
+			<CirculKey Type="Tap" Offset="0.5" Angle="-45"/>
+			<CirculKey Type="Tap" Offset="1" Angle="-90"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="-90"/>
+		</Key>
+		
+		<Key Type="Tap" Time="36:3:0.5" Pos="0"/>
+		
+		<Key Type="Wave" Time="37:0:0" Pos="-5.5" WaveScale="0.7" Length="1.5" ForceY="-1.5" Rotate="8">
+			<CirculKey Type="Tap" Offset="0.5" Angle="0"/>
+			<CirculKey Type="Tap" Offset="1" Angle="20"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="40"/>
+		</Key>
+		
+		<Key Type="Wave" Time="37:0:0" Pos="5.5" WaveScale="0.7" Length="1.5" ForceY="-1.5" Rotate="-8">
+			<CirculKey Type="Tap" Offset="0.5" Angle="-180"/>
+			<CirculKey Type="Tap" Offset="1" Angle="-200"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="-220"/>
+		</Key>
+		
+		<Key Type="Tap" Time="37:2:0" Pos="5"  ForceY="-1.5"/>
+		<Key Type="Tap" Time="37:2:0" Pos="-5"  ForceY="-1.5"/>
+		
+		<Key Type="Tap" Time="37:3:0.5" Pos="0"/>
+		
+		<Key Type="Wave" Time="38:0:0" Pos="-5.5" WaveScale="0.85" Length="1.5" ForceY="-1.5" Rotate="8">
+			<CirculKey Type="Tap" Offset="0.5" Angle="45"/>
+			<CirculKey Type="Tap" Offset="0.5" Angle="-45"/>
+			<CirculKey Type="Tap" Offset="1" Angle="0"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="20"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="-20"/>
+		</Key>
+		
+		<Key Type="Wave" Time="38:2:0" Pos="5.5" WaveScale="0.85" Length="1.5" ForceY="1.5" Rotate="8">
+			<CirculKey Type="Tap" Offset="0.5" Angle="225"/>
+			<CirculKey Type="Tap" Offset="0.5" Angle="135"/>
+			<CirculKey Type="Tap" Offset="1" Angle="180"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="200"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="160"/>
+		</Key>
+		
+		<Key Type="Tap" Time="39:0:0" Pos="-5"/>
+		<Key Type="Tap" Time="39:0:0" Pos="5"/>
+		
+		<Key Type="Tap" Time="39:0:0.5" Pos="-3"/>
+		<Key Type="Tap" Time="39:1:0" Pos="-1"/>
+		<Key Type="Tap" Time="39:1:0.5" Pos="1"/>
+		
+		<Key Type="Tap" Time="39:2:0" Pos="-3"/>
+		<Key Type="Tap" Time="39:2:0" Pos="3"/>
+		
+		<Key Type="Tap" Time="39:2:0.5" Pos="1"/>
+		<Key Type="Tap" Time="39:3:0" Pos="-1"/>
+		
+		
+		<Key Type="Wave" Time="39:3:0.5" Pos="0" WaveScale="0.8" Length="2.5" ForceY="3">
+			<CirculKey Type="Tap" Offset="0.5" Angle="-135"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="-130"/>
+			
+			<CirculKey Type="Tap" Offset="1" Angle="-45"/>
+			<CirculKey Type="Tap" Offset="2" Angle="-50"/>
+			
+			<CirculKey Type="Wave" Offset="2.5" Angle="-90" WaveScale="0.6" Length="1" Rotate="-10">
+				<CirculKey Type="Tap" Offset="0.5" Angle="180"/>
+				<CirculKey Type="Tap" Offset="1" Angle="180"/>
+			</CirculKey>
+		</Key>
+		
+		<Key Type="Tap" Time="40:3:0.5" Pos="0"/>
+		<Key Type="Hold" Time="41:0:0" Length="0.75" Pos="5.5"/>
+		<Key Type="Hold" Time="41:0:0" Length="0.75" Pos="-5.5"/>
+		
+		<Key Type="Hold" Time="41:1:0" Length="0.75" Pos="4"/>
+		<Key Type="Hold" Time="41:1:0" Length="0.75" Pos="-4"/>
+		
+		<Key Type="Hold" Time="41:2:0" Length="0.75" Pos="2.5"/>
+		<Key Type="Hold" Time="41:2:0" Length="0.75" Pos="-2.5"/>
+		
+		<Key Type="Hold" Time="41:3:0" Length="0.75" Pos="1"/>
+		<Key Type="Hold" Time="41:3:0" Length="0.75" Pos="-1"/>
+		
+		<Key Type="Wave" Time="42:0:0" Pos="-5.5" WaveScale="0.85" Length="3" ForceY="-3.2">
+			<CirculKey Type="Tap" Offset="1" Angle="90"/>
+			<CirculKey Type="Tap" Offset="2" Angle="70"/>
+			<CirculKey Type="Tap" Offset="3" Angle="60"/>
+		</Key>
+		
+		<Key Type="Wave" Time="42:0:0.5" Pos="5.5" WaveScale="0.85" Length="3" ForceY="-3.2">
+			<CirculKey Type="Tap" Offset="1" Angle="90"/>
+			<CirculKey Type="Tap" Offset="2" Angle="110"/>
+			<CirculKey Type="Tap" Offset="3" Angle="120"/>
+		</Key>
+		
+		<Key Type="Wave" Time="43:0:0" Pos="0" WaveScale="0.85" Length="2" ForceY="3.2">
+			<CirculKey Type="Tap" Offset="0.5" Angle="-90"/>
+			<CirculKey Type="Tap" Offset="1" Angle="-90"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="-90"/>
+			<CirculKey Type="Tap" Offset="2" Angle="-110"/>
+			<CirculKey Type="Tap" Offset="2" Angle="-70"/>
+		</Key>
+		
+		<Key Type="Wave" Time="43:3:0.5" Pos="5" WaveScale="0.85" Length="2" ForceY="0">
+			<CirculKey Type="Tap" Offset="0.5" Angle="225"/>
+			<CirculKey Type="Tap" Offset="2" Angle="180"/>
+			<Route/>
+			<CirculKey Type="Drag" Offset="0.5" Length="1" From="135" To="165" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="44:2:0" Pos="-5" WaveScale="0.85" Length="1" ForceY="0">
+			<CirculKey Type="Drag" Offset="0" Length="1" From="0" To="0" Count="4"/>
+		</Key>
+		
+		<Key Type="Wave" Time="44:3:0.5" Pos="0" WaveScale="0.85" Length="2.5" ForceY="3.2">
+			<CirculKey Type="Tap" Offset="0.5" Angle="-135"/>
+			<CirculKey Type="Tap" Offset="1" Angle="-45"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="-115"/>
+			<CirculKey Type="Tap" Offset="2" Angle="-65"/>
+			<CirculKey Type="Hold" Length="1" Offset="2.5" Angle="-90"/>
+		</Key>
+		
+		<Key Type="Tap" Time="45:3:0.5" Pos="0"/>
+		
+		<Key Type="Wave" Time="46:0:0" Pos="-5" WaveScale="0.85" Length="2" ForceY="-2.5">
+			<CirculKey Type="Tap" Offset="0.5" Angle="60"/>	
+			<CirculKey Type="Tap" Offset="1" Angle="45"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="40"/>
+			<CirculKey Type="Wave" Offset="2" Angle="35" WaveScale="0.6" Length="1.5" Rotate="-15">
+				<CirculKey Type="Tap" Offset="0.5" Angle="45"/>
+				<CirculKey Type="Tap" Offset="1" Angle="55"/>
+				<CirculKey Type="Tap" Offset="1.5" Angle="65"/>
+			</CirculKey>
+		</Key>
+		
+		<Key Type="Tap" Time="47:0:0" Pos="-5"/>
+		<Key Type="Tap" Time="47:0:0" Pos="5"/>
+		
+		<Key Type="Tap" Time="47:0:0.5" Pos="-3"/>
+		<Key Type="Tap" Time="47:1:0" Pos="-1"/>
+		<Key Type="Tap" Time="47:1:0.5" Pos="1"/>
+		
+		<Key Type="Tap" Time="47:2:0" Pos="-3"/>
+		<Key Type="Tap" Time="47:2:0" Pos="3"/>
+		
+		<Key Type="Wave" Time="47:3:0.5" Pos="0" WaveScale="0.8" Length="2.5" ForceY="3">
+			<CirculKey Type="Tap" Offset="0.5" Angle="-135"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="-130"/>
+			
+			<CirculKey Type="Tap" Offset="1" Angle="-45"/>
+			<CirculKey Type="Tap" Offset="2" Angle="-50"/>
+			
+			<CirculKey Type="Wave" Offset="2.5" Angle="-90" WaveScale="0.6" Length="1" Rotate="-10">
+				<CirculKey Type="Tap" Offset="0.5" Angle="180"/>
+				<CirculKey Type="Tap" Offset="1" Angle="180"/>
+			</CirculKey>
+		</Key>
+		
+		<Key Type="Tap" Time="48:3:0.5" Pos="0"/>
+		<Key Type="Hold" Time="49:0:0" Length="0.75" Pos="5.5"/>
+		<Key Type="Hold" Time="49:0:0" Length="0.75" Pos="-5.5"/>
+		
+		<Key Type="Hold" Time="49:1:0" Length="0.75" Pos="4"/>
+		<Key Type="Hold" Time="49:1:0" Length="0.75" Pos="-4"/>
+		
+		<Key Type="Wave" Time="49:2:0" Pos="0" WaveScale="0.85" Length="1.5" ForceY="-3">
+			<CirculKey Type="Tap" Offset="0.5" Angle="135"/>
+			<CirculKey Type="Tap" Offset="0.5" Angle="45"/>
+			<CirculKey Type="Tap" Offset="1" Angle="90"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="110"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="70"/>
+		</Key>
+		
+		
+		<Key Type="Wave" Time="50:0:0" Pos="-5.5" WaveScale="0.85" Length="3" ForceY="-3.2" Rotate="5">
+			<CirculKey Type="Tap" Offset="1" Angle="90"/>
+			<CirculKey Type="Tap" Offset="2" Angle="70"/>
+			<CirculKey Type="Tap" Offset="3" Angle="60"/>
+		</Key>
+		
+		<Key Type="Wave" Time="50:0:0.5" Pos="5.5" WaveScale="0.85" Length="3" ForceY="-3.2" Rotate="-5">
+			<CirculKey Type="Tap" Offset="1" Angle="90"/>
+			<CirculKey Type="Tap" Offset="2" Angle="110"/>
+			<CirculKey Type="Tap" Offset="3" Angle="120"/>
+		</Key>
+		
+		<Key Type="Wave" Time="51:0:0" Pos="0" WaveScale="0.85" Length="2" ForceY="3.2">
+			<CirculKey Type="Tap" Offset="0.5" Angle="-90"/>
+			<CirculKey Type="Tap" Offset="1" Angle="-90"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="-90"/>
+			<CirculKey Type="Tap" Offset="2" Angle="-110"/>
+			<CirculKey Type="Tap" Offset="2" Angle="-70"/>
+		</Key>
+		
+		<Key Type="Wave" Time="52:0:0" Pos="0" WaveScale="0.85" Length="2" ForceY="-3.2">
+			<CirculKey Type="Tap" Offset="0.5" Angle="90"/>
+			<CirculKey Type="Tap" Offset="1" Angle="90"/>
+			<CirculKey Type="Tap" Offset="1.5" Angle="90"/>
+			<CirculKey Type="Tap" Offset="2" Angle="110"/>
+			<CirculKey Type="Tap" Offset="2" Angle="70"/>
+		</Key>
+	</Group>
+</Song>

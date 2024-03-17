@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
 using Dictionary = System.IO.Directory;
+
 public class StartInit : MonoBehaviour
 {
     static string[] TipTexts = new string[] 
@@ -116,7 +117,7 @@ public class StartInit : MonoBehaviour
         IEnumerator Proc_1()
         {
             yield return new WaitForSeconds(2);
-            var Async = SceneManager.LoadSceneAsync(1);
+            var Async = SceneManager.LoadSceneAsync(8);
             Async.completed += (v) =>
             {
                 AntiAddictionUIKit.EnterGame();
@@ -164,4 +165,12 @@ public class StartInit : MonoBehaviour
     {
         
     }
+}
+
+public struct SongInfo
+{
+    public AudioClip Song;
+    public Texture BackGround;
+    public TextAsset SongData;
+    public TextAsset SongConfig;
 }

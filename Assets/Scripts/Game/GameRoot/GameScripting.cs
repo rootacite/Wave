@@ -110,6 +110,8 @@ public partial class GameScripting : MonoBehaviour
     public TextMeshProUGUI GLevel_Text;
     public TextMeshProUGUI Name_Text;
     public Animator RootAnmi;
+
+    public GameObject pauseButton;
     #endregion
 
     void Awake()

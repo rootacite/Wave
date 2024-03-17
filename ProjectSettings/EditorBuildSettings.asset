@@ -32,4 +32,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TapInterface.unity
     guid: 85e2e1bbdd49c6e409c9c44a221a83dc
+  - enabled: 1
+    path: Assets/Scenes/Collections.unity
+    guid: bfc98dcd636010743ada09a1e16e9e26
+  - enabled: 1
+    path: Assets/Scenes/OriginCollection.unity
+    guid: 536c3ba6b87891c4998ea964d6be144d
   m_configObjects: {}

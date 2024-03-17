@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SongAttribute UseAdvanceBeat="true" 
+ WorldCoord="true"  
+ InsideName="Omoidewoarigato"
+ Accuracy="40"
+ Level="5"
+ Length="168" BeatPerSection="4"
+ BPM="76"
+ HeadPending="1" 
+ Full="284500" 
+ Name="Omoidewoarigato"/>

@@ -7,12 +7,12 @@ public class TitleButton : MonoBehaviour
 {
     IEnumerator Title()
     {
-        Time.timeScale = 1;
         StartInit.Show();
         yield return new WaitForSecondsRealtime(1);
-        var Async = SceneManager.LoadSceneAsync(1);
+        var Async = SceneManager.LoadSceneAsync(8);
         Async.completed += (v) =>
         {
+            Time.timeScale = 1;
             StartInit.Hide();
         };
     }

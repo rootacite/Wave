@@ -3,6 +3,8 @@ Shader "Custom/CircleMask"
     Properties
     {
         _MainTex ("Albedo (RGB)", 2D) = "white" {}
+        _Front   ("Front", float) = 0.5
+        _Back  ("Back", float) = 0.4
     }
     SubShader
     {
@@ -25,8 +27,8 @@ Shader "Custom/CircleMask"
         };
 
         sampler2D _MainTex;
-        float _Front = 0.5;
-        float _Back = 0.4;
+        float _Front;
+        float _Back;
 
         float distance(float2 x,float2 y)
         {

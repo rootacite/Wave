@@ -10,7 +10,7 @@ public class BackSettingButton : MonoBehaviour
     {
         StartInit.Show();
         yield return new WaitForSecondsRealtime(1);
-        var Async = SceneManager.LoadSceneAsync(1);
+        var Async = SceneManager.LoadSceneAsync(8);
         Async.completed += (v) =>
         {
             StartInit.Hide();

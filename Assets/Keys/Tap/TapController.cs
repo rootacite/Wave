@@ -22,11 +22,14 @@ sealed public class TapController : Keys
     {
         var r = Instantiate(Origin, TransfronParent.transform);
         r.transform.localPosition = Position;
+        r.transform.position = new Vector3(r.transform.position.x, r.transform.position.y, Position.z);
         var Controller = r.GetComponent<TapController>();
 
         Controller.BeatPerSecond = SecondPerBeat;
         Controller.Offset = BeatOffset;
-        Controller.Z = Position.z;
+        //Debug.Log("Tap Position : " + Position.ToString());
+        Controller.Z = r.transform.position.z;
+        //Debug.Log("Tap : " + r.transform.position.z.ToString());
         return Controller;
     }
     

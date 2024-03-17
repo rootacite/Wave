@@ -15,7 +15,7 @@ public class CircleMask : MonoBehaviour
     
     private void Awake()
     {
-        currentMaterial = GetComponent<Renderer>().material;
+        currentMaterial = GetComponent<SpriteRenderer>().material;
         currentMaterial.SetFloat("_Front", 0);
         currentMaterial.SetFloat("_Back", 0);
     }

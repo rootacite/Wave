@@ -61,6 +61,7 @@ public class FlatKey : Scriptable
     }
     public KeyType Type { get; private set; }
     public double WaveScale { get; set; } = 1;
+    public double Rotate { get; set; } = 0;
 
     public List<CircularKey> Children { get; private set; } = new List<CircularKey>();
     public DragData DragData;
@@ -87,6 +88,11 @@ public class FlatKey : Scriptable
             if (source.Attribute("WaveScale")?.Value != null)
             {
                 WaveScale = Convert.ToDouble(source.Attribute("WaveScale").Value);
+            }
+
+            if (source.Attribute("Rotate")?.Value != null)
+            {
+                Rotate = Convert.ToDouble(source.Attribute("Rotate").Value);
             }
             foreach (XElement i in source.Nodes())
             {
@@ -149,6 +155,7 @@ public class FlatKey : Scriptable
 
 public class CircularKey
 {
+    public double Rotate { get; set; } = 0;
     public float TimeOfLastChildren
     {
         get
@@ -212,6 +219,11 @@ public class CircularKey
             if(source.Attribute("WaveScale")?.Value!=null)
             {
                 WaveScale = Convert.ToDouble(source.Attribute("WaveScale").Value);
+            }
+            
+            if (source.Attribute("Rotate")?.Value != null)
+            {
+                Rotate = Convert.ToDouble(source.Attribute("Rotate").Value);
             }
             foreach (XElement i in source.Nodes())
             {

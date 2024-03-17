@@ -12,41 +12,16 @@ public class MenuGuideButton : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
+        GameObject corObj = new ("GuideObj"); // Create the new obj to contain Guide Coroutine
+        var sgc = corObj.AddComponent<SimpleGuideContrion>();
+        DontDestroyOnLoad(corObj);
+
         var Task = SceneManager.LoadSceneAsync(2);
         Task.completed += (e) =>
         {
             GameScripting.Instance.Initialize(Song, SongConfig, SongData, BackGround, null);
-
-            GameScripting.Instance.Metronome.OnBeat += (t) =>
-            {
-                if (t == 2)
-                {
-                    StartInit.ShowText("Tap键\n跟随节奏，当下落的雨滴打在上面时点击。", 6);
-                    return;
-                }
-                if (t == 18)
-                {
-                    StartInit.ShowText("Hold键\n当下落的雨滴打在上面时其中心或内圈完全舒展时触摸并保持。待外圈完全展开至虚线边缘时方可松开。", 6);
-                    return;
-                }
-                if (t == 35)
-                {
-                    StartInit.ShowText("Slide键\n当下落的雨滴打在上面时，点击并向任意方向滑动。", 6);
-                    return;
-                }
-                if (t == 47f)
-                {
-                    StartInit.ShowText("Wave，当下落的雨滴打在上面时点击，与Tap键不同的是\nWave键被点击时，会生成一个环形的判定区域\"星盘\"\n星盘中的键需要在波纹与其重合时点击。", 12);
-                    return;
-                }
-                if (t == 64f)
-                {
-                    StartInit.ShowText("Drag键\n紫色按键。\n当判定线划过其中心或外圈完全收缩时触摸或划过。\n",6);
-                    return;
-                }
-            };
+            sgc.StartGuide(GameScripting.Instance);
             StartInit.Hide();
-
         };
 
     }

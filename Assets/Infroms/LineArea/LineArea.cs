@@ -30,7 +30,6 @@ public class LineArea : MonoBehaviour
     {
         GameObject obj = Instantiate(Origin, Parent.transform);
         var r = obj.GetComponent<LineArea>();
-        var l = obj.GetComponent<LineRenderer>();
 
         r._time = ExistTime;
         r._positions.AddRange(ps);
@@ -54,6 +53,7 @@ public class LineArea : MonoBehaviour
     IEnumerator Expland()
     {
         Stopwatch stw = new Stopwatch();
+        StopWatchManager.AddEntity(stw);
         stw.Reset();
         stw.Start();
         
@@ -66,6 +66,7 @@ public class LineArea : MonoBehaviour
             if (r >= 1f)
             {
                 stw.Stop();
+                StopWatchManager.RemoveEntity(stw);
                 yield break;
             }
         }
@@ -74,6 +75,7 @@ public class LineArea : MonoBehaviour
     IEnumerator Shrink()
     {
         Stopwatch stw = new Stopwatch();
+        StopWatchManager.AddEntity(stw);
         stw.Reset();
         stw.Start();
         ExpandPoint = 1f;
@@ -86,6 +88,7 @@ public class LineArea : MonoBehaviour
             if (r <= 0f)
             {
                 stw.Stop();
+                StopWatchManager.RemoveEntity(stw);
                 yield break;
             }
         }
@@ -104,6 +107,10 @@ public class LineArea : MonoBehaviour
     void Update()
     {
         var pl = GetSubLine();
+        for (int i = 0; i < pl.Length; i++)
+        {
+            pl[i] = transform.TransformPoint(pl[i]);
+        }
         _line.positionCount = pl.Length;
         _line.SetPositions(pl);
     }

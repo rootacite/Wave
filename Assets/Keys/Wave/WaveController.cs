@@ -16,7 +16,6 @@ sealed public class WaveController : Keys
             return 8f * Scale;
         }
     }
-    float LastChildTime;
 
     public GameObject DragLineOrigin;
 
@@ -32,35 +31,40 @@ sealed public class WaveController : Keys
     private List<CircularKey> Childrens;
 
     private Creator _creator;
-    static public WaveController Creat(Creator creator, Vector3 Position, GameObject Origin, GameObject TransfronParent, float SecondPerBeat, List<CircularKey> Childrens, float LastTime, float BeatOffset = 1f, float Scale = 1f)
+    private double _rotate;
+    static public WaveController Creat(Creator creator, Vector3 Position, GameObject Origin, GameObject TransfromParent, float SecondPerBeat, List<CircularKey> Childrens, float LastTime, float BeatOffset = 1f, float Scale = 1f, double rotate = 0d)
     {
-        var r = Instantiate(Origin, TransfronParent.transform);
+        var r = Instantiate(Origin, TransfromParent.transform);
         r.transform.localPosition = Position;
+        r.transform.position = new Vector3(r.transform.position.x, r.transform.position.y, Position.z);
         var Controller = r.GetComponent<WaveController>();
 
         Controller.BeatPerSecond = SecondPerBeat;
         Controller.Offset = BeatOffset;
-        Controller.Z = Position.z;
+        Controller.Z = r.transform.position.z;
         Controller.Childrens = Childrens;
-        Controller.SavePosition = Position;
+        Controller.SavePosition = new Vector2(0, 0);
         Controller.ScaleObj.transform.localScale = new Vector3(Scale, Scale, 1);
         Controller.Scale = Scale;
-        Controller.LastChildTime = LastTime;
         Controller._creator = creator;
+        Controller._rotate = rotate;
 
         return Controller;
     }
     
     public float Length; //Should be Setted when Init
 
-    override protected IEnumerator DelayDestroy(float time)
+    override protected IEnumerator DelayDestroy(double time)
     {
-        yield return new WaitForSeconds(time - LastChildTime * BeatPerSecond);
+        yield return new WaitForSeconds((float)time);
+        if(LastKey.Type == KeyType.Hold || LastKey.Type == KeyType.Drag)
+            yield return new WaitForSeconds((float)(LastKey.Length * BeatPerSecond));
         GetComponent<Animator>().SetTrigger("RangeHide");
 
-        yield return new WaitForSeconds(LastChildTime * BeatPerSecond);
+        yield return new WaitForSeconds((float)((TotalLength - time) * BeatPerSecond));
 
         yield return new WaitForSeconds(0.33f * BeatPerSecond);
+        StopWatchManager.RemoveEntity(_stw);
         Destroy(this.gameObject);
     }
     event Action EndForFirstDrag;
@@ -77,21 +81,21 @@ sealed public class WaveController : Keys
                 {
                     OnPrefect();
                     TAnimation.SetTrigger("Prefect");
-                    StartCoroutine(DelayDestroy((Length + LastChildTime) * BeatPerSecond));
+                    StartCoroutine(DelayDestroy(StLength * BeatPerSecond));
                     Invalided = true;
                 }
                 else if (Status == 1)
                 {
                     OnGreat();
                     TAnimation.SetTrigger("Great");
-                    StartCoroutine(DelayDestroy((Length + LastChildTime) * BeatPerSecond));
+                    StartCoroutine(DelayDestroy(StLength * BeatPerSecond));
                     Invalided = true;
                 }
                 else
                 {
                     OnBad();
                     TAnimation.SetTrigger("Bad");
-                    StartCoroutine(DelayDestroy((Length + LastChildTime) * BeatPerSecond));
+                    StartCoroutine(DelayDestroy(StLength * BeatPerSecond));
                     Invalided = true;
                 }
                 if (Childrens[0].Type == KeyType.Drag) EndForFirstDrag?.Invoke();
@@ -101,6 +105,24 @@ sealed public class WaveController : Keys
             return false;
         }
         return false;
+    }
+
+    readonly Stopwatch _stw = new Stopwatch();
+    IEnumerator Rotating()
+    {
+        StopWatchManager.AddEntity(_stw);
+        _stw.Reset();
+        _stw.Start();
+        
+        while (true)
+        {
+            yield return null;
+            Vector3 currentEulerAngles = transform.eulerAngles;
+            // 增加1度到Y轴的旋转角度
+            currentEulerAngles.z = (float)(_stw.ElapsedMilliseconds / 1000d * _rotate);
+            // 将修改后的欧拉角应用到物体的Transform组件
+            transform.eulerAngles = currentEulerAngles;
+        }
     }
 
     protected override void Start()
@@ -120,27 +142,27 @@ sealed public class WaveController : Keys
                     case KeyType.Tap:
                         BK = _creator.CreateTap(
                             SavePosition.Offset(i.Angle, RealRod * ((float)i.WaveOffset / Length)),
-                            (float)i.WaveOffset);
+                            (float)i.WaveOffset, gameObject);
                         break;
                     case KeyType.Hold:
                         BK = _creator.CreateHold(
                             SavePosition.Offset(i.Angle, RealRod * ((float)i.WaveOffset / Length)), (float)i.Length,
-                            (float)i.WaveOffset);
+                            (float)i.WaveOffset, gameObject);
                         break;
                     case KeyType.Slide:
                         BK = _creator.CreateSlide(
                             SavePosition.Offset(i.Angle, RealRod * ((float)i.WaveOffset / Length)),
-                            (float)i.WaveOffset);
+                            (float)i.WaveOffset, gameObject);
                         break;
                     case KeyType.Wave:
                         BK = _creator.CreateWave(
                             SavePosition.Offset(i.Angle, RealRod * ((float)i.WaveOffset / Length)), i.Children,
-                            (float)i.Length, i.TimeOfLastChildren, (float)i.WaveOffset, (float)i.WaveScale);
+                            (float)i.Length, i.TimeOfLastChildren, i.Rotate, (float)i.WaveOffset, (float)i.WaveScale, gameObject);
                         break;
                     case KeyType.HWave:
                         BK = _creator.CreateHWave(
                             SavePosition.Offset(i.Angle, RealRod * ((float)i.WaveOffset / Length)), i.Children,
-                            (float)i.Length, i.TimeOfLastChildren, (float)i.WaveOffset, (float)i.WaveScale);
+                            (float)i.Length, i.TimeOfLastChildren, (float)i.WaveOffset, (float)i.WaveScale, gameObject);
                         break;
                     case KeyType.Drag:
 
@@ -150,7 +172,7 @@ sealed public class WaveController : Keys
                         {
                             double initR = RealRod * (i.WaveOffset / Length);
                             double endR = RealRod * ((i.Length + i.WaveOffset) / Length);
-                            int Crond = (int)((endR - initR) * 80d);
+                            int Crond = (int)((endR - initR) * 8d);
                             for (int p = 0; p <= Crond; p++)
                             {
                                 double CurrentAngle =
@@ -158,11 +180,12 @@ sealed public class WaveController : Keys
                                 double CurrentR = initR + (endR - initR) / Crond * p;
 
                                 Vector3 pv = SavePosition.Offset((float)CurrentAngle, (float)CurrentR);
-                                pv.z = 88f;
+                                pv.z = 5f;
                                 Points.Add(pv);
                             }
 
-                            DL = DragLine.Create(DragLineOrigin, _creator.gameObject, Points.ToArray());
+                            DL = DragLine.Create(DragLineOrigin, gameObject, Points.ToArray());
+                            //Debug.Log(Points.ToArray());
 
                             for (double p = 0; p <= i.DragData.Count; p++)
                             {
@@ -171,7 +194,7 @@ sealed public class WaveController : Keys
                                 double CurrentR = initR + (endR - initR) / i.DragData.Count * p;
                                 double CurrentOffset = i.WaveOffset + i.Length / i.DragData.Count * p;
                                 var dcr = _creator.CreateDragAngle(SavePosition, (float)CurrentAngle, (float)CurrentR,
-                                    (float)CurrentOffset);
+                                    (float)CurrentOffset, gameObject);
 
                                 if (p == 0 || p == i.DragData.Count)
                                 {
@@ -179,6 +202,7 @@ sealed public class WaveController : Keys
                                     if (p == 0)
                                     {
                                         EndForFirstDrag += () => { dcr.EndEvent(); };
+                                        dcr.OnInvalided += (s) => { DL?.StartShrink(i.Length * BeatPerSecond); };
                                     }
                                 }
                                 else
@@ -186,9 +210,6 @@ sealed public class WaveController : Keys
                                         (float)(i.Length / (double)i.DragData.Count));
 
                                 double Rate = 1d - p / i.DragData.Count;
-
-                                dcr.OnInvalided += (s) => { DL?.Sub(Rate); };
-
                             }
                         }
                         else
@@ -205,6 +226,7 @@ sealed public class WaveController : Keys
 
                             double PointLimit = (double)(35 * (KFrameList.Count - 1)) / i.DragData.Count;
                             double flag_limit = 0;
+                            DragController save_dcr = null;
                             PolarSystem.EnumPolarRoute((p, ii) =>
                             {
                                 double CurrentOffset =
@@ -212,13 +234,13 @@ sealed public class WaveController : Keys
 
                                 Vector3 ccp = p.ToVector();
                                 ccp = (Vector2)ccp + StartPos;
-                                ccp.z = 88f;
+                                ccp.z = 5f;
                                 Points.Add(ccp);
 
                                 if (ii > flag_limit)
                                 {
-                                    var dcr = _creator.CreateDrag_Single(ccp, (float)CurrentOffset);
-
+                                    var dcr = _creator.CreateDrag_Single(ccp, (float)CurrentOffset, gameObject);
+                                    if (save_dcr == null) save_dcr = dcr;
                                     if (ii == 0 || ii == 35 * (KFrameList.Count - 1))
                                     {
                                         dcr.SetWaveEffect();
@@ -227,15 +249,12 @@ sealed public class WaveController : Keys
                                         dcr.SetNodeMode(-(float)p.rou, (float)(i.Length / (double)i.DragData.Count));
 
                                     double Rate = 1d - ii / (double)(35 * (KFrameList.Count - 1));
-
-                                    dcr.OnInvalided += (s) => { DL?.Sub(Rate); };
-
                                     flag_limit += PointLimit;
                                 }
 
                             }, new Polar2(0, 0), KFrameList.ToArray(), 35);
-                            DL = DragLine.Create(DragLineOrigin, _creator.gameObject, Points.ToArray());
-
+                            DL = DragLine.Create(DragLineOrigin, gameObject, Points.ToArray());
+                            save_dcr.OnInvalided += (s) => { DL?.StartShrink(i.Length * BeatPerSecond); };
 
                         }
 
@@ -257,6 +276,11 @@ sealed public class WaveController : Keys
         };
 
         //OldRange.enabled = false;
+
+        if (_rotate != 0)
+        {
+            StartCoroutine(Rotating());
+        }
     }
 
     protected override void Update()
@@ -285,8 +309,64 @@ sealed public class WaveController : Keys
         {
             OnPrefect();
             TAnimation.SetTrigger("Prefect");
-            StartCoroutine(DelayDestroy((Length + LastChildTime) * BeatPerSecond));
+            StartCoroutine(DelayDestroy(StLength * BeatPerSecond));
             Invalided = true;
+        }
+    }
+
+    private double GetChildrenLength(List<CircularKey> chs)
+    {
+        CircularKey lk = null; 
+        double r = 0;
+        foreach (var k in chs)
+        {
+            if (k.WaveOffset > r) r = k.WaveOffset;
+        }
+
+        foreach (var k in chs)
+        {
+            if (Math.Abs(k.WaveOffset - r) < 0.001d) lk = k;
+        }
+        
+        if (lk.Type == KeyType.Wave || lk.Type == KeyType.HWave)
+        {
+            return lk.WaveOffset + GetChildrenLength(lk.Children) + 1;
+        }
+        else if (lk.Type == KeyType.Drag || lk.Type == KeyType.Hold)
+        {
+            return lk.WaveOffset + lk.Length + 1;
+        }
+        else
+        {
+            return lk.WaveOffset + 1;
+        }
+    }
+
+    public override double TotalLength
+    {
+        get
+        {
+            return GetChildrenLength(Childrens);
+        }
+    }
+
+    private double StLength => LastKey.WaveOffset;
+    private CircularKey LastKey
+    {
+        get
+        {
+            double r = 0;
+            foreach (var k in Childrens)
+            {
+                if (k.WaveOffset > r) r = k.WaveOffset;
+            }
+
+            foreach (var k in Childrens)
+            {
+                if (Math.Abs(k.WaveOffset - r) < 0.001d) return k;
+            }
+
+            return null;
         }
     }
 }

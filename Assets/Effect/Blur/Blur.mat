@@ -63,7 +63,7 @@ Material:
     m_Floats:
     - _BlurOffset: 5.7
     - _BlurRadius: 14
-    - _BlurSize: 9.75
+    - _BlurSize: 6.5
     - _BumpAmt: 87
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -88,3 +88,4 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1

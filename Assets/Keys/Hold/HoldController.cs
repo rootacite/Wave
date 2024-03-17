@@ -14,6 +14,7 @@ public class HoldController : Keys
 
     private Animator TAnimation;
     public AnimationClip HoldedClip;
+    private double _length;
 
     bool DifficultMode = false;
     public event Action OnHold;
@@ -22,13 +23,14 @@ public class HoldController : Keys
     {
         var r = Instantiate(Origin, TransfronParent.transform);
         r.transform.localPosition = Position;
-
+        r.transform.position = new Vector3(r.transform.position.x, r.transform.position.y, Position.z);
         var Controller = r.GetComponent<HoldController>();
 
         Controller.BeatPerSecond = SecondPerBeat;
         Controller.Offset = BeatOffset;
         Controller.ExplandTime = SecondPerBeat * Length * 60f;
-        Controller.Z = Position.z;
+        Controller.Z = r.transform.position.z;
+        Controller._length = Length;
 
         return Controller;
     }
@@ -199,7 +201,6 @@ public class HoldController : Keys
     }
     override public void PrefectEvent()
     {
-        //Prefect����endʱ������������Բ��������������ٶ�
         Status = 0;
 
         if(AutoMode)
@@ -217,5 +218,10 @@ public class HoldController : Keys
         base.SetWaveEffect();
         Center.GetComponent<SpriteRenderer>().sprite = Center_sp;
         Grade.GetComponent<SpriteRenderer>().sprite = Grade_sp;
+    }
+
+    public override double TotalLength
+    {
+        get => this._length;
     }
 }

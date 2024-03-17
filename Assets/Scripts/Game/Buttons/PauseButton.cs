@@ -15,6 +15,7 @@ public class PauseButton : MonoBehaviour
 
             PauseCanvas.SetActive(true);
             PauseCanvas.GetComponent<Animator>().SetBool("Showed", true);
+            StopWatchManager.HangAll();
         });
     }
 

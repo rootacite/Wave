@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SongAttribute UseAdvanceBeat="true" 
+ WorldCoord="true"  
+ InsideName="BrokenTime"
+ Accuracy="40"
+ Level="8"
+ Length="200" BeatPerSection="4"
+ BPM="72"
+ HeadPending="1" 
+ Full="104000" 
+ Name="BrokenTime"/>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SongAttribute UseAdvanceBeat="true" 
+ WorldCoord="true"  
+ InsideName="Horizon"
+ Accuracy="40"
+ Level="5"
+ Length="200" BeatPerSection="4"
+ BPM="68"
+ HeadPending="1" 
+ Full="104000" 
+ Name="Horizon"/>

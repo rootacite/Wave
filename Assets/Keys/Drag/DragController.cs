@@ -25,11 +25,12 @@ public class DragController : Keys
     {
         var r = Instantiate(Origin, TransfronParent.transform);
         r.transform.localPosition = Position;
+        r.transform.position = new Vector3(r.transform.position.x, r.transform.position.y, Position.z);
         var Controller = r.GetComponent<DragController>();
 
         Controller.BeatPerSecond = SecondPerBeat;
         Controller.Offset = BeatOffset;
-        Controller.Z = Position.z;
+        Controller.Z = r.transform.position.z;
         //Controller.rootConfig = rootConfig;
         
         return Controller;

@@ -5,107 +5,70 @@ using UnityEngine;
 using KeyRoute = System.Collections.Generic.List<System.Collections.Generic.List<CircularKey>>;
 public partial class Creator : MonoBehaviour
 {
-    public void Connect(Vector2 p1, Vector2 p2, float timeWithBeat, GameObject parent, float disappearTimeWithBeat = -1)
+    private float GetZAxis()
     {
-        var ln = LineArea.Create(LineAreaObj, parent, p1, p2, timeWithBeat * Metronome.BeatSpeed, disappearTimeWithBeat * Metronome.BeatSpeed);
-        ln.ExpandPoint = 0f;
-    }
-    public HoldController CreateHold(Vector2 Pos, float Length, float Offset = 1, GameObject Parent = null)
-    {
-        float max_z = 0;
+        float maxZ = float.MinValue;
+        bool noEle = true;
         try
         {
             foreach (Keys i in Keys.Instances)
             {
                 if (i == null) continue;
+                if (i.Invalided) continue;
 
-                if (i?.Invalided == true) continue;
-
-                if (i.Z > max_z)
+                if (i.Z > maxZ)
                 {
-                    max_z = i.Z;
+                    maxZ = i.Z;
+                    noEle = false;
                 }
             }
         }
-        catch (Exception) { }
+        catch (Exception e) { Debug.LogException(e); }
+
+        if (noEle) return -5f;
+        return maxZ;
+    }
+    
+    public void Connect(Vector2 p1, Vector2 p2, float timeWithBeat, GameObject parent, float disappearTimeWithBeat = -1)
+    {
+        if((p1-p2).magnitude<0.01)
+            return;
+        var ln = LineArea.Create(LineAreaObj, parent, p1, p2, timeWithBeat * Metronome.BeatSpeed, disappearTimeWithBeat * Metronome.BeatSpeed);
+        ln.ExpandPoint = 0f;
+    }
+    public HoldController CreateHold(Vector2 Pos, float Length, float Offset = 1, GameObject Parent = null)
+    {
+        float max_z = GetZAxis();
         var _hold = HoldController.Creat(new Vector3(Pos.x, Pos.y, max_z + 0.01f), Hold, Parent == null ? gameObject : Parent, Length, Metronome.BeatSpeed, Offset);
         
         return _hold;
     }
     public TapController CreateTap(Vector2 Pos, float Offset = 1, GameObject Parent = null)
     {
-        float max_z = 0;
-
-        try
-        {
-            foreach (Keys i in Keys.Instances)
-            {
-                if (i == null) continue;
-
-                if (i?.Invalided == true) continue;
-
-                if (i.Z > max_z)
-                {
-                    max_z = i.Z;
-                }
-            }
-        }
-        catch (Exception) { }
+        float max_z = GetZAxis();
         var _tap = TapController.Creat( new Vector3(Pos.x, Pos.y, max_z + 0.01f), Tap, Parent == null ? gameObject : Parent, Metronome.BeatSpeed, Offset);
-
+        Debug.Log("Tap Create" + _tap.Z.ToString());
         return _tap;
     }
     public SlideController CreateSlide(Vector2 Pos, float Offset = 1, GameObject Parent = null)
     {
-        float max_z = 0;
-
-        try
-        {
-            foreach (Keys i in Keys.Instances)
-            {
-                if (i == null) continue;
-
-                if (i?.Invalided == true) continue;
-
-                if (i.Z > max_z)
-                {
-                    max_z = i.Z;
-                }
-            }
-        }
-        catch (Exception) { }
+        float max_z = GetZAxis();
         var _slide = SlideController.Creat(new Vector3(Pos.x, Pos.y, max_z + 0.01f), Slide, Parent == null ? gameObject : Parent, Metronome.BeatSpeed, Offset);
         
         return _slide;
     }
-    public WaveController CreateWave(Vector2 Pos, List<CircularKey> Childrens, float Length, float LastTime, float Offset = 1, float Scale = 1, GameObject Parent = null)
+    public WaveController CreateWave(Vector2 Pos, List<CircularKey> Childrens, float Length, float LastTime, double rotate, float Offset = 1, float Scale = 1, GameObject Parent = null)
     {
-        float max_z = 0;
-
-        try
-        {
-            foreach (Keys i in Keys.Instances)
-            {
-                if (i == null) continue;
-
-                if (i?.Invalided == true) continue;
-
-                if (i.Z > max_z)
-                {
-                    max_z = i.Z;
-                }
-            }
-        }
-        catch (Exception) { }
-        var _wave = WaveController.Creat(this, new Vector3(Pos.x, Pos.y, max_z + 0.02f), Wave, Parent == null ? gameObject : Parent, Metronome.BeatSpeed, Childrens, LastTime, Offset, Scale);
+        float max_z = GetZAxis();
+        var _wave = WaveController.Creat(this, new Vector3(Pos.x, Pos.y, max_z + 0.02f), Wave, Parent == null ? gameObject : Parent, Metronome.BeatSpeed, Childrens, LastTime , Offset, Scale, rotate);
         #region Behavior
         _wave.Length = Length;
         #endregion
 
-        var OriginPoint = new Vector3(Pos.x, Pos.y, max_z);
+        var OriginPoint = new Vector3(0, 0, 0.1f);
         (Vector3 Head, Vector3 End) DrawDragRoute(CircularKey i)
         {
-            Vector2 OriginPos = new Vector3(Pos.x, Pos.y, max_z + 0.01f);
+            Vector2 OriginPos = new Vector3(0, 0, 0.1f);
             List<Vector3> Points = new List<Vector3>();
 
             if (i.DragData.DragRoute.Count == 0)
@@ -118,7 +81,7 @@ public partial class Creator : MonoBehaviour
                     double CurrentR = initR + (endR - initR) / i.DragData.Count * p;
 
                     Vector3 ccp = OriginPos.Offset((float)CurrentAngle, (float)CurrentR);
-                    ccp.z = max_z;
+                    ccp.z = max_z - 5f;
                     Points.Add(ccp);
 
                 }
@@ -145,8 +108,8 @@ public partial class Creator : MonoBehaviour
             double towardHead = Polar2.FromVector(Points[1] - Points[0]).sita;
             double towardEnd= Polar2.FromVector(Points[Points.Count - 1] - Points[Points.Count - 2]).sita;
 
-            PrePoint.Create(Points[0] - new Vector3(Pos.x, Pos.y, 0), PrePoint_Obj, _wave.gameObject, Offset * Metronome.BeatSpeed, 1 / (Metronome.BeatSpeed * LevelBasicInformation.HeadPending), KeyType.Drag).Angle = (float)Polar2.r2d(towardHead);
-            PrePoint.Create(Points[Points.Count - 1] - new Vector3(Pos.x, Pos.y, 0), PrePoint_Obj, _wave.gameObject, Offset * Metronome.BeatSpeed, 1 / (Metronome.BeatSpeed * LevelBasicInformation.HeadPending), KeyType.Drag).Angle = (float)Polar2.r2d(towardEnd);
+            PrePoint.Create(Points[0], PrePoint_Obj, _wave.gameObject, Offset * Metronome.BeatSpeed, 1 / (Metronome.BeatSpeed * LevelBasicInformation.HeadPending), KeyType.Drag).Angle = (float)Polar2.r2d(towardHead);
+            PrePoint.Create(Points[Points.Count - 1], PrePoint_Obj, _wave.gameObject, Offset * Metronome.BeatSpeed, 1 / (Metronome.BeatSpeed * LevelBasicInformation.HeadPending), KeyType.Drag).Angle = (float)Polar2.r2d(towardEnd);
             var la = LineArea.Create(LineAreaObj, _wave.gameObject, Points.ToArray(), Offset * Metronome.BeatSpeed);
             la.ExpandPoint = 0f;
 
@@ -225,23 +188,7 @@ public partial class Creator : MonoBehaviour
     }
     public DragController CreateDrag_Single(Vector2 Pos, float Offset = 1, GameObject Parent = null)
     {
-        float max_z = 0;
-
-        try
-        {
-            foreach (Keys i in Keys.Instances)
-            {
-                if (i == null) continue;
-
-                if (i?.Invalided == true) continue;
-
-                if (i.Z > max_z)
-                {
-                    max_z = i.Z;
-                }
-            }
-        }
-        catch (Exception) { }
+        float max_z = GetZAxis();
         var _Drag = DragController.Creat(new Vector3(Pos.x, Pos.y, max_z + 0.01f), Drag, Parent == null ? gameObject : Parent, Metronome.BeatSpeed, Offset);
         
         return _Drag;
@@ -283,29 +230,13 @@ public partial class Creator : MonoBehaviour
     }
     public HWaveController CreateHWave(Vector2 Pos, List<CircularKey> Childrens, float Length, float LastTime, float Offset = 1, float Scale = 1, GameObject Parent = null)
     {
-        float max_z = 0;
-
-        try
-        {
-            foreach (Keys i in Keys.Instances)
-            {
-                if (i == null) continue;
-
-                if (i?.Invalided == true) continue;
-
-                if (i.Z > max_z)
-                {
-                    max_z = i.Z;
-                }
-            }
-        }
-        catch (Exception) { }
+        float max_z = GetZAxis();
         var _hwave = HWaveController.Creat( this, new Vector3(Pos.x, Pos.y, max_z + 0.01f),  HWave, Parent == null ?  gameObject : Parent,Length,  Metronome.BeatSpeed, Childrens, LastTime, Offset, Scale);
         #region Behavior
         _hwave.Length = Length;
         #endregion
 
-        var OriginPoint = new Vector3(Pos.x, Pos.y, max_z);
+        var OriginPoint = new Vector3(0, 0, 0.1f);
         (Vector3 Head, Vector3 End) DrawDragRoute(CircularKey i)
         {
             Vector2 OriginPos = new Vector3(Pos.x, Pos.y, max_z + 0.01f);

@@ -13,6 +13,7 @@ public class BackButton : MonoBehaviour
         Time.timeScale = 1;
         Audio.GetComponent<AudioSource>().Play();
         PauseCanvas.SetActive(false);
+        StopWatchManager.ResumeAll();
     }
     void Start()
     {

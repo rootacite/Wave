@@ -12,7 +12,7 @@ public class BlurEffect : MonoBehaviour
     [Range(0, 1.0f)]
     public float blurSize; // ??????
 
-    private void BlurTexture(Texture source, RenderTexture destination)
+    public void BlurTexture(Texture source, RenderTexture destination)
     {
         Debug.Log("Called");
 
@@ -49,5 +49,14 @@ public class BlurEffect : MonoBehaviour
         BlurTexture(rawimage.texture, Tx);
 
         rawimage.texture = Tx;
+    }
+
+    public RenderTexture IO(Texture input)
+    {
+        RenderTexture Tx = new RenderTexture(input.width, input.height, 32, RenderTextureFormat.ARGB32);
+        isOpen = true;
+        BlurTexture(input, Tx);
+        isOpen = false;
+        return Tx;
     }
 }

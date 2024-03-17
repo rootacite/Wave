@@ -12,7 +12,7 @@ public class DebugSetting : MonoBehaviour
         {
             if (Application.platform != RuntimePlatform.WindowsPlayer && Application.platform != RuntimePlatform.WindowsEditor)
             {
-                StartInit.ShowText("ｿｪｷ｢ﾄ｣ﾊｽｽﾚPCﾆｽﾌｨﾖﾐｱｻﾖｧｳﾖ｡｣");
+                StartInit.ShowText("Debug模式仅在PC端生效");
                 cbb.SetValue(false);
                 return;
             }

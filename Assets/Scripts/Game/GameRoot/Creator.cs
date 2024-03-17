@@ -155,8 +155,8 @@ public partial class Creator : MonoBehaviour
                         var wp2 = Camera.main.ScreenToWorldPoint(new Vector3(LevelBasicInformation.Accuracy + LevelBasicInformation.Accuracy * (float)(_keyGroups[0][0].Type == KeyType.Drag ? _keyGroups[0][0].DragData.From : _keyGroups[0][0].Pos), 0, 0));
                         wp2.y = wp.y;
 
-                        wp1.z = 88;
-                        wp2.z = 88;
+                        wp1.z = 10;
+                        wp2.z = 10;
 
                         LineArea.Create(LineAreaObj, gameObject, wp1, wp2, LevelBasicInformation.HeadPending * Metronome.BeatSpeed);
 
@@ -233,7 +233,7 @@ public partial class Creator : MonoBehaviour
                     }
                     else if (_keyGroups[0][0].Type == KeyType.Wave)
                     {
-                        ct = CreateWave(CreateAtHere, _keyGroups[0][0].Children, (float)_keyGroups[0][0].Length, _keyGroups[0][0].TimeOfLastChild, LevelBasicInformation.HeadPending, (float)_keyGroups[0][0].WaveScale);
+                        ct = CreateWave(CreateAtHere, _keyGroups[0][0].Children, (float)_keyGroups[0][0].Length, _keyGroups[0][0].TimeOfLastChild, _keyGroups[0][0].Rotate, LevelBasicInformation.HeadPending, (float)_keyGroups[0][0].WaveScale);
                         
                         var dc = CreateVecLine(CreateAtHere, gameObject.transform, 1f / (LevelBasicInformation.HeadPending * Metronome.BeatSpeed));
                         //dc.Key = ct.BAnimation;
@@ -262,8 +262,8 @@ public partial class Creator : MonoBehaviour
                     }
                     if (Reser)
                     {
-                        var wp1 = new Vector3(Last_Pos_Save.Value.x, Last_Pos_Save.Value.y, 88f);
-                        var wp2 = new Vector3((float)(_keyGroups[0][0].Type == KeyType.Drag ? _keyGroups[0][0].DragData.From : _keyGroups[0][0].Pos), CreateAtHere.y, 88f);
+                        var wp1 = new Vector3(Last_Pos_Save.Value.x, Last_Pos_Save.Value.y, 10);
+                        var wp2 = new Vector3((float)(_keyGroups[0][0].Type == KeyType.Drag ? _keyGroups[0][0].DragData.From : _keyGroups[0][0].Pos), CreateAtHere.y, 10);
 
 
                         LineArea.Create(LineAreaObj, gameObject, wp1, wp2, LevelBasicInformation.HeadPending * Metronome.BeatSpeed);

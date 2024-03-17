@@ -21,12 +21,14 @@ public class SuspendDebug : MonoBehaviour
                 RootConfig.BeatEditor.readOnly = false;
                 Old_Time_Scale = Time.timeScale;
                 Time.timeScale = 0;
+                StopWatchManager.HangAll();
             }
             else
             {
                 RootConfig.Metronome.Music.UnPause();
                 RootConfig.BeatEditor.readOnly = true;
                 if (Time.timeScale != Old_Time_Scale) Time.timeScale = Old_Time_Scale;
+                StopWatchManager.ResumeAll();
             }
 
         });
